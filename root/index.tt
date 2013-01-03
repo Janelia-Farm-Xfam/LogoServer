@@ -1,0 +1,19 @@
+<form id="logo_in" action="" method="post" enctype="multipart/form-data">
+  <input type="file" name="hmm"/>
+  <input type="submit"/>
+  <input type="reset"/>
+</form>
+
+
+[% IF logo %]
+<div id="logo">
+  <div id="logo_container">
+    <div id="logo_graphic"></div>
+    <div id="divider"></div>
+  </div>
+</div>
+
+<script>
+  var logo_data = [% logo %];
+</script>
+[% END %]

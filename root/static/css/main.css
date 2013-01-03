@@ -1,0 +1,71 @@
+#divider {
+  background: rgba(256,0,0,0.1);
+  position:absolute;
+  top:0;
+  height:300px;
+  width:1px;
+  left:50%;
+  z-index: 5;
+}
+
+#logo {
+  position:relative;
+  margin:auto;
+  width:95%;
+}
+#zoomout,#zoomin {
+  position:absolute;
+  left:3.3em;
+  width:2em;
+}
+#zoomout {
+  top:6em;
+}
+#zoomin {
+  top:4em;
+}
+
+#logo_in {
+  margin-bottom:2em;
+}
+
+#logo_yaxis {
+  position:absolute;
+}
+
+#logo_container {
+  position:relative;
+  height: 300px;
+  overflow:hidden;
+  margin-left:40px;
+  border:1px solid #999;
+}
+
+#logo_graphic {
+  position:absolute;
+  height:300px;
+  background-color: #E4F0C4;
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0,
+  color-stop(.25, rgba(255, 255, 255, .2)), color-stop(.25, transparent),
+  color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .2)),
+  color-stop(.75, rgba(255, 255, 255, .2)), color-stop(.75, transparent),
+  to(transparent));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%,
+    transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%,
+    transparent 75%, transparent);
+  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%,
+    transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%,
+    transparent 75%, transparent);
+  background-image: -ms-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%,
+    transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%,
+    transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%,
+    transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%,
+    transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%,
+    transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%,
+    transparent 75%, transparent);
+  -webkit-background-size: 50px 50px;
+  -moz-background-size: 50px 50px;
+  background-size: 50px 50px;
+}

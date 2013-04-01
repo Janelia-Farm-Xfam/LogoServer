@@ -69,3 +69,12 @@
   -moz-background-size: 50px 50px;
   background-size: 50px 50px;
 }
+
+.centered {
+  text-align:center;
+}
+
+.canvas_logo {
+  position: absolute;
+  top: 0;
+}

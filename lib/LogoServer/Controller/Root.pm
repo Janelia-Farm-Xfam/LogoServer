@@ -32,14 +32,30 @@ sub index :Path :Args(0) {
 
   if ($c->req->param('hmm')) {
 
-    my $hmm = $c->req->upload('hmm');
+    my $alphabet = 'dna';
+    my $hmm_file = $c->req->upload('hmm');
 
-    my $json = $c->model('LogoGen')->generate_json($hmm->tempname);
+    open my $hmm , '<', $hmm_file->tempname
+      or warn "unable to open the input hmm";
+    # check to see if HMM is DNA or AA
 
-    # validate the hmm
+    while (my $line = <$hmm>) {
+      if ($line =~ /^ALPH/) {
+        if ($line =~ /amino/) {
+          $alphabet = 'aa';
+        }
+        last;
+      }
+    }
+
+
+    #should create hmm object here
+
     # run the logo generation
+    my $json = $c->model('LogoGen')->generate_json($hmm_file->tempname);
+
     # save it to a temp file
-    #
+    $c->stash->{alphabet} = $alphabet;
     $c->stash->{logo} = $json;
   }
 }

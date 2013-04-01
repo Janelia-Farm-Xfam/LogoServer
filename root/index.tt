@@ -1,7 +1,7 @@
 <form id="logo_in" action="" method="post" enctype="multipart/form-data">
-  <input type="file" name="hmm"/>
-  <input type="submit"/>
-  <input type="reset"/>
+  <input type="file" name="hmm"/><br/>
+  <input type="submit" class="button"/>
+  <input type="reset" class="button"/>
 </form>
 
 

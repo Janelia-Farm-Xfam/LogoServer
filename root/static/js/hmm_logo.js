@@ -246,10 +246,33 @@ function isCanvasSupported() {
 
 
       this.y = this.height - 20;
-
+      // Check to see if the logo will fit on the screen at full zoom.
+      this.max_width = this.column_width * ((end - start) + 1);
+      var parent_width = $(this.dom_element).parent().width();
+      // If it fits then zoom out and disable zooming.
+      if (parent_width > this.max_width) {
+        zoom = 1;
+        this.zoom_enabled = false;
+      }
+      this.zoom = zoom;
 
       this.zoomed_column = this.column_width * zoom;
       this.total_width = this.zoomed_column * ((end - start) + 1);
+
+      // If zoom is not maxed and we still aren't filling the window
+      // then ramp up the zoom level until it fits, then disable zooming.
+      // Then we get a decent logo with out needing to zoom in or out.
+      if (zoom < 1) {
+        while (this.total_width < parent_width) {
+          this.zoom += 0.1;
+          this.zoomed_column = this.column_width * this.zoom;
+          this.total_width = this.zoomed_column * ((end - start) + 1);
+          this.zoom_enabled = false;
+          if (zoom >= 1) {
+            break;
+          }
+        }
+      }
 
       if (target > this.total_width) {
         target = this.total_width;

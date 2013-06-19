@@ -1,5 +1,9 @@
 <form id="logo_in" action="" method="post" enctype="multipart/form-data">
   <input type="file" name="hmm"/><br/>
+  <input type="radio" id="png" value="png" name="format"/>
+  <label for="png">Static Image</label>
+  <input type="radio" id="js" value="js" name="format" checked="checked"/>
+  <label for="js">Dynamic Image</label><br/>
   <input type="submit" class="button"/>
   <input type="reset" class="button"/>
 </form>

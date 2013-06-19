@@ -52,11 +52,18 @@ sub index :Path :Args(0) {
     }
 
     # run the logo generation
-    my $json = $c->model('LogoGen')->generate_json($hmm->[1]);
 
-    # save it to a temp file
-    $c->stash->{alphabet} = $alphabet;
-    $c->stash->{logo} = $json;
+    if ($c->req->param('format') eq 'js') {
+      my $json = $c->model('LogoGen')->generate_json($hmm->[1]);
+      # save it to a temp file
+      $c->stash->{alphabet} = $alphabet;
+      $c->stash->{logo} = $json;
+    }
+    else {
+      my $png = $c->model('LogoGen')->generate_png($hmm->[1],$alphabet);
+      $c->response->content_type('image/png');
+      $c->response->body($png);
+    }
   }
 }
 

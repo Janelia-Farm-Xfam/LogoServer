@@ -29,6 +29,11 @@ sub generate_json {
   return Bio::HMM::Logo::hmmToLogoJson($hmm, "emission");
 }
 
+sub generate_png {
+  my ($self, $hmm, $alphabet, $scaled) = @_;
+  return Bio::HMM::Logo::hmmToLogoPNG($hmm, "emission", $alphabet, $scaled);
+}
+
 __PACKAGE__->meta->make_immutable;
 
 1;

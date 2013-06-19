@@ -26,7 +26,7 @@ it under the same terms as Perl itself.
 
 sub generate_json {
   my ($self, $hmm) = @_;
-  return Bio::HMM::Logo::hmmToLogoJson($hmm,"emission" );
+  return Bio::HMM::Logo::hmmToLogoJson($hmm, "emission");
 }
 
 __PACKAGE__->meta->make_immutable;

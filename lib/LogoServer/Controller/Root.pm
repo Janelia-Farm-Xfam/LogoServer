@@ -35,11 +35,14 @@ sub index :Path :Args(0) {
     my $alphabet = 'dna';
     my $hmm_file = $c->req->upload('hmm');
 
-    open my $hmm , '<', $hmm_file->tempname
-      or warn "unable to open the input hmm";
-    # check to see if HMM is DNA or AA
+    # convert uploaded file to hmm if not already an hmm
+    #
+    my $hmm = $c->model('Logo::Processing')->convert_upload($hmm_file);
 
-    while (my $line = <$hmm>) {
+    # check to see if HMM is DNA or AA
+    my $fh = $hmm->[0];
+
+    while (my $line = <$fh>) {
       if ($line =~ /^ALPH/) {
         if ($line =~ /amino/) {
           $alphabet = 'aa';
@@ -48,11 +51,8 @@ sub index :Path :Args(0) {
       }
     }
 
-
-    #should create hmm object here
-
     # run the logo generation
-    my $json = $c->model('LogoGen')->generate_json($hmm_file->tempname);
+    my $json = $c->model('LogoGen')->generate_json($hmm->[1]);
 
     # save it to a temp file
     $c->stash->{alphabet} = $alphabet;

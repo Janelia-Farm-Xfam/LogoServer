@@ -550,11 +550,11 @@ function isCanvasSupported() {
 
     this.toggle_scale = function () {
       // work out the current column we are on so we can return there
-      var before_left = this.scrollme.scroller.getValues().left;
-      var col_width = (this.column_width * this.zoom);
-      var col_count = before_left / col_width;
-      var half_visible_columns = ($('#logo_container').width() / col_width) / 2;
-      var col_total = Math.ceil(col_count + half_visible_columns);
+      var before_left = this.scrollme.scroller.getValues().left,
+        col_width = (this.column_width * this.zoom),
+        col_count = before_left / col_width,
+        half_visible_columns = ($('#logo_container').width() / col_width) / 2,
+        col_total = Math.ceil(col_count + half_visible_columns);
 
       // toggle the max height
       if (this.data.max_height === this.data.max_height_obs) {
@@ -632,14 +632,14 @@ function isCanvasSupported() {
     };
 
     this.coordinatesFromColumn = function (col) {
-      var new_column = col - 1;
-      var x = (new_column  * (this.column_width * this.zoom)) + ((this.column_width * this.zoom) / 2);
+      var new_column = col - 1,
+        x = (new_column  * (this.column_width * this.zoom)) + ((this.column_width * this.zoom) / 2);
       return x;
     };
 
     this.scrollToColumn = function (num, animate) {
-      var half_view = ($('#logo_container').width() / 2);
-      var new_left = this.coordinatesFromColumn(num);
+      var half_view = ($('#logo_container').width() / 2),
+        new_left = this.coordinatesFromColumn(num);
       this.scrollme.scroller.scrollTo(new_left - half_view, 0, animate);
     };
 
@@ -651,13 +651,11 @@ function isCanvasSupported() {
     if(Modernizr.canvas) {
       options = options || {};
       options.dom_element = $(this);
-      var zoom = options.zoom || 0.3;
+      var zoom = options.zoom || 0.3,
+        logo = new HMMLogo(options),
+        form = $('<form>');
 
-      var logo = new HMMLogo(options);
       logo.render(options);
-
-
-      var form = $('<form>');
 
       if (logo.scale_height_enabled) {
         form.append('<button id="scale" class="button">Scale Toggle</button><br/>');
@@ -675,8 +673,8 @@ function isCanvasSupported() {
 
       $('#zoom_reset').bind('click', function (e) {
         e.preventDefault();
-        var default_zoom = options.zoom;
-        var zoom = $('#zoom');
+        var default_zoom = options.zoom,
+          zoom = $('#zoom');
         zoom[0].value = default_zoom;
         zoom.trigger('change');
       });

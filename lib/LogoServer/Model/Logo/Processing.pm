@@ -28,18 +28,32 @@ it under the same terms as Perl itself.
 
 sub convert_upload {
   my ($self, $upload) = @_;
-  my $input = read_file( $upload->tempname);
+  my $input = read_file( $upload );
   my $result = Easel::Validation::guessInput($input);
 
-  my $hmm = $result->{hmmpgmd};
+  # if we can get an hmm out then we need to save it
+  if ($result->{type} =~ /^MSA|HMM$/) {
 
-  # open temporary file and save the hmm
-  my ($fh, $filename) = tempfile();
-  print $fh $hmm;
-  seek $fh, 0, 0;
+    my $hmm = $result->{hmmpgmd};
 
-  # return path to temp file.
-  return [$fh, $filename];
+    # open temporary file and save the hmm
+    my ($fh, $filename) = tempfile('/opt/data/logos/hmmXXXXX', UNLINK => 0);
+    print $fh $hmm;
+    seek $fh, 0, 0;
+    return ($fh, $filename);
+
+  }
+  elsif ($result->{type} =~ /^SS$/) {
+    die "Uploaded data looks like a single sequence. Logo generation requires an alignment or HMM.";
+  }
+  elsif ($result->{type} =~ /^MS$/) {
+    die "Uploaded data looks like multiple unaligned sequences. Logo generation requires an alignment or HMM.";
+  }
+  else {
+    # otherwise die and throw an error
+    die "Uploaded data was not a valid multiple sequence alignment or HMM.";
+  }
+  return;
 }
 
 __PACKAGE__->meta->make_immutable;

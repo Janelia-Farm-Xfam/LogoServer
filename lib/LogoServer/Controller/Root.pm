@@ -37,7 +37,7 @@ sub index :Path :Args(0) {
 
     # convert uploaded file to hmm if not already an hmm
     #
-    my $hmm = $c->model('Logo::Processing')->convert_upload($hmm_file);
+    my $hmm = $c->model('Logo::Processing')->convert_upload($hmm_file->tempname);
 
     # check to see if HMM is DNA or AA
     my $fh = $hmm->[0];

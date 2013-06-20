@@ -2,6 +2,7 @@ package LogoServer::Controller::Root;
 use Moose;
 use namespace::autoclean;
 use Data::Printer;
+use Try::Tiny;
 
 BEGIN { extends 'Catalyst::Controller' }
 
@@ -36,8 +37,15 @@ sub index :Path :Args(0) {
     my $hmm_file = $c->req->upload('hmm');
 
     # convert uploaded file to hmm if not already an hmm
-    #
-    my $hmm = $c->model('Logo::Processing')->convert_upload($hmm_file->tempname);
+    my $hmm = undef;
+    try {
+      $hmm = $c->model('Logo::Processing')->convert_upload($hmm_file->tempname);
+    }
+    catch {
+      $c->stash->{error} = {'hmmbuild' => $_ };
+    };
+
+    return if (!$hmm);
 
     # check to see if HMM is DNA or AA
     my $fh = $hmm->[0];

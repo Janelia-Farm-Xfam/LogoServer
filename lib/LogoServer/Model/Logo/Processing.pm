@@ -44,14 +44,14 @@ sub convert_upload {
 
   }
   elsif ($result->{type} =~ /^SS$/) {
-    die "Uploaded data looks like a single sequence. Logo generation requires an alignment or HMM.";
+    die "Uploaded data looks like a single sequence. Logo generation requires an alignment or HMM.\n";
   }
   elsif ($result->{type} =~ /^MS$/) {
-    die "Uploaded data looks like multiple unaligned sequences. Logo generation requires an alignment or HMM.";
+    die "Uploaded data looks like multiple unaligned sequences. Logo generation requires an alignment or HMM.\n";
   }
   else {
     # otherwise die and throw an error
-    die "Uploaded data was not a valid multiple sequence alignment or HMM.";
+    die "Uploaded data was not a valid multiple sequence alignment or HMM.\n";
   }
   return;
 }

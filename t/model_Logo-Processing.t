@@ -16,14 +16,14 @@ can_ok($obj, 'convert_upload');
 
 # test a valid hmm
 my $file = $data . '/valid_hmm';
-my ($fh, $converted_file) = $obj->convert_upload($file);
+my ($fh, $converted_file) = @{$obj->convert_upload($file)};
 my $hmm = read_file( $file );
 my $converted = read_file( $converted_file );
 is($hmm, $converted, "valid_hmm wasn't changed");
 
 # test a valid msa
 $file = $data . '/valid_msa';
-($fh, $converted_file) = $obj->convert_upload($file);
+($fh, $converted_file) = @{$obj->convert_upload($file)};
 
 open my $converted_msa, '<', $data . '/converted_msa'
   or die "Couldn't open converted_msa for reading\n";

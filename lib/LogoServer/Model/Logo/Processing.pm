@@ -40,7 +40,7 @@ sub convert_upload {
     my ($fh, $filename) = tempfile('/opt/data/logos/hmmXXXXX', UNLINK => 0);
     print $fh $hmm;
     seek $fh, 0, 0;
-    return ($fh, $filename);
+    return [$fh, $filename];
 
   }
   elsif ($result->{type} =~ /^SS$/) {

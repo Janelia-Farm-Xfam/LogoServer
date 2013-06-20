@@ -30,11 +30,12 @@
       </div>
     </form>
   </div>
+</div>
 
 
 
 [% IF logo %]
-<div id="logo">
+<div class="fluid-row" id="logo">
   <div id="logo_container">
     <div id="logo_graphic"></div>
     <div id="divider"></div>

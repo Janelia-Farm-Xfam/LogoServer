@@ -26,6 +26,15 @@ it under the same terms as Perl itself.
 
 =cut
 
+=head2 convert_upload(SCALAR);
+
+   Takes the path to the uploaded file. Figures out if it is an HMM
+   or multiple sequence alignment. If the uploaded file can be used
+   it returns and ARRAYREF containing the FILEHANDLE and the the
+   file name. Otherwise it throws an error and returns undef.
+
+=cut
+
 sub convert_upload {
   my ($self, $upload) = @_;
   my $input = read_file( $upload );

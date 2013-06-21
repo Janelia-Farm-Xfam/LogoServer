@@ -44,15 +44,31 @@ The root page (/)
 
 =cut
 
+=head2 index
+
+=cut
+
 sub index : Path : Args(0) : ActionClass('REST::ForBrowsers') {}
+
+=head2 index_GET_html
+
+=cut
 
 sub index_GET_html : Private {
 
 }
 
+=head2 index_GET
+
+=cut
+
 sub index_GET : Private {
 
 }
+
+=head2 index_POST
+
+=cut
 
 sub index_POST :Private {
   my ( $self, $c ) = @_;

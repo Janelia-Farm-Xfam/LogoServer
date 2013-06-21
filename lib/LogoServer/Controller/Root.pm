@@ -4,13 +4,29 @@ use namespace::autoclean;
 use Data::Printer;
 use Try::Tiny;
 
-BEGIN { extends 'Catalyst::Controller' }
+BEGIN { extends 'Catalyst::Controller::REST' }
 
 #
 # Sets the actions in this controller to be registered with no prefix
 # so they function identically to actions created in MyApp.pm
 #
-__PACKAGE__->config(namespace => '');
+__PACKAGE__->config(
+  namespace => '',
+  default   => 'text/html',
+  stash_key => 'rest',
+  "map"     => {
+    "application/json"   => "JSON",
+    "application/x-yaml" => "YAML",
+    "application/yaml"   => "YAML",
+    "text/html"          => [ "View", "HTML" ],
+    "text/plain"         => [ "View", "HTML" ],
+    "text/x-yaml"        => "YAML",
+    "text/xml"           => "XML::Simple",
+    "application/xml"    => "XML::Simple",
+    "text/yaml"          => "YAML",
+  }
+);
+
 
 =head1 NAME
 
@@ -28,50 +44,62 @@ The root page (/)
 
 =cut
 
-sub index :Path :Args(0) {
+sub index : Path : Args(0) : ActionClass('REST::ForBrowsers') {}
+
+sub index_GET_html : Private {
+
+}
+
+sub index_GET : Private {
+
+}
+
+sub index_POST :Private {
   my ( $self, $c ) = @_;
 
-  if ($c->req->param('hmm')) {
+  my $alphabet = 'dna';
+  my $hmm_file = $c->req->upload('hmm');
 
-    my $alphabet = 'dna';
-    my $hmm_file = $c->req->upload('hmm');
+  if (!$hmm_file) {
+    $c->stash->{error} = {'upload' => 'Please choose an alignment file, HMM file to upload.' };
+    return;
+  }
 
-    # convert uploaded file to hmm if not already an hmm
-    my $hmm = undef;
-    try {
-      $hmm = $c->model('Logo::Processing')->convert_upload($hmm_file->tempname);
-    }
-    catch {
-      $c->stash->{error} = {'hmmbuild' => $_ };
-    };
+  # convert uploaded file to hmm if not already an hmm
+  my $hmm = undef;
+  try {
+    $hmm = $c->model('Logo::Processing')->convert_upload($hmm_file->tempname);
+  }
+  catch {
+    $c->stash->{error} = {'hmmbuild' => $_ };
+  };
 
-    return if (!$hmm);
+  return if (!$hmm);
 
-    # check to see if HMM is DNA or AA
-    my $fh = $hmm->[0];
+  # check to see if HMM is DNA or AA
+  my $fh = $hmm->[0];
 
-    while (my $line = <$fh>) {
-      if ($line =~ /^ALPH/) {
-        if ($line =~ /amino/) {
-          $alphabet = 'aa';
-        }
-        last;
+  while (my $line = <$fh>) {
+    if ($line =~ /^ALPH/) {
+      if ($line =~ /amino/) {
+        $alphabet = 'aa';
       }
+      last;
     }
+  }
 
-    # run the logo generation
+  # run the logo generation
 
-    if ($c->req->param('format') eq 'js') {
-      my $json = $c->model('LogoGen')->generate_json($hmm->[1]);
-      # save it to a temp file
-      $c->stash->{alphabet} = $alphabet;
-      $c->stash->{logo} = $json;
-    }
-    else {
-      my $png = $c->model('LogoGen')->generate_png($hmm->[1],$alphabet);
-      $c->response->content_type('image/png');
-      $c->response->body($png);
-    }
+  if ($c->req->param('format') eq 'js') {
+    my $json = $c->model('LogoGen')->generate_json($hmm->[1]);
+    # save it to a temp file
+    $c->stash->{alphabet} = $alphabet;
+    $c->stash->{logo} = $json;
+  }
+  else {
+    my $png = $c->model('LogoGen')->generate_png($hmm->[1],$alphabet);
+    $c->response->content_type('image/png');
+    $c->response->body($png);
   }
 }
 

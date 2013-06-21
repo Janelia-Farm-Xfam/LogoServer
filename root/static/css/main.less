@@ -13,6 +13,10 @@ header {
     position: absolute;
     text-shadow: 1px 1px 1px #999999;
     top: 0;
+    a {
+      text-decoration: none;
+      color: #fff;
+    }
   }
   .stripe {
     float: right;
@@ -73,10 +77,6 @@ body {
   font-family: Arial;
 }
 
-#content {
-  padding: 1em;
-}
-
 .plastic {
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   border-style: solid;
@@ -91,6 +91,13 @@ body {
   padding:1em;
 }
 
+.logo_wrapper {
+  background: #eee;
+  border-top: 2px solid #ccc;
+  border-bottom: 2px solid #ccc;
+  padding: 0 1em;
+  margin: 1em 0;
+}
 
 /***
 
@@ -110,8 +117,6 @@ logo styles
 
 #logo {
   position:relative;
-  margin:auto;
-  width:95%;
 }
 #zoomout,#zoomin {
   position:absolute;
@@ -130,6 +135,7 @@ logo styles
 }
 
 #logo_yaxis {
+  left: 0;
   position:absolute;
 }
 

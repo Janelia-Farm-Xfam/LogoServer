@@ -1,44 +1,49 @@
-<div class="row-fluid">
-  <div class="span5">
-    <h2>About the Logo server here</h2>
-  </div>
-  <div class="span7 upload">
-    <h2>Create your own logo.</h2>
-    <form class="form-horizontal" id="logo_in" action="" method="post" enctype="multipart/form-data">
-      <div class="control-group">
-        <label for="file" class="control-label">Upload a file</label>
-        <div class="controls">
-          <input type="file" name="hmm"/>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span5">
+      <h2>About the Logo server here</h2>
+      <p>This is some place holder text. It should be replaced with a blurb about what the logo server is providing and what it does behind the scenes to produce the logos.</p>
+    </div>
+    <div class="span7 upload">
+      <h2>Create your own logo.</h2>
+      <form class="form-horizontal" id="logo_in" action="" method="post" enctype="multipart/form-data">
+        <div class="control-group">
+          <label for="file" class="control-label">Upload an HMM or Multiple sequence alignment</label>
+          <div class="controls">
+            <input type="file" name="hmm"/>
+          </div>
         </div>
-      </div>
-      <div class="control-group">
-        <div class="control-label"><label>Image Type</label></div>
-        <div class="controls">
-          <label class="radio inline" for="png">
-            <input type="radio" id="png" value="png" name="format"/>Static
-          </label>
-          <label class="radio inline" for="js">
-            <input type="radio" id="js" value="js" name="format" checked="checked"/>Dynamic
-          </label>
+        <div class="control-group">
+          <div class="control-label"><label>Image Type</label></div>
+          <div class="controls">
+            <label class="radio inline" for="png">
+              <input type="radio" id="png" value="png" name="format"/>Static
+            </label>
+            <label class="radio inline" for="js">
+              <input type="radio" id="js" value="js" name="format" checked="checked"/>Dynamic
+            </label>
+          </div>
         </div>
-      </div>
-      <div class="control-group">
-        <div class="controls">
-          <input class="btn btn-primary" type="submit" class="button"/>
-          <input type="reset" class="button"/>
+        <div class="control-group">
+          <div class="controls">
+            <input class="btn btn-primary" type="submit" class="button"/>
+            <input type="reset" class="button"/>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>
 
 
 
 [% IF logo %]
-<div class="row-fluid" id="logo">
-  <div id="logo_container">
-    <div id="logo_graphic"></div>
-    <div id="divider"></div>
+<div class="logo_wrapper">
+  <div id="logo">
+    <div id="logo_container">
+      <div id="logo_graphic"></div>
+      <div id="divider"></div>
+    </div>
   </div>
 </div>
 
@@ -46,4 +51,14 @@
   var logo_data = [% logo %];
   var alphabet = '[% alphabet || 'aa' %]';
 </script>
+
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <h2>Using the logo elsewhere.</h2>
+      <p></p>
+    </div>
+  </div>
+</div>
 [% END %]

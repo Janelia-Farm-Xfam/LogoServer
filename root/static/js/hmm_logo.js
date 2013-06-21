@@ -653,12 +653,15 @@ function isCanvasSupported() {
       options.dom_element = $(this);
       var zoom = options.zoom || 0.3,
         logo = new HMMLogo(options),
-        form = $('<form>');
+        form = $('<form><label for="position">Column number</label>' +
+        '<input type="text" name="position" id="position"></input>' +
+        '<button class="button" id="logo_change">Go</button>' +
+        '</form>');
 
       logo.render(options);
 
       if (logo.scale_height_enabled) {
-        form.append('<button id="scale" class="button">Scale Toggle</button><br/>');
+        form.append('<button id="scale" class="button">Toggle Scale</button><br/>');
       }
 
       if (logo.zoom_enabled) {
@@ -666,10 +669,7 @@ function isCanvasSupported() {
           '<button id="zoomin" class="button">+</button>');
       }
 
-      $(this).parent().after('<form><label for="position">Column number</label>' +
-        '<input type="text" name="position" id="position"></input>' +
-        '<button class="button" id="logo_change">Go</button>' +
-        '</form>').after(form);
+      $(this).parent().after(form);
 
       $('#zoom_reset').bind('click', function (e) {
         e.preventDefault();

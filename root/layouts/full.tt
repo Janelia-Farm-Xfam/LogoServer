@@ -21,7 +21,7 @@
 <body>
 
   <header role="banner" class="ie_clearfix plastic">
-    <h1>HMMLogo</h1>
+    <h1><a href="/">HMMLogo</a></h1>
     <div class="stripe" id="stripe1"></div>
     <div class="stripe" id="stripe2"></div>
     <div class="stripe" id="stripe3"></div>
@@ -37,11 +37,11 @@
     <div class="stripe" id="stripe5"></div>
     <div class="stripe" id="stripe6"></div>
   </div>
+  [% IF c.stash.error || c.stash.message -%]
   <div class="container-fluid">
-
     <div class="row-fluid">
       <div class="offset1 span10">
-        <div id="message" [% IF c.stash.error || c.stash.message -%]class="alert alert-error"[% END -%]>
+        <div id="message" class="alert alert-error">
           [% FOR error IN c.stash.error -%]
             [% IF error.safe %]
               [% FOR message IN error.value %]
@@ -59,23 +59,24 @@
         </div>
       </div>
     </div>
-
-    <div id="content" class="clearfix">
-      [%- content -%]
-    </div>
-
-    <footer>
-    </footer>
-
-
   </div> <!--! end of #container -->
+  [% END %]
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="/static/js/libs/jquery-1.7.1.min.js"><\/script>')</script>
+  <div id="content" class="clearfix">
+    [%- content -%]
+  </div>
 
-<script src="/static/js/scroller.js"></script>
-<script src="/static/js/hmm_logo.js"></script>
-<script src="/static/js/application.js"></script>
+  <footer>
+  </footer>
+
+
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="/static/js/libs/jquery-1.7.1.min.js"><\/script>')</script>
+
+  <script src="/static/js/scroller.js"></script>
+  <script src="/static/js/hmm_logo.js"></script>
+  <script src="/static/js/application.js"></script>
 
 </body>
 </html>

@@ -72,7 +72,20 @@ sub index_GET : Private {
 
 sub index_POST :Private {
   my ( $self, $c ) = @_;
+  $c->forward('build_logo');
+}
 
+=head2 index_POST_html
+
+=cut
+
+sub index_POST_html :Private {
+  my ( $self, $c ) = @_;
+  $c->forward('build_logo');
+}
+
+sub build_logo : Private {
+  my ($self, $c) = @_;
   my $alphabet = 'dna';
   my $hmm_file = $c->req->upload('hmm');
 
@@ -117,7 +130,9 @@ sub index_POST :Private {
     $c->response->content_type('image/png');
     $c->response->body($png);
   }
+
 }
+
 
 =head2 default
 

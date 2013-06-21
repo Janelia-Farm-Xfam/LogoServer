@@ -20,40 +20,44 @@
 </head>
 <body>
 
-  <div id="container">
-    <header role="banner" class="ie_clearfix plastic">
-      <h1>HMMLogo</h1>
-      <div class="stripe" id="stripe1"></div>
-      <div class="stripe" id="stripe2"></div>
-      <div class="stripe" id="stripe3"></div>
-      <div class="stripe" id="stripe4"></div>
-      <div class="stripe" id="stripe5"></div>
-      <div class="stripe" id="stripe6"></div>
-    </header>
-    <div class="nav">
-      <div class="stripe" id="stripe1"></div>
-      <div class="stripe" id="stripe2"></div>
-      <div class="stripe" id="stripe3"></div>
-      <div class="stripe" id="stripe4"></div>
-      <div class="stripe" id="stripe5"></div>
-      <div class="stripe" id="stripe6"></div>
-    </div>
+  <header role="banner" class="ie_clearfix plastic">
+    <h1>HMMLogo</h1>
+    <div class="stripe" id="stripe1"></div>
+    <div class="stripe" id="stripe2"></div>
+    <div class="stripe" id="stripe3"></div>
+    <div class="stripe" id="stripe4"></div>
+    <div class="stripe" id="stripe5"></div>
+    <div class="stripe" id="stripe6"></div>
+  </header>
+  <div class="nav">
+    <div class="stripe" id="stripe1"></div>
+    <div class="stripe" id="stripe2"></div>
+    <div class="stripe" id="stripe3"></div>
+    <div class="stripe" id="stripe4"></div>
+    <div class="stripe" id="stripe5"></div>
+    <div class="stripe" id="stripe6"></div>
+  </div>
+  <div class="container-fluid">
 
-    <div id="message" [% IF c.stash.error || c.stash.message -%]class="warning"[% END -%]>
-      [% FOR error IN c.stash.error -%]
-        [% IF error.safe %]
-          [% FOR message IN error.value %]
-            <p id="[% error.id %]">[% message %]</p>
+    <div class="row-fluid">
+      <div class="offset1 span10">
+        <div id="message" [% IF c.stash.error || c.stash.message -%]class="alert alert-error"[% END -%]>
+          [% FOR error IN c.stash.error -%]
+            [% IF error.safe %]
+              [% FOR message IN error.value %]
+                <span id="[% error.id %]">[% message %]</span>
+              [% END %]
+            [% ELSE %]
+              [% FOR message IN error.value %]
+                <span id="[% error.id %]" >[% message | html %]</span>
+              [% END %]
+            [% END -%]
+          [% END -%]
+          [% IF c.stash.message %]
+            <p>[% c.stash.message %]</p>
           [% END %]
-        [% ELSE %]
-          [% FOR message IN error.value %]
-            <p id="[% error.id %]" >[% message | html %]</p>
-          [% END %]
-        [% END -%]
-      [% END -%]
-      [% IF c.stash.message %]
-        <p>[% c.stash.message %]</p>
-      [% END %]
+        </div>
+      </div>
     </div>
 
     <div id="content" class="clearfix">

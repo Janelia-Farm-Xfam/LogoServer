@@ -1,8 +1,8 @@
 <div class="row-fluid">
-  <div class="span6">
+  <div class="span5">
     <h2>About the Logo server here</h2>
   </div>
-  <div class="span6">
+  <div class="span7 upload">
     <h2>Create your own logo.</h2>
     <form class="form-horizontal" id="logo_in" action="" method="post" enctype="multipart/form-data">
       <div class="control-group">
@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="control-group">
-        <div class="control-label">Image Type</div>
+        <div class="control-label"><label>Image Type</label></div>
         <div class="controls">
           <label class="radio inline" for="png">
             <input type="radio" id="png" value="png" name="format"/>Static
@@ -35,7 +35,7 @@
 
 
 [% IF logo %]
-<div class="fluid-row" id="logo">
+<div class="row-fluid" id="logo">
   <div id="logo_container">
     <div id="logo_graphic"></div>
     <div id="divider"></div>

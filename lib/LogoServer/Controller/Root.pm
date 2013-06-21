@@ -12,6 +12,10 @@ BEGIN { extends 'Catalyst::Controller::REST' }
 #
 __PACKAGE__->config(
   namespace => '',
+);
+
+# set up the REST response serializing.
+__PACKAGE__->config(
   default   => 'text/html',
   stash_key => 'rest',
   "map"     => {
@@ -48,7 +52,10 @@ The root page (/)
 
 =cut
 
-sub index : Path : Args(0) : ActionClass('REST::ForBrowsers') {}
+sub index : Path : Args(0) : ActionClass('REST::ForBrowsers') {
+  my ($self, $c) = @_;
+  return;
+}
 
 =head2 index_GET_html
 
@@ -63,7 +70,9 @@ sub index_GET_html : Private {
 =cut
 
 sub index_GET : Private {
-
+  my ( $self, $c ) = @_;
+  $c->stash->{rest} = [];
+  return;
 }
 
 =head2 index_POST
@@ -152,7 +161,7 @@ Attempt to render a view, if needed.
 
 =cut
 
-sub end : ActionClass('RenderView') {}
+sub end : ActionClass('Serialize') {}
 
 =head1 AUTHOR
 

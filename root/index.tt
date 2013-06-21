@@ -28,7 +28,7 @@
           <div class="controls">
             <input class="btn btn-primary" type="submit" class="button" value="Generate Logo"/>
             <input type="reset" class="button"/>
-            <button class="btn" class="submit" type="submit" value="example"/>See an example</button>
+            <button class="button" type="submit" value="example"/>See an example</button>
           </div>
         </div>
       </form>

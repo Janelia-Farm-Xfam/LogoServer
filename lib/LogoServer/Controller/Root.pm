@@ -3,6 +3,9 @@ use Moose;
 use namespace::autoclean;
 use Data::Printer;
 use Try::Tiny;
+use Data::UUID;
+use File::Path qw( make_path );
+use File::Copy;
 
 BEGIN { extends 'Catalyst::Controller::REST' }
 
@@ -91,6 +94,8 @@ sub index_POST :Private {
 sub index_POST_html :Private {
   my ( $self, $c ) = @_;
   $c->forward('build_logo');
+  $c->forward('save_upload');
+#  $c->res->redirect($c->uri_for('/logo', $c->stash->{uuid}));
 }
 
 sub build_logo : Private {
@@ -102,6 +107,7 @@ sub build_logo : Private {
     $c->stash->{error} = {'upload' => 'Please choose an alignment file, HMM file to upload.' };
     return;
   }
+
 
   # convert uploaded file to hmm if not already an hmm
   my $hmm = undef;
@@ -140,6 +146,21 @@ sub build_logo : Private {
     $c->response->body($png);
   }
 
+}
+
+sub save_upload : Private {
+  my ($self, $c) = @_;
+  my $uuid = Data::UUID->new()->create_str();
+  # split the  uuid into chuncks
+  my @dirs = split /-/, $uuid;
+  # mkdir the path
+  my $path = $self->{logo_dir} .'/'. join '/', @dirs[0..3];
+  make_path($path);
+  # save uploaded file into the new directory
+  my $upload = $c->req->upload('hmm');
+  copy($upload->tempname, "$path/$uuid.upload");
+  $c->stash->{uuid} = $uuid;
+  return;
 }
 
 

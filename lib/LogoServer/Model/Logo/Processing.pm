@@ -30,14 +30,14 @@ it under the same terms as Perl itself.
 
    Takes the path to the uploaded file. Figures out if it is an HMM
    or multiple sequence alignment. If the uploaded file can be used
-   it returns and ARRAYREF containing the FILEHANDLE and the the
-   file name. Otherwise it throws an error and returns undef.
+   it returns an ARRAYREF containing the FILEHANDLE and the file
+   name. Otherwise it throws an error and returns undef.
 
 =cut
 
 sub convert_upload {
-  my ($self, $upload) = @_;
-  my $input = read_file( $upload );
+  my ($self, $tmpdir) = @_;
+  my $input = read_file( "$tmpdir/upload" );
   my $result = Easel::Validation::guessInput($input);
 
   # if we can get an hmm out then we need to save it
@@ -46,10 +46,10 @@ sub convert_upload {
     my $hmm = $result->{hmmpgmd};
 
     # open temporary file and save the hmm
-    my ($fh, $filename) = tempfile('/opt/data/logos/hmmXXXXX', UNLINK => 0);
+    open my $fh, '>', "$tmpdir/hmm"
+      or die qq(We are experiencing dificulties saving your results. Please try you request again. If you continue to have problems please email us at the address found in the footer of this page\n);
     print $fh $hmm;
-    seek $fh, 0, 0;
-    return [$fh, $filename];
+    return "$tmpdir/hmm";
 
   }
   elsif ($result->{type} =~ /^SS$/) {

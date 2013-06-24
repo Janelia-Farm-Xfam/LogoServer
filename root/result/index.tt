@@ -1,11 +1,6 @@
 <div class="container-fluid">
   <div class="row-fluid">
-    <div class="span5">
-      <h2>About the Logo server here</h2>
-      <p>This is some place holder text. It should be replaced with a blurb about what the logo server is providing and what it does behind the scenes to produce the logos.</p>
-    </div>
-    <div class="span7 upload">
-      <h2>Create your own logo.</h2>
+    <div class="span12 upload">
       <form class="form-horizontal" id="logo_in" action="" method="post" enctype="multipart/form-data">
         <div class="control-group">
           <label for="file" class="control-label">Upload an HMM or Multiple sequence alignment</label>
@@ -17,15 +12,12 @@
           <div class="controls">
             <input class="btn btn-primary" type="submit" class="button" value="Generate Logo"/>
             <input type="reset" class="button"/>
-            <button class="button" type="submit" value="example"/>See an example</button>
           </div>
         </div>
       </form>
     </div>
   </div>
 </div>
-
-
 
 [% IF logo %]
 <div class="logo_wrapper">
@@ -36,6 +28,8 @@
     </div>
   </div>
 </div>
+
+<a href="[% c.uri_for('/download', c.stash.uuid) %]">download .png</a>
 
 <script>
   var logo_data = [% logo %];

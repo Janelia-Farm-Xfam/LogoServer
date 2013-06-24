@@ -84,7 +84,7 @@ sub index_GET : Private {
 
 sub index_POST :Private {
   my ( $self, $c ) = @_;
-  $c->forward('build_logo');
+  $c->forward('save_upload');
 }
 
 =head2 index_POST_html
@@ -93,58 +93,29 @@ sub index_POST :Private {
 
 sub index_POST_html :Private {
   my ( $self, $c ) = @_;
-  $c->forward('build_logo');
   $c->forward('save_upload');
-#  $c->res->redirect($c->uri_for('/logo', $c->stash->{uuid}));
+  $c->res->redirect($c->uri_for('/logo', $c->stash->{uuid}));
 }
 
 sub build_logo : Private {
   my ($self, $c) = @_;
   my $alphabet = 'dna';
-  my $hmm_file = $c->req->upload('hmm');
 
-  if (!$hmm_file) {
-    $c->stash->{error} = {'upload' => 'Please choose an alignment file, HMM file to upload.' };
-    return;
-  }
-
-
+  my $hmm_file = $c->stash->{data_dir};
   # convert uploaded file to hmm if not already an hmm
   my $hmm = undef;
   try {
-    $hmm = $c->model('Logo::Processing')->convert_upload($hmm_file->tempname);
+    $hmm = $c->model('Logo::Processing')->convert_upload(
+      $hmm_file,
+      $c->stash->{data_dir}
+    );
   }
   catch {
     $c->stash->{error} = {'hmmbuild' => $_ };
+    $c->detach('end');
   };
 
-  return if (!$hmm);
-
-  # check to see if HMM is DNA or AA
-  my $fh = $hmm->[0];
-
-  while (my $line = <$fh>) {
-    if ($line =~ /^ALPH/) {
-      if ($line =~ /amino/) {
-        $alphabet = 'aa';
-      }
-      last;
-    }
-  }
-
-  # run the logo generation
-
-  if ($c->req->param('format') eq 'js') {
-    my $json = $c->model('LogoGen')->generate_json($hmm->[1]);
-    # save it to a temp file
-    $c->stash->{alphabet} = $alphabet;
-    $c->stash->{logo} = $json;
-  }
-  else {
-    my $png = $c->model('LogoGen')->generate_png($hmm->[1],$alphabet);
-    $c->response->content_type('image/png');
-    $c->response->body($png);
-  }
+  return;
 
 }
 
@@ -154,12 +125,25 @@ sub save_upload : Private {
   # split the  uuid into chuncks
   my @dirs = split /-/, $uuid;
   # mkdir the path
-  my $path = $self->{logo_dir} .'/'. join '/', @dirs[0..3];
-  make_path($path);
+  my $data_dir = $c->config->{logo_dir} .'/'. join '/', @dirs;
+  make_path($data_dir);
   # save uploaded file into the new directory
   my $upload = $c->req->upload('hmm');
-  copy($upload->tempname, "$path/$uuid.upload");
-  $c->stash->{uuid} = $uuid;
+
+  if (!$upload) {
+    $c->stash->{error} = {
+      'upload' => 'Please choose an alignment or HMM file to upload.'
+    };
+    $c->detach('end');
+  }
+  else {
+    my $new_path = "$data_dir/upload";
+    copy($upload->tempname, $new_path);
+    # save this info for later use.
+    $c->stash->{uuid} = $uuid;
+    $c->stash->{data_dir} = $data_dir;
+    $c->forward('build_logo');
+  }
   return;
 }
 

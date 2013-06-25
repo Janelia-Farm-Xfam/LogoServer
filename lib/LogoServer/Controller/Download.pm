@@ -1,6 +1,7 @@
 package LogoServer::Controller::Download;
 use Moose;
 use namespace::autoclean;
+use IO::File;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -51,17 +52,20 @@ sub index :Path :Args(2) {
 
     # run the logo generation
     my $png = $c->model('LogoGen')->generate_png($hmm_path,$alphabet);
-    $c->response->content_type('image/png');
     $c->response->body($png);
+    my $fname = "$uuid.png";
+    $c->res->header( 'Content-Disposition' => "attachment; filename=$fname" );
+    $c->res->header( 'Content-Type'        => 'text/plain' );
   }
   else {
-    my $hmm_text = '';
-    while (my $line = <$hmm>) {
-      $hmm_text .= $line;
-    }
-    $c->response->content_type('text/plain');
-    $c->response->body($hmm_text);
+    my $io = IO::File->new($hmm_path);
+    $c->res->body($io);
+    my $fname = "$uuid.hmm";
+    $c->res->header( 'Content-Disposition' => "attachment; filename=$fname" );
+    $c->res->header( 'Content-Type'        => 'text/plain' );
   }
+
+
 
   close $hmm;
   return;

@@ -1,15 +1,12 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span12">
-      <fieldset>
-        <legend>Generate another logo</legend>
-        <form class="form-inline" action="/" method="post" enctype="multipart/form-data">
-          <label for="file" class="control-label">Upload an HMM or Multiple sequence alignment</label>
-          <input type="file" name="hmm"/><br/>
-          <input class="btn btn-primary" type="submit" class="button" value="Generate Logo"/>
-          <input type="reset" class="button"/>
-        </form>
-      </fieldset>
+      <form class="form-inline" action="/" method="post" enctype="multipart/form-data">
+        <label for="file" class="control-label">Upload an HMM or Multiple sequence alignment</label>
+        <input type="file" name="hmm"/><br/>
+        <input class="btn btn-primary" type="submit" class="button" value="Generate Logo"/>
+        <input type="reset" class="button"/>
+      </form>
     </div>
   </div>
 </div>
@@ -24,9 +21,16 @@
   </div>
 </div>
 
-<a href="[% c.uri_for('/download', c.stash.uuid, 'image') %]">download .png</a>
-<a href="[% c.uri_for('/download', c.stash.uuid, 'hmm') %]">download .hmm</a>
 
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <h3>Download</h3>
+      <a href="[% c.uri_for('/download', c.stash.uuid, 'image') %]" alt="download PNG">download .png</a>
+      <a href="[% c.uri_for('/download', c.stash.uuid, 'hmm') %]" alt="download HMM">download .hmm</a>
+    </div>
+  </div>
+</div>
 <script>
   var logo_data = [% logo %];
   var alphabet = '[% alphabet || 'aa' %]';

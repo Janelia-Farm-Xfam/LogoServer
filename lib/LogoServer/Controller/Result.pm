@@ -25,6 +25,7 @@ sub index :Path('/logo') :Args(1) {
   my ( $self, $c, $uuid ) = @_;
   # grab the uuid and figure out directory
   $c->stash->{uuid} = $uuid;
+
   my @dirs = split /-/, $uuid;
   # mkdir the path
   my $data_dir = $c->config->{logo_dir} .'/'. join '/', @dirs;
@@ -60,6 +61,17 @@ sub index :Path('/logo') :Args(1) {
   return;
 }
 
+sub example : Path('/logo/example') :Args(0) {
+  my ($self, $c) = @_;
+  my $hmm_path = $c->config->{example_path};
+  my $json = $c->model('LogoGen')->generate_json($hmm_path);
+  # save it to a temp file
+  use DDP; p $c;
+  p $self;
+  $c->stash->{alphabet} = 'aa';
+  $c->stash->{logo} = $json;
+  return;
+}
 
 =head1 AUTHOR
 

@@ -2,7 +2,7 @@
   <div class="row-fluid">
     <div class="span12">
       <fieldset>
-        <legend>Generate another logo</legend>
+        <legend>Generate a logo with your own data</legend>
         <form class="form-inline" action="/" method="post" enctype="multipart/form-data">
           <label for="file" class="control-label">Upload an HMM or Multiple sequence alignment</label>
           <input type="file" name="hmm"/><br/>
@@ -23,9 +23,6 @@
     </div>
   </div>
 </div>
-
-<a href="[% c.uri_for('/download', c.stash.uuid, 'image') %]">download .png</a>
-<a href="[% c.uri_for('/download', c.stash.uuid, 'hmm') %]">download .hmm</a>
 
 <script>
   var logo_data = [% logo %];

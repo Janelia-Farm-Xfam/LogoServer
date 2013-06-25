@@ -17,7 +17,7 @@
           <div class="controls">
             <input class="btn btn-primary" type="submit" class="button" value="Generate Logo"/>
             <input type="reset" class="button"/>
-            <button class="button" type="submit" value="example"/>See an example</button>
+            <a href="[% c.uri_for('/logo', 'example') %]">See an example</a>
           </div>
         </div>
       </form>

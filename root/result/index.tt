@@ -1,20 +1,15 @@
 <div class="container-fluid">
   <div class="row-fluid">
-    <div class="span12 upload">
-      <form class="form-horizontal" id="logo_in" action="" method="post" enctype="multipart/form-data">
-        <div class="control-group">
+    <div class="span12">
+      <fieldset>
+        <legend>Try another search</legend>
+        <form class="form-inline" action="/" method="post" enctype="multipart/form-data">
           <label for="file" class="control-label">Upload an HMM or Multiple sequence alignment</label>
-          <div class="controls">
-            <input type="file" name="hmm"/>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="controls">
-            <input class="btn btn-primary" type="submit" class="button" value="Generate Logo"/>
-            <input type="reset" class="button"/>
-          </div>
-        </div>
-      </form>
+          <input type="file" name="hmm"/><br/>
+          <input class="btn btn-primary" type="submit" class="button" value="Generate Logo"/>
+          <input type="reset" class="button"/>
+        </form>
+      </fieldset>
     </div>
   </div>
 </div>
@@ -29,7 +24,8 @@
   </div>
 </div>
 
-<a href="[% c.uri_for('/download', c.stash.uuid) %]">download .png</a>
+<a href="[% c.uri_for('/download', c.stash.uuid, 'image') %]">download .png</a>
+<a href="[% c.uri_for('/download', c.stash.uuid, 'hmm') %]">download .hmm</a>
 
 <script>
   var logo_data = [% logo %];

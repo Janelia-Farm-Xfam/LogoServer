@@ -6,13 +6,24 @@
     </div>
     <div class="span7 upload">
       <h2>Create your own logo.</h2>
-      <form class="form-horizontal" id="logo_in" action="" method="post" enctype="multipart/form-data">
+      <form id="logo_in" action="" method="post" enctype="multipart/form-data">
         <div class="control-group">
           <label for="file" class="control-label">Upload an HMM or Multiple sequence alignment</label>
           <div class="controls">
             <input type="file" name="hmm"/>
           </div>
         </div>
+        <div class="control-group">
+          <div class="controls">
+            <label class="radio">
+              <input type="radio" name="logo_type" value="alignment"/>Alignment
+            </label>
+            <label class="radio">
+              <input type="radio" name="logo_type" value="model" checked="checked"/>Model
+            </label>
+          </div>
+        </div>
+
         <div class="control-group">
           <div class="controls">
             <input class="btn btn-primary" type="submit" class="button" value="Generate Logo"/>

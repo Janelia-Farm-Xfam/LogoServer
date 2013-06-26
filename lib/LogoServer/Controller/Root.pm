@@ -107,7 +107,7 @@ sub build_logo : Private {
   try {
     $hmm = $c->model('Logo::Processing')->convert_upload(
       $hmm_file,
-      $c->stash->{data_dir}
+      $c->stash->{alignment_logo}
     );
   }
   catch {
@@ -142,6 +142,17 @@ sub save_upload : Private {
     # save this info for later use.
     $c->stash->{uuid} = $uuid;
     $c->stash->{data_dir} = $data_dir;
+
+    #check if we want an alignment only logo
+    if ($c->req->param('logo_type')) {
+      if ($c->req->param('logo_type') eq 'alignment') {
+        $c->stash->{alignment_logo} = 1;
+      }
+      else {
+        $c->stash->{alignment_logo} = 0;
+      }
+    }
+
     $c->forward('build_logo');
   }
   return;

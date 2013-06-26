@@ -40,8 +40,9 @@ sub convert_upload {
   my $input = read_file( "$tmpdir/upload" );
 
   $alignment_only ||= 0;
+  my $dna_rna_ok = 1;
 
-  my $result = Easel::Validation::guessInput($input, $alignment_only);
+  my $result = Easel::Validation::guessInput($input, $alignment_only, $dna_rna_ok);
 
   # if we can get an hmm out then we need to save it
   if ($result->{type} =~ /^MSA|HMM$/) {

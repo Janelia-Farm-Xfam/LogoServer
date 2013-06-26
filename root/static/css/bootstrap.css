@@ -795,9 +795,7 @@ input[type="checkbox"] {
 
   line-height: normal;
 }
-input[type="file"] {
-  width: 180px;
-}
+input[type="file"],
 input[type="image"],
 input[type="submit"],
 input[type="reset"],

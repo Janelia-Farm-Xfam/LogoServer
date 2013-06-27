@@ -27,7 +27,7 @@ function isCanvasSupported() {
     this.dom_element = options.dom_element || $('body');
     this.start = options.start || 1;
     this.end = options.end || this.data.height_arr.length;
-    this.zoom = parseFloat(options.zoom) || 0.3;
+    this.zoom = parseFloat(options.zoom) || 0.4;
     this.default_zoom = this.zoom;
 
     if (options.scaled_max) {

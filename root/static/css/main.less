@@ -74,7 +74,7 @@ header {
 
 body {
   margin: 0;
-  font-family: Arial;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
 .plastic {
@@ -116,6 +116,16 @@ logo styles
 }
 
 #logo {
+  form {
+    margin-left: 40px;
+    input, label {
+      margin-bottom: 0;
+      display: inline-block;
+    }
+    label {
+      margin-right: 1em;
+    }
+  }
   position:relative;
 }
 #zoomout,#zoomin {
@@ -137,6 +147,10 @@ logo styles
 #logo_yaxis {
   left: 0;
   position:absolute;
+}
+
+#logo_change {
+  margin-right: 1em;
 }
 
 #logo_container {
@@ -174,6 +188,10 @@ logo styles
   -webkit-background-size: 50px 50px;
   -moz-background-size: 50px 50px;
   background-size: 50px 50px;
+}
+
+#position {
+  width: 3em;
 }
 
 .centered {
@@ -254,5 +272,14 @@ button, input[type=submit], input[type=reset]{
 a.help {
   text-decoration: none;
   color: #999;
+}
+
+.right {
+  float:right;
+}
+
+html.no-js .nojshide,
+html.js .jshide {
+  display:none;
 }
 

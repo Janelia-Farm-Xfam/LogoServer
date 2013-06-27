@@ -1,17 +1,5 @@
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span12">
-      <form class="form-inline" action="/" method="post" enctype="multipart/form-data">
-        <label for="file" class="control-label">Upload an HMM or Multiple sequence alignment</label>
-        <input type="file" name="hmm"/><br/>
-        <input class="btn btn-primary" type="submit" class="button" value="Generate Logo"/>
-        <input type="reset" class="button"/>
-      </form>
-    </div>
-  </div>
-</div>
-
 [% IF logo %]
+<h2>Your Logo</h2>
 <div class="logo_wrapper">
   <div id="logo">
     <div id="logo_container">
@@ -22,10 +10,16 @@
 </div>
 <div class="container-fluid">
   <div class="row-fluid">
-    <div class="span12">
+    <div class="span6">
       <h3>Download</h3>
       <a href="[% c.uri_for('/download', c.stash.uuid, 'image') %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a>
       <a href="[% c.uri_for('/download', c.stash.uuid, 'hmm') %]" ><img src="/static/gfx/hmm_dl.png" alt="download .hmm"/></a>
+    </div>
+    <div class="span6">
+      <a class="right" id="try_again" href="/">Try another search</a>
+      <div class="jshide">
+        [% INCLUDE 'components/logo_form.tt' %]
+      </div>
     </div>
   </div>
   <div class="row-fluid">

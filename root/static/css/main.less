@@ -222,3 +222,37 @@ button, input[type=submit], input[type=reset]{
    background:     -ms-linear-gradient(top, #E6E6E6, gainsboro);
    background:      -o-linear-gradient(top, #E6E6E6, gainsboro);
 }
+
+//pictos fonts
+@font-face {
+  font-family: 'Pictos';
+  src: url('/static/css/font/pictos-web.eot');
+  src: local('☺'), url('/static/css/font/pictos-web.woff') format('woff'), url('/static/css/font/pictos-web.ttf') format('truetype'), url('/static/css/font/pictos-web.svg#webfontIyfZbseF') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[data-icon]:before {
+  font-family: 'Pictos';
+  content: attr(data-icon);
+  font-weight:normal;
+  -webkit-font-smoothing: antialiased;
+}
+
+.pictos {
+  font-family: 'Pictos';
+  font-weight:normal;
+  -webkit-font-smoothing: antialiased;
+}
+
+.reader-text {
+  position:absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+a.help {
+  text-decoration: none;
+  color: #999;
+}
+

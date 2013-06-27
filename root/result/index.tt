@@ -20,24 +20,14 @@
     </div>
   </div>
 </div>
-
-
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span12">
       <h3>Download</h3>
-      <a href="[% c.uri_for('/download', c.stash.uuid, 'image') %]" alt="download PNG">download .png</a>
-      <a href="[% c.uri_for('/download', c.stash.uuid, 'hmm') %]" alt="download HMM">download .hmm</a>
+      <a href="[% c.uri_for('/download', c.stash.uuid, 'image') %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a>
+      <a href="[% c.uri_for('/download', c.stash.uuid, 'hmm') %]" ><img src="/static/gfx/hmm_dl.png" alt="download .hmm"/></a>
     </div>
   </div>
-</div>
-<script>
-  var logo_data = [% logo %];
-  var alphabet = '[% alphabet || 'aa' %]';
-</script>
-
-
-<div class="container-fluid">
   <div class="row-fluid">
     <div class="span12">
       <h2>Using the logo elsewhere.</h2>
@@ -45,4 +35,8 @@
     </div>
   </div>
 </div>
+<script>
+  var logo_data = [% logo %];
+  var alphabet = '[% alphabet || 'aa' %]';
+</script>
 [% END %]

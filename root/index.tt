@@ -5,10 +5,10 @@
       <p>This is some place holder text. It should be replaced with a blurb about what the logo server is providing and what it does behind the scenes to produce the logos.</p>
     </div>
     <div class="span7 upload">
-      <h2>Create your own logo.</h2>
+      <h2>Create your logo.</h2>
       <form id="logo_in" action="" method="post" enctype="multipart/form-data">
         <div class="control-group">
-          <label for="file" class="control-label">Upload an HMM or Multiple sequence alignment</label>
+          <label for="file" class="control-label">Upload an HMM or Multiple sequence alignment <a class="help" href="/help#logo"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a></label>
           <div class="controls">
             <input type="file" name="hmm"/>
           </div>
@@ -16,10 +16,10 @@
         <div class="control-group">
           <div class="controls">
             <label class="radio">
-              <input type="radio" name="logo_type" value="alignment"/>Alignment
+              <input type="radio" name="logo_type" value="alignment"/>Alignment <a class="help" href="/help#alignment_logo"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
-              <input type="radio" name="logo_type" value="model" checked="checked"/>Model
+              <input type="radio" name="logo_type" value="model" checked="checked"/>Model <a class="help" href="/help#model_logo"><span aria-hidden="true" data-icon="?"></span><spna class="reader-text">help</span></a>
             </label>
           </div>
         </div>
@@ -27,7 +27,7 @@
         <div class="control-group">
           <div class="controls">
             <input class="btn btn-primary" type="submit" class="button" value="Generate Logo"/>
-            <input type="reset" class="button"/>
+            <input type="reset" class="button btn-mini"/>
             <a href="[% c.uri_for('/logo', 'example') %]">See an example</a>
           </div>
         </div>
@@ -35,31 +35,3 @@
     </div>
   </div>
 </div>
-
-
-
-[% IF logo %]
-<div class="logo_wrapper">
-  <div id="logo">
-    <div id="logo_container">
-      <div id="logo_graphic"></div>
-      <div id="divider"></div>
-    </div>
-  </div>
-</div>
-
-<script>
-  var logo_data = [% logo %];
-  var alphabet = '[% alphabet || 'aa' %]';
-</script>
-
-
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span12">
-      <h2>Using the logo elsewhere.</h2>
-      <p>See the <a href="/help">help pages</a> for more information.</p>
-    </div>
-  </div>
-</div>
-[% END %]

@@ -46,8 +46,21 @@ sub index :Path('/logo') :Args(1) {
       if ($line =~ /amino/) {
         $alphabet = 'aa';
       }
+    }
+    # grab out the length of the hmm
+    if ($line =~ /LENG/) {
+      ($c->stash->{hmm_length}) = $line =~ /(\d+)/;
+    }
+    if ($line =~ /DATE/) {
+      ($c->stash->{hmm_created}) = $line =~ /^DATE\s+(.*)?/;
+    }
+    # grab out the number of sequences
+    if ($line =~ /^NSEQ/) {
+      ($c->stash->{nseq}) = $line =~ /(\d+)/;
+      # quit here as there is nothing past this point that we want at this time.
       last;
     }
+
   }
 
   close $hmm;

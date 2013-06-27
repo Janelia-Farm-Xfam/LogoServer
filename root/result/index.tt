@@ -1,5 +1,21 @@
 [% IF logo %]
-<h2>Your Logo</h2>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <h2>Your Logo</h2>
+      <dl>
+        <dt>Alphabet</dt>
+        <dd>[% c.stash.alphabet | upper %]</dd>
+        <dt>Number of Sequences</dt>
+        <dd>[% c.stash.nseq %]</dd>
+        <dt>Length</dt>
+        <dd>[% c.stash.hmm_length %]</dd>
+        <dt>Created</dt>
+        <dd>[% c.stash.hmm_created %]</dd>
+      </dl>
+    </div>
+  </div>
+</div>
 <div class="logo_wrapper">
   <div id="logo">
     <div id="logo_container">

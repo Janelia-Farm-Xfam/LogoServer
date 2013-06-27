@@ -653,9 +653,9 @@ function isCanvasSupported() {
       options.dom_element = $(this);
       var zoom = options.zoom || 0.3,
         logo = new HMMLogo(options),
-        form = $('<form><label for="position">Column number</label>' +
+        form = $('<form id="logo_form"><fieldset><label for="position">Column number</label>' +
         '<input type="text" name="position" id="position"></input>' +
-        '<button class="button" id="logo_change">Go</button>' +
+        '<button class="button" id="logo_change">Go</button></fieldset>' +
         '</form>');
 
       logo.render(options);

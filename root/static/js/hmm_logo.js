@@ -359,7 +359,7 @@ function isCanvasSupported() {
     };
 
     this.render_x_axis = function () {
-      $(this.dom_element).parent().before('<p id="logo_xaxis" class="centered" style="margin-left:40px">Model Position</p>');
+      $(this.dom_element).parent().before('<div id="logo_xaxis" class="centered" style="margin-left:40px"><p class="xaxis_text" style="width:10em;margin:1em auto">Model Position</p></div>');
     };
 
     this.render_y_axis = function () {
@@ -654,9 +654,9 @@ function isCanvasSupported() {
       var zoom = options.zoom || 0.3,
         logo = new HMMLogo(options),
         form = $('<form id="logo_form"><fieldset><label for="position">Column number</label>' +
-        '<input type="text" name="position" id="position"></input>' +
-        '<button class="button" id="logo_change">Go</button></fieldset>' +
-        '</form>');
+          '<input type="text" name="position" id="position"></input>' +
+          '<button class="button" id="logo_change">Go</button></fieldset>' +
+          '</form>');
 
       logo.render(options);
 

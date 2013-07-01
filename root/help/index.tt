@@ -1,2 +1,29 @@
-<h2>Logo Help</h2>
-<p>Help documents here.</p>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <h2>Logo Help</h2>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span3 sidebar">
+      <ul>
+        <li><a href="#logo">What is an HMM logo?</a></li>
+        <li><a href="#upload">Uploading a file</a></li>
+        <li>
+          <a href="#logo_type">Logo Types</a>
+          <ul>
+            <li><a href="#alignment_logo">Alignment</a></li>
+            <li><a href="#model_logo">Model</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="span9">
+      <h2 id="logo">What is an HMM logo?</h2>
+      <h2 id="upload">Uploading a file</h2>
+      <h2 id="logo_type">Logo Types</h2>
+      <h3 id="alignment_logo">Alignment</h3>
+      <h3 id="model_logo">Model</h3>
+    </div>
+  </div>
+</div>

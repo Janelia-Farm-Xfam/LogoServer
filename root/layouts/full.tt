@@ -85,8 +85,8 @@
   <script src="/static/js/jquery.joyride-2.1.js"></script>
   <script>
     $(document).ready(function() {
-      $("#jsTour").joyride({
-
+      $("#joyRideTipContent").joyride({
+        'autoStart' : true
       });
     });
   </script>

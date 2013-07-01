@@ -59,7 +59,6 @@
 
       init : function (opts) {
         return this.each(function () {
-
           if ($.isEmptyObject(settings)) {
             settings = $.extend(true, defaults, opts);
 

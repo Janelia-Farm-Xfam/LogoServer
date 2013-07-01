@@ -2,7 +2,7 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span12">
-      <h2>Your Logo</h2>
+      <h2>Your [% IF c.stash.logo_type && c.stash.logo_type == 'model' %] Model [% ELSE %] Alignment [% END %] Logo</h2>
       <dl>
         <dt>Alphabet</dt>
         <dd>[% c.stash.alphabet | upper %]</dd>
@@ -29,7 +29,9 @@
     <div class="span6">
       <h3>Download</h3>
       <a href="[% c.uri_for('/download', c.stash.uuid, 'image') %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a>
+      [% IF c.stash.logo_type && c.stash.logo_type == 'model' %]
       <a href="[% c.uri_for('/download', c.stash.uuid, 'hmm') %]" ><img src="/static/gfx/hmm_dl.png" alt="download .hmm"/></a>
+      [% END %]
     </div>
     <div class="span6">
       <h3>Try another search</h3>

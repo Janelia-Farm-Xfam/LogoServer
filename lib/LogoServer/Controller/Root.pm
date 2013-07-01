@@ -6,6 +6,7 @@ use Try::Tiny;
 use Data::UUID;
 use File::Path qw( make_path );
 use File::Copy;
+use JSON;
 
 BEGIN { extends 'Catalyst::Controller::REST' }
 
@@ -142,6 +143,14 @@ sub save_upload : Private {
     # save this info for later use.
     $c->stash->{uuid} = $uuid;
     $c->stash->{data_dir} = $data_dir;
+
+    open my $options, '>', "$data_dir/options";
+    my $params = $c->req->params;
+    # if we got nothing, then we dont want the json encode to blow up.
+    $params ||= {};
+    my $json = JSON->new->encode($params);
+    print $options $json;
+    close $options;
 
     #check if we want an alignment only logo
     if ($c->req->param('logo_type')) {

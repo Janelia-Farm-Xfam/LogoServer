@@ -1,6 +1,8 @@
 package LogoServer::Controller::Result;
 use Moose;
 use namespace::autoclean;
+use JSON;
+use File::Slurp;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -60,16 +62,22 @@ sub index :Path('/logo') :Args(1) {
       # quit here as there is nothing past this point that we want at this time.
       last;
     }
-
   }
-
   close $hmm;
+
+  my $param_json = read_file( "$data_dir/options" );
+  my $params = JSON->new->decode($param_json);
+
+  if ($params->{logo_type}) {
+    $c->stash->{logo_type} = $params->{logo_type};
+  }
 
   # run the logo generation
   my $json = $c->model('LogoGen')->generate_json($hmm_path);
   # save it to a temp file
   $c->stash->{alphabet} = $alphabet;
   $c->stash->{logo} = $json;
+
 
   return;
 }

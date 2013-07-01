@@ -1,6 +1,4 @@
 [% IF logo %]
-<div class="container-fluid">
-</div>
 <div class="logo_wrapper">
   <div id="logo">
     <div id="logo_container">
@@ -40,8 +38,7 @@
   </div>
   <div class="row-fluid">
     <div class="span12">
-      <h2>Using the logo elsewhere.</h2>
-      <p>See the <a href="/help">help pages</a> for more information.</p>
+      [% INCLUDE 'components/logo_usage.tt' %]
     </div>
   </div>
 </div>

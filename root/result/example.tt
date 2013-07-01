@@ -1,19 +1,3 @@
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span12">
-      <fieldset>
-        <legend>Generate a logo with your own data</legend>
-        <form class="form-inline" action="/" method="post" enctype="multipart/form-data">
-          <label for="file" class="control-label">Upload an HMM or Multiple sequence alignment</label>
-          <input type="file" name="hmm"/><br/>
-          <input class="btn btn-primary" type="submit" class="button" value="Generate Logo"/>
-          <input type="reset" class="button"/>
-        </form>
-      </fieldset>
-    </div>
-  </div>
-</div>
-
 [% IF logo %]
 <div class="logo_wrapper">
   <div id="logo">
@@ -23,19 +7,42 @@
     </div>
   </div>
 </div>
-
-<script>
-  var logo_data = [% logo %];
-  var alphabet = '[% alphabet || 'aa' %]';
-</script>
-
-
 <div class="container-fluid">
   <div class="row-fluid">
+    <div class="span6">
+      <h2>Your Model Logo</h2>
+      <dl>
+        <dt>Alphabet</dt>
+        <dd>AA</dd>
+        <dt>Number of Sequences</dt>
+        <dd>8</dd>
+        <dt>Length</dt>
+        <dd>161</dd>
+        <dt>Created</dt>
+        <dd>Mon Jul 1 10:52:15 2013</dd>
+      </dl>
+    </div>
+    <div class="span6">
+      <h2>Download</h2>
+      <a href="[% c.uri_for('/download', 'example', 'image') %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a>
+      <a href="[% c.uri_for('/download', 'example', 'hmm') %]" ><img src="/static/gfx/hmm_dl.png" alt="download .hmm"/></a>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span6">
+      <h2>Generate a logo with your own data.</h2>
+      [% INCLUDE 'components/logo_form.tt' %]
+    </div>
+  </div>
+  <div class="row-fluid">
     <div class="span12">
-      <h2>Using the logo elsewhere.</h2>
-      <p>See the <a href="/help">help pages</a> for more information.</p>
+      [% INCLUDE 'components/logo_usage.tt' %]
     </div>
   </div>
 </div>
+
+<script>
+  var logo_data = [% logo %];
+  var alphabet = 'aa';
+</script>
 [% END %]

@@ -41,6 +41,10 @@
   </div>
 </div>
 
+<ol id="jsTour">
+  <li data-id="logo_wrapper">Boo...</li>
+</ol>
+
 <script>
   var logo_data = [% logo %];
   var alphabet = 'aa';

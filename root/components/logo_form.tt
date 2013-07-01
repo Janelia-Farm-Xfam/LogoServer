@@ -1,4 +1,4 @@
-<form id="logo_in" class="upload" action="" method="post" enctype="multipart/form-data">
+<form id="logo_in" class="upload" action="/" method="post" enctype="multipart/form-data">
   <div class="control-group">
     <label for="file" class="control-label">Upload an HMM or Multiple sequence alignment <a class="help" href="/help#upload"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a></label>
     <div class="controls">

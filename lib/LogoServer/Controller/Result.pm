@@ -48,6 +48,9 @@ sub index :Path('/logo') :Args(1) {
       if ($line =~ /amino/i) {
         $alphabet = 'aa';
       }
+      elsif ($line =~ /rna/i) {
+        $alphabet = 'rna';
+      }
     }
     # grab out the length of the hmm
     if ($line =~ /LENG/) {

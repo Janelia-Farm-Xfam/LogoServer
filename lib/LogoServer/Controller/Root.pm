@@ -100,7 +100,6 @@ sub index_POST_html :Private {
 
 sub build_logo : Private {
   my ($self, $c) = @_;
-  my $alphabet = 'dna';
 
   my $hmm_file = $c->stash->{data_dir};
   # convert uploaded file to hmm if not already an hmm

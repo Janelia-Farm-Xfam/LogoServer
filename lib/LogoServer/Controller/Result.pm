@@ -45,7 +45,7 @@ sub index :Path('/logo') :Args(1) {
   # check to see if HMM is DNA or AA
   while (my $line = <$hmm>) {
     if ($line =~ /^ALPH/) {
-      if ($line =~ /amino/) {
+      if ($line =~ /amino/i) {
         $alphabet = 'aa';
       }
     }
@@ -60,6 +60,8 @@ sub index :Path('/logo') :Args(1) {
     if ($line =~ /^NSEQ/) {
       ($c->stash->{nseq}) = $line =~ /(\d+)/;
       # quit here as there is nothing past this point that we want at this time.
+    }
+    if ($line =~ /^CKSUM/) {
       last;
     }
   }

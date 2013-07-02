@@ -77,20 +77,13 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="/static/js/libs/jquery-1.10.1.min.js"><\/script>')</script>
 
+  [% IF c.request.action == 'logo/example' %]
+  <script src="/static/js/jquery.joyride-2.1.js"></script>
+  [% END %]
   <script src="/static/js/scroller.js"></script>
   <script src="/static/js/hmm_logo.js"></script>
   <script src="/static/js/application.js"></script>
 
-  [% IF c.request.action == 'logo/example' %]
-  <script src="/static/js/jquery.joyride-2.1.js"></script>
-  <script>
-    $(document).ready(function() {
-      $("#joyRideTipContent").joyride({
-        'autoStart' : true
-      });
-    });
-  </script>
-  [% END %]
 
 </body>
 </html>

@@ -64,6 +64,16 @@ sub index :Path :Args(2) {
     $c->res->header( 'Content-Disposition' => "attachment; filename=$fname" );
     $c->res->header( 'Content-Type'        => 'application/json' );
   }
+  elsif ($type eq 'text') {
+    my $data = $c->model('LogoGen')->generate_raw($hmm_path);
+    my $output = "#ID\t$uuid\n" . $data;
+
+    my $fname = "$uuid.txt";
+    $c->response->body($output);
+    $c->res->header( 'Content-Disposition' => "attachment; filename=$fname" );
+    $c->res->header( 'Content-Type'        => 'text/plain' );
+
+  }
   else {
     my $io = IO::File->new($hmm_path);
     $c->res->body($io);

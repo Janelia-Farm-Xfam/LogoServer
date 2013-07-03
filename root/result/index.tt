@@ -38,6 +38,10 @@
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'json') %]" ><img src="/static/gfx/json_dl.png" alt="download .json"/></a></dt>
         <dd><h5>JSON</h5><p>Raw data for the logo formatted in JavaScript Object Notation.</p></dd>
       </dl>
+      <dl>
+        <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'text') %]" ><img src="/static/gfx/tab_dl.png" alt="download tab delimited"/></a></dt>
+        <dd><h5>Tabular Text</h5><p>Raw data for the logo in a tab delimited text file.</p></dd>
+      </dl>
     </div>
   </div>
   <div class="row-fluid">

@@ -49,6 +49,35 @@ sub generate_png {
   return Bio::HMM::Logo::hmmToLogoPNG($hmm, "emission", $alphabet, $scaled);
 }
 
+sub generate_raw {
+  my ($self, $hmm) = @_;
+  my $data = Bio::HMM::Logo::hmmToLogo($hmm, "emission");
+  my @keys = keys $data;
+
+  use DDP; p @keys;
+  my $residues = scalar @{$data->{height_arr}->[0]};
+  my $height_header = "\t" x $residues;
+  my $text = qq(# Max Height\t$data->{max_height_theory}
+# Observed Height\t$data->{max_height_obs}
+# Column\tHeight${height_header}Insert Length\tInsert Probability\tOccupancy Probability\tModel Mask\n);
+
+  # get the number of columns we need
+  my $length = scalar @{$data->{height_arr}};
+  for (my $i = 0; $i < $length; $i++) {
+    # generate the heights column
+    my $heights = join "\t", @{$data->{height_arr}->[$i]};
+    # build the row
+    $text .= sprintf "%s\t%s\t%s\t%s\t%s\t%s\n",
+      $i,
+      $heights,
+      $data->{insert_lengths}->[$i],
+      $data->{insert_probs}->[$i],
+      $data->{occupancy_probs}->[$i],
+      $data->{mmline}->[$i];
+  }
+  return $text;
+}
+
 __PACKAGE__->meta->make_immutable;
 
 1;

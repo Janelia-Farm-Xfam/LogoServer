@@ -2,6 +2,7 @@
   <div class="row-fluid">
     <div class="span6 logo_info">
       <button id="restart" class="btn btn-primary">Restart The Tour</button>
+      <a class="btn btn-small" href="/help">See the help page</a>
     </div>
   </div>
 </div>

@@ -82,6 +82,7 @@
   [% END %]
   <script src="/static/js/scroller.js"></script>
   <script src="/static/js/hmm_logo.js"></script>
+  <script src="/static/js/carousel.js"></script>
   <script src="/static/js/application.js"></script>
 
 

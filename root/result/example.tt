@@ -14,7 +14,7 @@
     </div>
   </div>
 </div>
-<div class="container-fluid">
+<div class="container-fluid info_block">
   <div class="row-fluid">
     <div class="span6 logo_info">
       <h2>Your Model Logo</h2>
@@ -31,8 +31,8 @@
     </div>
     <div class="span6">
       <h2 class="download">Download</h2>
-      <a id="png_dl" href="#"><img src="/static/gfx/png_dl.png" alt="download .png"/></a>
-      <a id="hmm_dl" href="#" ><img src="/static/gfx/hmm_dl.png" alt="download .hmm"/></a>
+      <a href="#"><img id="png_dl" src="/static/gfx/png_dl.png" alt="download .png"/></a>
+      <a href="#" ><img id="hmm_dl" src="/static/gfx/hmm_dl.png" alt="download .hmm"/></a>
     </div>
   </div>
   <div class="row-fluid">
@@ -51,12 +51,12 @@
 <ol id="joyRideTipContent">
   <li data-button="start the tour">
     <h3>Thanks for checking out the example logo...</h3>
-    <p>This tour will guide you through all the information provided by a logo. Then look at the ways you can export and use them elsewhere.</p>
-    <p><i class="small">Hit the 'x' at the top of any popup to end the tour.</i></p>
+    <p>We have put together a tour that will guide you through all the information provided by a logo and the various ways the logo can be manipulated.</p>
+    <p><i class="small">To end the tour hit the 'x' at the top of any popup or the [esc] key.</i></p>
   </li>
   <li data-class="canvas_logo" data-button="next">
-    <h3>First, here is the logo.</h3>
-    <p>It can be scrolled by holding down your mouse button over it and dragging from side to side. Try it out, we'll wait...</p>
+    <h3>This is an HMM logo.</h3>
+    <p>It can be scrolled by holding down your mouse button over it and dragging from side to side.</p>
   </li>
 
   <li data-class="xaxis_text" data-button="next">
@@ -69,15 +69,16 @@
   </li>
   <li data-id="zoomin" data-options="tipLocation:right" data-button="next">
     <h3>Zoom</h3>
-    <p>Zoom in our out to see more or less information on the page at once.</p>
+    <p>The default zoom level of the logo is set to try and fit as many columns on the screen at once whilst maintaining legibility of the letters. This zoom level can be adjusted to fit more columns on the page which will cause the letters to become color blocks. Zooming in the other direction will expand the columns making the residue letters larger.</p>
+    <p>Double clicking on the logo will cause the zoom level to change between maximum width and a very narrow width. It will attempt to remain centered around the column under the mouse pointer when space allows.</p>
   </li>
   <li data-id="position" data-button="next">
     <h3>Jump to a specific column</h3>
-    <p>Enter a position you are interested in the form field and jump straight to it.</p>
+    <p>Useful for large logos. If you are interested in a specific column, you can enter the column number here and the logo will scroll until it is as close to centered on the page as it can be. Try looking for column 75.</p>
   </li>
   <li data-id="scale" data-button="next">
     <h3>Changing the scale</h3>
-    <p>Change between observed and theoretical maximum</p>
+    <p>In order to allow for comparisons between logos, we have created a button to toggle between the observed maximum score and the theoretical maximum score for a logo. When compairing logos the theoretical maximum score will render the logos at the same scale. The observed maximum score is useful when you want to maximise the amount of information in an individual logo.</p>
   </li>
 
   <li data-class="logo_info" data-button="next">
@@ -86,19 +87,24 @@
   </li>
   <li data-class="download" data-button="next" data-options="tipLocation:top">
     <h3>Download the data.</h3>
-    <p>There are a number of ways to get the data for each logo.</p>
+    <p>We have provided a number of different ways to download a logo and the information used to generate it.</p>
   </li>
   <li data-id="png_dl" data-button="next">
     <h3>PNG Download</h3>
     <p>This is a static version of the logo in PNG format. It is set to show the letters at the maximum width and the information content is scaled to the theoretical maximum.</p>
   </li>
+  <li data-id="hmm_dl" data-button="next">
+    <h3>HMM Download</h3>
+    <p>This is the HMM file we use to generate the logo. It is only available for model logos.</p>
+  </li>
   <li data-class="usage" data-button="next" data-options="tipLocation:top">
-    <h3>Using the logo elsewhere.</h3>
-    <p>Here we provide you with information on how to use the logo in other sites or publications.</p>
+    <h3>Would you like to have the logo on your own site?</h3>
+    <p>This section will show you how to use the logo in other sites or export it for publications.</p>
   </li>
   <li data-id="logo_in" data-button="finish" data-options="tipLocation:top">
     <h3>That's It.</h3>
     <p>Thanks for taking the tour. You can use this form to generate your first logo from a sequence alignment or an HMM.</p>
+    <p>Alternatively, head over to the <a href="/">home page</a> and start there.</p>
   </li>
 </ol>
 

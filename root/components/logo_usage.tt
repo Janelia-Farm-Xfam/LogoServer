@@ -1,2 +1,27 @@
-<h2>Using the logo elsewhere.</h2>
+<h2>Using the logo elsewhere</h2>
+
+
+<h3>Using the dynamic logo</h3>
+
+<ol>
+  <li>Download the javascript library</li>
+  <li>Download jQuery</li>
+  <li>Insert the following markup into your page, just above the &lt;/body&gt; tag.</li>
+  <pre class="code">
+code example here
+&lt;/body&gt;</pre>
+  <li>Options</li>
+</ol>
+
+
+<h3>Embedding the static logo in a webpage.</h3>
+
+<ol>
+  <li>Download the image from the download link above.</li>
+  <li>Save it in the static content directory for your webserver.</li>
+  <li>Link to it from a webpage with an &lt;img&gt; tag.</li>
+  <pre class="code">&lt;img src="/path/to/image/on/your/server" alt="HMMLogo"/&gt;</pre>
+</ol>
+
+
 <p>See the <a href="/help">help pages</a> for more information.</p>

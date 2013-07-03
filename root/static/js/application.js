@@ -13,6 +13,8 @@
     if ($("#joyRideTipContent").length > 0) {
       $("#joyRideTipContent").joyride({
         'autoStart' : true,
+        'localStorage' : false,
+        'localStorageKey' : 'joyride',
         'postRideCallback' : function () {
           $('.tour_control').show('slow');
         },

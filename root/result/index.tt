@@ -22,13 +22,22 @@
         <dd>[% c.stash.hmm_created %]</dd>
       </dl>
     </div>
-    <div class="span6">
+    <div class="span6 download">
       <h2>Download</h2>
-      <a href="[% c.uri_for('/download', c.stash.uuid, 'image') %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a>
+      <dl>
+        <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'image') %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a></dt>
+        <dd><h5>PNG file</h5><p>A static image of the logo.</p></dd>
+      </dl>
       [% IF c.stash.logo_type && c.stash.logo_type == 'model' %]
-      <a href="[% c.uri_for('/download', c.stash.uuid, 'hmm') %]" ><img src="/static/gfx/hmm_dl.png" alt="download .hmm"/></a>
+      <dl>
+        <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'hmm') %]" ><img src="/static/gfx/hmm_dl.png" alt="download .hmm"/></a></dt>
+        <dd><h5>HMM</h5><p>The HMM file used to calculate this logo.</p></dd>
+      </dl>
       [% END %]
-      <a href="[% c.uri_for('/download', c.stash.uuid, 'json') %]" ><img src="/static/gfx/json_dl.png" alt="download .json"/></a>
+      <dl>
+        <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'json') %]" ><img src="/static/gfx/json_dl.png" alt="download .json"/></a></dt>
+        <dd><h5>JSON</h5><p>Raw data for the logo formatted in JavaScript Object Notation.</p></dd>
+      </dl>
     </div>
   </div>
   <div class="row-fluid">

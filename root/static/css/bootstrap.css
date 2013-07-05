@@ -665,13 +665,12 @@ fieldset {
 legend {
   display: block;
   width: 100%;
-  padding: 0;
-  margin-bottom: 20px;
-  font-size: 21px;
-  line-height: 40px;
-  color: #333333;
+  padding: 1em 0 0.3em;
+  font-size: 1em;
+  line-height: 1.2em;
+  font-weight: bold;
+  color: #666666;
   border: 0;
-  border-bottom: 1px solid #e5e5e5;
 }
 legend small {
   font-size: 15px;
@@ -1457,10 +1456,6 @@ input.search-query {
 }
 .control-group {
   margin-bottom: 10px;
-}
-legend + .control-group {
-  margin-top: 20px;
-  -webkit-margin-top-collapse: separate;
 }
 .form-horizontal .control-group {
   margin-bottom: 20px;

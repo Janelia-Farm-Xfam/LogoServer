@@ -17,10 +17,16 @@ code example here
 <h3>Embedding the static logo in a webpage.</h3>
 
 <ol>
-  <li>Download the image from the download link above.</li>
-  <li>Save it in the static content directory for your webserver.</li>
+  <li>Download the image from the <a href="#download">download</a> section above or grab it with a command line tool like curl:</li>
+  <pre class="code">curl '[% c.uri_for('/download', c.stash.uuid, 'image') %]' > [% c.stash.uuid %].png</pre> 
+  <li>
+    <p>Save it in the static content directory for your webserver. For example using the default installation of Apache on Ubuntu copy the image to:</p>
+    <pre class="code">/var/www/</pre>
+    <p>The image will then be available from:</p>
+    <pre class="code">http://yourdomain/[% c.stash.uuid %].png</pre>
+  </li>
   <li>Link to it from a webpage with an &lt;img&gt; tag.</li>
-  <pre class="code">&lt;img src="/path/to/image/on/your/server" alt="HMMLogo"/&gt;</pre>
+  <pre class="code">&lt;img src="/[% c.stash.uuid %].png" alt="HMMLogo"/&gt;</pre>
 </ol>
 
 

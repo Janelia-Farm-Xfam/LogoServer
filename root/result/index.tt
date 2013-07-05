@@ -14,6 +14,8 @@
       <dl>
         <dt>Alphabet</dt>
         <dd>[% c.stash.alphabet | upper %]</dd>
+        <dt>Height Calculation</dt>
+        <dd>[% c.stash.height_calc | html %]</dd>
         <dt>Number of Sequences</dt>
         <dd>[% c.stash.nseq %]</dd>
         <dt>Length</dt>

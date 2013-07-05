@@ -73,12 +73,19 @@ sub index :Path('/logo') :Args(1) {
   my $param_json = read_file( "$data_dir/options" );
   my $params = JSON->new->decode($param_json);
 
-  if ($params->{logo_type}) {
+  if (exists $params->{logo_type}) {
     $c->stash->{logo_type} = $params->{logo_type};
   }
 
+  if (exists $params->{height_calc}) {
+    $c->stash->{height_calc} = $params->{height_calc};
+  }
+  else {
+    $c->stash->{height_calc} = 'emission';
+  }
+
   # run the logo generation
-  my $json = $c->model('LogoGen')->generate_json($hmm_path);
+  my $json = $c->model('LogoGen')->generate_json($hmm_path, $c->stash->{height_calc});
   # save it to a temp file
   $c->stash->{alphabet} = $alphabet;
   $c->stash->{logo} = $json;

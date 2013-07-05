@@ -31,8 +31,9 @@ it under the same terms as Perl itself.
 =cut
 
 sub generate_json {
-  my ($self, $hmm) = @_;
-  return Bio::HMM::Logo::hmmToLogoJson($hmm, "emission");
+  my ($self, $hmm, $height_calc) = @_;
+  $height_calc ||= 'emission';
+  return Bio::HMM::Logo::hmmToLogoJson($hmm, $height_calc);
 }
 
 =head2 generate_png(SCALAR, SCALAR, SCALAR)
@@ -45,13 +46,15 @@ sub generate_json {
 =cut
 
 sub generate_png {
-  my ($self, $hmm, $alphabet, $scaled) = @_;
-  return Bio::HMM::Logo::hmmToLogoPNG($hmm, "emission", $alphabet, $scaled);
+  my ($self, $hmm, $alphabet, $scaled, $height_calc) = @_;
+  $height_calc ||= 'emission';
+  return Bio::HMM::Logo::hmmToLogoPNG($hmm, $height_calc, $alphabet, $scaled);
 }
 
 sub generate_raw {
-  my ($self, $hmm) = @_;
-  my $data = Bio::HMM::Logo::hmmToLogo($hmm, "emission");
+  my ($self, $hmm, $height_calc) = @_;
+  $height_calc ||= 'emission';
+  my $data = Bio::HMM::Logo::hmmToLogo($hmm, $height_calc);
   my @keys = keys $data;
 
   my $sorted = $self->sort_residues($data->{height_arr}->[0]);

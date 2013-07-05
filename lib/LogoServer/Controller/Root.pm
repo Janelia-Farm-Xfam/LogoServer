@@ -145,9 +145,19 @@ sub save_upload : Private {
 
     open my $options, '>', "$data_dir/options";
     my $params = $c->req->params;
+
+    # need to loop over params and validate here, before we store them.
+    my @allowed = qw(height_calc logo_type hmm);
+    my $valid = {};
+
+    for my $param (@allowed) {
+      if (exists $params->{$param}) {
+        $valid->{$param} = $params->{$param};
+      }
+    }
     # if we got nothing, then we dont want the json encode to blow up.
     $params ||= {};
-    my $json = JSON->new->encode($params);
+    my $json = JSON->new->encode($valid);
     print $options $json;
     close $options;
 

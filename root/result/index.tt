@@ -21,6 +21,12 @@
         <dt>Created</dt>
         <dd>[% c.stash.hmm_created %]</dd>
       </dl>
+      <div class="row-fluid">
+        <div class="span12">
+          <h2>Try another search</h2>
+          [% INCLUDE 'components/logo_form.tt' %]
+        </div>
+      </div>
     </div>
     <div class="span6 download">
       <h2>Download</h2>
@@ -42,12 +48,6 @@
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'text') %]" ><img src="/static/gfx/tab_dl.png" alt="download tab delimited"/></a></dt>
         <dd><h5>Tabular Text</h5><p>Raw data for the logo in a tab delimited text file.</p></dd>
       </dl>
-    </div>
-  </div>
-  <div class="row-fluid">
-    <div class="span6">
-      <h2>Try another search</h2>
-      [% INCLUDE 'components/logo_form.tt' %]
     </div>
   </div>
   <div class="row-fluid">

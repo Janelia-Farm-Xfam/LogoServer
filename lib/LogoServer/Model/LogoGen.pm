@@ -54,28 +54,55 @@ sub generate_raw {
   my $data = Bio::HMM::Logo::hmmToLogo($hmm, "emission");
   my @keys = keys $data;
 
-  use DDP; p @keys;
-  my $residues = scalar @{$data->{height_arr}->[0]};
-  my $height_header = "\t" x $residues;
-  my $text = qq(# Max Height\t$data->{max_height_theory}
-# Observed Height\t$data->{max_height_obs}
-# Column\tHeight${height_header}Insert Length\tInsert Probability\tOccupancy Probability\tModel Mask\n);
+  my $sorted = $self->sort_residues($data->{height_arr}->[0]);
+  my $letter_header = join "\t", @$sorted;
+
+  my $height_header = "\t" x scalar @$sorted;
+  my $text = qq(# Theroetical Max Height\t$data->{max_height_theory}
+# Observed Max Height\t$data->{max_height_obs}
+# Column\tHeights${height_header}Expected Insert Length\tInsert Probability\tDelete Probability\tModel Mask
+#       \t$letter_header\n);
 
   # get the number of columns we need
   my $length = scalar @{$data->{height_arr}};
   for (my $i = 0; $i < $length; $i++) {
     # generate the heights column
-    my $heights = join "\t", @{$data->{height_arr}->[$i]};
+    my %residues = ();
+    for my $res (@{$data->{height_arr}->[$i]}) {
+      my ($letter, $value) = split(':', $res);
+      $residues{$letter} = $value;
+    }
+    my @sorted = sort {$a cmp $b} keys %residues;
+
+    my @sorted_vals = ();
+
+    for my $sorted_letter (@sorted) {
+      push @sorted_vals, $residues{$sorted_letter};
+    }
+
+    my $heights = join "\t", @sorted_vals;
     # build the row
     $text .= sprintf "%s\t%s\t%s\t%s\t%s\t%s\n",
-      $i,
+      $i + 1,
       $heights,
       $data->{insert_lengths}->[$i],
       $data->{insert_probs}->[$i],
-      $data->{occupancy_probs}->[$i],
+      $data->{delete_probs}->[$i],
       $data->{mmline}->[$i];
   }
   return $text;
+}
+
+sub sort_residues {
+  my ($self, $residue_list) = @_;
+  my %residues = ();
+  # work out what letters to place in the header.
+  for my $res (@$residue_list) {
+    my $letter = [split(':', $res)]->[0];
+    $residues{$letter}++;
+  }
+  my @sorted = sort {$a cmp $b} keys %residues;
+  return \@sorted;
 }
 
 __PACKAGE__->meta->make_immutable;

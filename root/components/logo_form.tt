@@ -18,6 +18,23 @@
 
   <div class="control-group">
     <div class="controls">
+      <label class="radio">
+        <input type="radio" name="height_calc" value="emission" checked="checked" />Emission <a class="help" href="/help#emission"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+      </label>
+      <label class="radio">
+        <input type="radio" name="height_calc" value="posscore"/>Positive Score <a class="help" href="/help#positive_score"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+      </label>
+      <label class="radio">
+        <input type="radio" name="height_calc" value="score"/>Score <a class="help" href="/help#score"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+      </label>
+      <label class="radio">
+        <input type="radio" name="height_calc" value="bild"/>BILD <a class="help" href="/help#bild"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+      </label>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <div class="controls">
       <input class="btn btn-primary" type="submit" class="button" value="Generate Logo"/>
       <input type="reset" class="button btn-mini"/>
     </div>

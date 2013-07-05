@@ -27,7 +27,7 @@ __PACKAGE__->config(
     "application/x-yaml" => "YAML",
     "application/yaml"   => "YAML",
     "text/html"          => [ "View", "HTML" ],
-    "text/plain"         => [ "View", "HTML" ],
+    "text/plain"         => [ "View", "Text" ],
     "text/x-yaml"        => "YAML",
     "text/xml"           => "XML::Simple",
     "application/xml"    => "XML::Simple",
@@ -86,6 +86,11 @@ sub index_GET : Private {
 sub index_POST :Private {
   my ( $self, $c ) = @_;
   $c->forward('save_upload');
+  $c->stash->{rest} = {
+    'message' => 'Logo generated successfully',
+    'uuid' => $c->stash->{uuid},
+    'url' => $c->uri_for('/logo', $c->stash->{uuid})->as_string
+  };
 }
 
 =head2 index_POST_html

@@ -90,6 +90,13 @@ sub index :Path('/logo') :Args(1) {
   $c->stash->{alphabet} = $alphabet;
   $c->stash->{logo} = $json;
 
+  if ($c->req->preferred_content_type eq 'text/plain') {
+    $c->stash->{rest} = $c->model('LogoGen')->generate_tabbed($hmm_path, $c->stash->{height_calc});
+    $c->stash->{template} = 'result/tabbed.tt';
+  }
+  else {
+    $c->stash->{rest} = $c->model('LogoGen')->generate_raw($hmm_path, $c->stash->{height_calc});
+  }
 
   return;
 }

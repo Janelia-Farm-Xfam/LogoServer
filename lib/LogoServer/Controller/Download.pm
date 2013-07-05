@@ -65,7 +65,7 @@ sub index :Path :Args(2) {
     $c->res->header( 'Content-Type'        => 'application/json' );
   }
   elsif ($type eq 'text') {
-    my $data = $c->model('LogoGen')->generate_raw($hmm_path);
+    my $data = $c->model('LogoGen')->generate_tabbed($hmm_path);
     my $output = "#ID\t$uuid\n" . $data;
 
     my $fname = "$uuid.txt";

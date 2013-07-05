@@ -51,17 +51,31 @@ sub generate_png {
   return Bio::HMM::Logo::hmmToLogoPNG($hmm, $height_calc, $alphabet, $scaled);
 }
 
+=head2 genreate_raw
+
+=cut
+
 sub generate_raw {
   my ($self, $hmm, $height_calc) = @_;
   $height_calc ||= 'emission';
   my $data = Bio::HMM::Logo::hmmToLogo($hmm, $height_calc);
+  return $data;
+}
+
+=head2 generate_tabbed
+
+=cut
+
+sub generate_tabbed {
+  my ($self, $hmm, $height_calc) = @_;
+  my $data = $self->generate_raw($hmm, $height_calc);
   my @keys = keys $data;
 
   my $sorted = $self->sort_residues($data->{height_arr}->[0]);
   my $letter_header = join "\t", @$sorted;
 
   my $height_header = "\t" x scalar @$sorted;
-  my $text = qq(# Theroetical Max Height\t$data->{max_height_theory}
+  my $text = qq(# Theoretical Max Height\t$data->{max_height_theory}
 # Observed Max Height\t$data->{max_height_obs}
 # Column\tHeights${height_header}Expected Insert Length\tInsert Probability\tDelete Probability\tModel Mask
 #       \t$letter_header\n);

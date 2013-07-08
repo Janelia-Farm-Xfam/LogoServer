@@ -106,6 +106,7 @@ sub example : Path('/logo/example') :Args(0) {
   my $hmm_path = $c->config->{example_path};
   my $json = $c->model('LogoGen')->generate_json($hmm_path);
   # save it to a temp file
+  $c->stash->{uuid} = 'example';
   $c->stash->{alphabet} = 'aa';
   $c->stash->{logo} = $json;
   return;

@@ -27,7 +27,33 @@
       <h3 id="model_logo">Model</h3>
       <h2 id="api">Using the API</h2>
       <h3>Creating a logo</h3>
+      <p>The first thing you will need to do is upload your alignment or hmm file to our server.</p>
+      <pre class="code">curl -H 'Accept:application/json' -F logo_type=model -F file='@hmm'&nbsp;http://skylign.org</pre>
+      <p> If something went wrong then a 400 response will be returned.</p>
+
+      <pre class="code">
+# request missing the file upload.
+curl -H 'Accept:application/json' -F logo_type=model http://skylign.org
+
+# response
+{
+  "error" : {
+    "upload" : "Please choose an alignment or HMM file to upload."
+  }
+}
+      </pre>
+      <p>If the upload was successful you will receive an <strong>HTTP 200</strong> response with the location of your logo in the payload</p>
+      <pre class="code">
+{
+  "url":"<span class="hilight">http://skylign.org:8000/logo/6BBFEB96-E7E0-11E2-A243-DF86A4A34227</span>",
+  "uuid":"6BBFEB96-E7E0-11E2-A243-DF86A4A34227",
+  "message":"Logo generated successfully"
+}
+      </pre>
+
       <h3>Retrieving the logo</h3>
+      <p>With the response in hand you can use the returned url to fetch your logo.</p>
+      <pre class="code">curl -H 'Accept:application/json' http://localhost:8000/logo/6BBFEB96-E7E0-11E2-A243-DF86A4A34227</pre>
       <h3>Retrieving the raw data</h3>
     </div>
   </div>

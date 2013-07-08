@@ -2,7 +2,7 @@
   <div class="control-group">
     <label for="file" class="control-label">Upload an HMM or Multiple sequence alignment <a class="help" href="/help#upload"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a></label>
     <div class="controls">
-      <input type="file" name="hmm"/>
+      <input type="file" name="file"/>
     </div>
   </div>
   <div class="row-fluid">

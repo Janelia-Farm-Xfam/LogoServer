@@ -1,0 +1,80 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <a href="/">Home</a> &rarr; <a href="/help">Help</a> &rarr; <a href="/help/api">REST API</a> &rarr; <a href="/help/api/post">POST /</a>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span12">
+      <h2> POST /</h2>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span12">
+      <h3>URL:</h3>
+      <p>http://sklign.org/</p>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span12">
+      <h3>Parameters:</h3>
+
+
+      <table class="parameters">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>file</strong><br/> <span class="small subtle">required</span></td>
+            <td>
+              <p>file to be converted into a logo.</p>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>logo_type</strong><br/> <span class="small subtle">optional</span></td>
+            <td>
+              <p>The type of logo to be created: alignment or model.</p>
+              <strong>Default:</strong> model
+            </td>
+          </tr>
+          <tr>
+            <td><strong>height_calc</strong><br/> <span class="small subtle">optional</span></td>
+            <td>
+              <p>Which height calculation algorithm should be used during logo generation.</p>
+              <strong>Default:</strong> emission
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span12">
+      <h3>Repsonse Formats:</h3>
+      <p class="small">JSON, XML, YAML, Text, HTML</p>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span12">
+      <h3>Example:</h3>
+      <p>POST http://skylign.org/</p>
+      <pre class="code">
+<span class="hilight"># Request</span>
+curl -H 'Accept:application/json' -F file='@test.hmm' http://skylign.org/
+
+<span class="hilight"># Response</span>
+{
+  "url":"http://skylign.org/logo/6BBFEB96-E7E0-11E2-A243-DF86A4A34227",
+  "uuid":"6BBFEB96-E7E0-11E2-A243-DF86A4A34227",
+  "message":"Logo generated successfully"
+}
+</pre>
+    </div>
+  </div>

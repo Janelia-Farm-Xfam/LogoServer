@@ -1,64 +1,56 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span12">
-      <h2>Logo Help</h2>
+      <a href="/">Home</a> &rarr; <a href="/help">Help</a> &rarr; <a href="/help/api">REST API</a> &rarr; <a href="/help/api/get/logo/:uuid">GET /logo/:uuid</a>
     </div>
   </div>
   <div class="row-fluid">
-    <div class="span3 sidebar">
-      <ul>
-        <li><a href="#logo">What is an HMM logo?</a></li>
-        <li><a href="#upload">Uploading a file</a></li>
-        <li>
-          <a href="#logo_type">Logo Types</a>
-          <ul>
-            <li><a href="#alignment_logo">Alignment</a></li>
-            <li><a href="#model_logo">Model</a></li>
-          </ul>
-        </li>
-        <li><a href="#api_docs">API Dcoumentation</a></li>
-        <li><a href="#api_use">Using the API</a></li>
-      </ul>
+    <div class="span12">
+      <h2>GET /logo/:uuid</h2>
     </div>
-    <div class="span9">
-      <h2 id="logo">What is an HMM logo?</h2>
-      <h2 id="upload">Uploading a file</h2>
-      <h2 id="logo_type">Logo Types</h2>
-      <h3 id="alignment_logo">Alignment</h3>
-      <h3 id="model_logo">Model</h3>
-      <h3 id="api_docs">API Documentation</h3>
-      <p>All documentation for the resources made available by the REST API can be found on the <a href="/help/api">REST API Documentation</a> pages.</p>
-      <h2 id="api_use">Using the API</h2>
-      <h3>Creating a logo</h3>
-      <p>The first thing you will need to do is upload your alignment or hmm file to our server.</p>
-      <pre class="code">curl -H 'Accept:application/json' -F logo_type=model -F file='@hmm'&nbsp;http://skylign.org</pre>
-      <p> If something went wrong then a 400 response will be returned.</p>
+  </div>
+  <div class="row-fluid">
+    <div class="span12">
+      <h3>URL:</h3>
+      <p>http://sklign.org/logo/:uuid</p>
+    </div>
+  </div>
 
-      <pre class="code">
-<span class="hilight"># Request</span> missing the file upload.
-curl -H 'Accept:application/json' -F logo_type=model http://skylign.org
+      <div class="row-fluid">
+    <div class="span12">
+      <h3>Parameters:</h3>
 
-<span class="hilight"># Response</span>
-{
-  "error" : {
-    "upload" : "Please choose an alignment or HMM file to upload."
-  }
-}
-      </pre>
-      <p>If the upload was successful you will receive an <strong>HTTP 200</strong> response with the location of your logo in the payload</p>
-      <pre class="code">
-{
-  "url":"<span class="hilight">http://skylign.org:8000/logo/6BBFEB96-E7E0-11E2-A243-DF86A4A34227</span>",
-  "uuid":"6BBFEB96-E7E0-11E2-A243-DF86A4A34227",
-  "message":"Logo generated successfully"
-}
-      </pre>
 
-      <h3>Retrieving the logo</h3>
-      <p>With the response in hand you can use the returned url to fetch your logo.</p>
-      <h3>Retrieving the raw data</h3>
-      <p>If you would like to get the JSON used in the javascript logo, then you can get to that by requesting a JSON repsonse.
-      Go to the <a href="/help/api/get/logo/:uuid">GET /logo/:uuid</a> page to see the other download formats that are available. </p> 
+      <table class="parameters">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>uuid</strong><br/> <span class="small subtle">required</span></td>
+            <td>
+              <p>The unique identifier associated with the logo generated from a file upload.</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span12">
+      <h3>Repsonse Formats:</h3>
+      <p class="small">JSON, XML, YAML, Text, HTML, PNG</p>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span12">
+      <h3>Example:</h3>
+      <p>GET http://skylign.org/logo/6BBFEB96-E7E0-11E2-A243-DF86A4A34227</p>
       <pre class="code">
 <span class="hilight"># Request</span>
 curl -H 'Accept:application/json' http://skylign.org/logo/6BBFEB96-E7E0-11E2-A243-DF86A4A34227
@@ -128,4 +120,3 @@ curl -H 'Accept:application/json' http://skylign.org/logo/6BBFEB96-E7E0-11E2-A24
       </pre>
     </div>
   </div>
-</div>

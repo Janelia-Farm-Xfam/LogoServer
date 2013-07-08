@@ -32,6 +32,7 @@ __PACKAGE__->config(
     "text/xml"           => "XML::Simple",
     "application/xml"    => "XML::Simple",
     "text/yaml"          => "YAML",
+    "image/png"          => [ "View", "Text"],
   }
 );
 

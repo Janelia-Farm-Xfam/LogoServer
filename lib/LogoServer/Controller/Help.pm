@@ -26,6 +26,25 @@ sub index :Path :Args(0) {
   return;
 }
 
+sub api :Path('/help/api') :Args(0) {
+  my ($self, $c) = @_;
+  return;
+}
+
+sub post :Path('/help/api/post') :Args(0) {
+  my ($self, $c) = @_;
+  return;
+}
+
+sub get_logo :Path('/help/api/get/logo/:uuid') :Args(0) {
+  my ($self, $c) = @_;
+  return;
+}
+
+sub get_hmm :Path('/help/api/get/logo/:uuid/hmm') :Args(0) {
+  my ($self, $c) = @_;
+  return;
+}
 
 =head1 AUTHOR
 

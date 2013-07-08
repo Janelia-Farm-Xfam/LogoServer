@@ -1,0 +1,26 @@
+<a href="/">Home</a> &rarr; <a href="/help">Help</a> &rarr; <a href="/help/api">REST API</a>
+
+<h2> Available Rest Resources</h2>
+
+<table class="parameters">
+  <thead>
+    <tr>
+      <th>Resource</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="/help/api/post">POST /</a></td>
+      <td>Send alignment or hmm files to the server for processing into a logo.</td>
+    </tr>
+    <tr>
+      <td><a href="/help/api/get/logo/:uuid">GET /logo/:uuid</a></td>
+      <td>Retrieve information about the logo that was generated.</td>
+    </tr>
+    <tr>
+      <td><a href="/help/api/get/logo/:uuid/hmm">GET /logo/:uuid/hmm</a></td>
+      <td>Download the raw hmm file used to generate the logo.</td>
+    </tr>
+  </tbody>
+</table>

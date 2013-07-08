@@ -94,6 +94,9 @@ sub index :Path('/logo') :Args(1) {
     $c->stash->{rest} = $c->model('LogoGen')->generate_tabbed($hmm_path, $c->stash->{height_calc});
     $c->stash->{template} = 'result/tabbed.tt';
   }
+  elsif ($c->req->preferred_content_type eq 'image/png') {
+    $c->stash->{rest} = $c->model('LogoGen')->generate_png($hmm_path, $c->stash->{alphabet});
+  }
   else {
     $c->stash->{rest} = $c->model('LogoGen')->generate_raw($hmm_path, $c->stash->{height_calc});
   }

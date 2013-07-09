@@ -32,10 +32,13 @@ __PACKAGE__->config(
     "text/xml"           => "XML::Simple",
     "application/xml"    => "XML::Simple",
     "text/yaml"          => "YAML",
-    "image/png"          => [ "View", "Text"],
+    "image/png"          => [ 'Callback', {
+                                            deserialize => \&_deserialize_image,
+                                            serialize   => \&_serialize_image,
+                                          }
+                            ],
   }
 );
-
 
 =head1 NAME
 
@@ -204,6 +207,15 @@ Attempt to render a view, if needed.
 =cut
 
 sub end : ActionClass('Serialize') {}
+
+sub _deserialize_image {
+  return 1;
+}
+
+sub _serialize_image {
+  my ($data, $self, $c) = @_;
+  return $data;
+}
 
 =head1 AUTHOR
 

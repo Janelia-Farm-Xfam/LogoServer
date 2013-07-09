@@ -55,12 +55,18 @@ header {
 }
 
 .nav {
-  height: 0.5em;
+  height: 1.5em;
+  line-height:1.5em;
   background: #ccc;
-  margin-bottom: 1em;
+  color:#999;
+  padding-left:2em;
+  a {
+    text-decoration:none;
+    color:#333;
+  }
   .stripe {
     float: right;
-    height: 0.5em;
+    height: 1.5em;
     width: 0.5em;
   }
   #stripe1 {
@@ -89,9 +95,9 @@ body {
   color: #444;
 }
 
-dt {
-  float: left;
-  width: 12em;
+
+h2, h3, h4, h5 {
+  color: #999;
 }
 
 .plastic {
@@ -344,6 +350,13 @@ html.js .jshide {
   border: 2px solid #ccc;
 }
 
+.logo_info, .download {
+  dt {
+    float: left;
+    width: 12em;
+  }
+}
+
 .download {
   dt {
     width: 5em;
@@ -369,6 +382,9 @@ pre {
 .parameters {
   width: 56em;
   margin: 1em;
+  strong {
+    color: #900 ;
+  }
   th {
     text-align:left;
   }

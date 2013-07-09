@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span12">
-      <a href="/">Home</a> &rarr; <a href="/help">Help</a> &rarr; <a href="/help/api">REST API</a> &rarr; <a href="/help/api/post">POST /</a>
+      <a href="/help/api">REST API</a> &rarr; <a href="/help/api/post">POST /</a>
     </div>
   </div>
   <div class="row-fluid">

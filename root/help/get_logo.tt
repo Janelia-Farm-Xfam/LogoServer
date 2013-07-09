@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span12">
-      <a href="/">Home</a> &rarr; <a href="/help">Help</a> &rarr; <a href="/help/api">REST API</a> &rarr; <a href="/help/api/get/logo/:uuid">GET /logo/:uuid</a>
+      <a href="/help/api">REST API</a> &rarr; <a href="/help/api/get/logo/:uuid">GET /logo/:uuid</a>
     </div>
   </div>
   <div class="row-fluid">
@@ -49,9 +49,16 @@
 
   <div class="row-fluid">
     <div class="span12">
-      <h3>Example:</h3>
+      <h3>Examples:</h3>
       <p>GET http://skylign.org/logo/6BBFEB96-E7E0-11E2-A243-DF86A4A34227</p>
       <pre class="code">
+<span class="hilight"># Request</span>
+curl -H 'Accept:image/png' http://skylign.org/logo/6BBFEB96-E7E0-11E2-A243-DF86A4A34227 > 6BBFEB96-E7E0-11E2-A243-DF86A4A34227.png
+
+<span class="hilight"># Response</span>
+
+<img src="/static/gfx/example_logo.png" alt="hmm logo"/>
+
 <span class="hilight"># Request</span>
 curl -H 'Accept:application/json' http://skylign.org/logo/6BBFEB96-E7E0-11E2-A243-DF86A4A34227
 

@@ -34,6 +34,7 @@
     <div class="stripe" id="stripe6"></div>
   </header>
   <div class="nav">
+    <a href="/">Home</a> | <a href="/help">Help</a>
     <div class="stripe" id="stripe1"></div>
     <div class="stripe" id="stripe2"></div>
     <div class="stripe" id="stripe3"></div>

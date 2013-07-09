@@ -57,7 +57,12 @@ curl -H 'Accept:application/json' -F logo_type=model http://skylign.org
       <h3>Retrieving the logo</h3>
       <p>With the response in hand you can use the returned url to fetch your logo.</p>
       <pre class="code">
-curl -H'Accept:image/png' http://skylign.org/logo/6BBFEB96-E7E0-11E2-A243-DF86A4A34227 > foo.png
+<span class="hilight"># Request</span>
+curl -H 'Accept:image/png' http://skylign.org/logo/6BBFEB96-E7E0-11E2-A243-DF86A4A34227 > 6BBFEB96-E7E0-11E2-A243-DF86A4A34227.png
+
+<span class="hilight"># Response</span>
+
+<img src="/static/gfx/example_logo.png" alt="hmm logo"/>
       </pre>
       <h3>Retrieving the raw data</h3>
       <p>If you would like to get the JSON used in the javascript logo, then you can get to that by requesting a JSON repsonse.

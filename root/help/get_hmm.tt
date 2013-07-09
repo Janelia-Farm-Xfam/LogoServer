@@ -32,7 +32,7 @@
           <tr>
             <td><strong>uuid</strong><br/> <span class="small subtle">required</span></td>
             <td>
-              <p>The unique identifier associated with the logo generated from a file upload.</p>
+              <p>The unique identifier associated with the logo generated from a file upload. This is a string of characters in five groups separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters. An example would be: 6BBFEB96-E7E0-11E2-A243-DF86A4A34227 </p>
             </td>
           </tr>
         </tbody>

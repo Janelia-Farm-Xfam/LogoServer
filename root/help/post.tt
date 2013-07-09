@@ -32,20 +32,40 @@
           <tr>
             <td><strong>file</strong><br/> <span class="small subtle">required</span></td>
             <td>
-              <p>file to be converted into a logo.</p>
+              <p>A single file that will be converted into a logo. It should be either a profile HMM or a multiple sequence alignment in one of the following accepted formats:</p>
+              <ul>
+                <li>Aligned FASTA</li>
+                <li>Clustal (and Clustal-like)</li>
+                <li>PSI-BLAST</li>
+                <li>PHYLIP</li>
+                <li>Selex</li>
+                <li>GCG/MSF</li>
+                <li>STOCKHOLM format</li>
+                <li>UC Santa Cruz A2M (alignment to model)</li>
+              </ul>
             </td>
           </tr>
           <tr>
             <td><strong>logo_type</strong><br/> <span class="small subtle">optional</span></td>
             <td>
-              <p>The type of logo to be created: alignment or model.</p>
+              <p>The type of logo to be created:</p>
+              <ul>
+                <li>alignment - </li>
+                <li>model - </li>
+              </ul>
               <strong>Default:</strong> model
             </td>
           </tr>
           <tr>
             <td><strong>height_calc</strong><br/> <span class="small subtle">optional</span></td>
             <td>
-              <p>Which height calculation algorithm should be used during logo generation.</p>
+              <p>Which height calculation algorithm should be used during logo generation. There are four different algorithms to choose from:</p>
+              <ul>
+                <li>emission - </li>
+                <li>posscore - </li>
+                <li>score - </li>
+                <li>bild - </li>
+              </ul>
               <strong>Default:</strong> emission
             </td>
           </tr>

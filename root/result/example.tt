@@ -47,11 +47,11 @@
         <dd><h5>HMM</h5><p>The HMM file used to calculate this logo.</p></dd>
       </dl>
       <dl>
-        <dt><img src="/static/gfx/json_dl.png" alt="download .json"/></dt>
+        <dt id="json_dl"><img src="/static/gfx/json_dl.png" alt="download .json"/></dt>
         <dd><h5>JSON</h5><p>Raw data for the logo formatted in JavaScript Object Notation.</p></dd>
       </dl>
       <dl>
-        <dt><img src="/static/gfx/tab_dl.png" alt="download tab delimited"/></dt>
+        <dt id="tabbed_dl"><img src="/static/gfx/tab_dl.png" alt="download tab delimited"/></dt>
         <dd><h5>Tabular Text</h5><p>Raw data for the logo in a tab delimited text file.</p></dd>
       </dl>
     </div>
@@ -112,13 +112,21 @@
     <h3>HMM Download</h3>
     <p>This is the HMM file we use to generate the logo. It is only available for model logos.</p>
   </li>
+  <li data-id="json_dl" data-button="next">
+    <h3>JSON Download</h3>
+    <p>This json object can be used to generate the dynamic logo via javascript. It is also a convenient way to get the data if you wish to parse it with some custom analysis software.</p>
+  </li>
+  <li data-id="tabbed_dl" data-button="next">
+    <h3>Tabular Text Download</h3>
+    <p>If you want to see the data in a tab delimited table that can be imported into Excel, then you should download this version of the logo data.</p>
+  </li>
   <li data-class="usage" data-button="next" data-options="tipLocation:top">
     <h3>Would you like to have the logo on your own site?</h3>
     <p>This section will show you how to use the logo in other sites or export it for publications.</p>
   </li>
   <li data-id="logo_in" data-button="finish" data-options="tipLocation:top">
     <h3>That's It.</h3>
-    <p>Thanks for taking the tour. You can use this form to generate your first logo from a sequence alignment or an HMM.</p>
+    <p>Thanks for taking the tour. You can use this form to generate your first logo from a sequence alignment or a profile HMM.</p>
     <p>Alternatively, head over to the <a href="/">home page</a> and start there.</p>
   </li>
 </ol>

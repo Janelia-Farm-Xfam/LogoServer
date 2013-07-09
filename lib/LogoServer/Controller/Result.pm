@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 use JSON;
 use File::Slurp;
+use IO::File;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -101,6 +102,34 @@ sub index :Path('/logo') :Args(1) {
     $c->stash->{rest} = $c->model('LogoGen')->generate_raw($hmm_path, $c->stash->{height_calc});
   }
 
+  return;
+}
+
+sub hmm :Path('/logo') : Args(2) {
+  my ($self, $c, $uuid) = @_;
+  # if content-type not text/plain, then throw not supported error.
+  if ($c->req->preferred_content_type ne 'text/plain') {
+    $c->res->status(415);
+    $c->stash->{rest}  = {error => "HMM files are only available as plain text."};
+    $c->stash->{error} = {format => "HMM files are only available as plain text."};
+  }
+  # else fetch out the hmm and return it if we allow that.
+  else {
+    my @dirs = split /-/, $uuid;
+    # mkdir the path
+    my $data_dir = $c->config->{logo_dir} .'/'. join '/', @dirs;
+    my $hmm_path = "$data_dir/hmm";
+
+    if (! -e $hmm_path) {
+      $c->stash->{rest} = {error => "We were unable to find a result for the supplied uuid."};
+      $c->stash->{error} = {missing => "We were unable to find a result for the supplied uuid."};
+      return;
+    }
+
+    my $io = IO::File->new($hmm_path);
+    $c->res->body($io);
+
+  }
   return;
 }
 

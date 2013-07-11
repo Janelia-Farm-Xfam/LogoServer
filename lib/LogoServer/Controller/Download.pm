@@ -32,10 +32,7 @@ sub index :Path :Args(2) Does('ValidateUUID') {
     return;
   }
 
-  my @dirs = split /-/, $uuid;
-  # mkdir the path
-  my $data_dir = $c->config->{logo_dir} .'/'. join '/', @dirs;
-  my $hmm_path = "$data_dir/hmm";
+  my $hmm_path = $c->model('LogoData')->get_hmm_path($uuid);
 
   if (! -e $hmm_path) {
     $c->stash->{error} = {uuid => "We were unable to find a result for the supplied identifier."};
@@ -56,6 +53,8 @@ sub index :Path :Args(2) Does('ValidateUUID') {
         last;
       }
     }
+
+    my $params = $c->model('LogoData')->get_options($uuid);
 
     # run the logo generation
     my $png = $c->model('LogoGen')->generate_png($hmm_path,$alphabet);

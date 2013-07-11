@@ -1,8 +1,6 @@
 package LogoServer::Controller::Result;
 use Moose;
 use namespace::autoclean;
-use JSON;
-use File::Slurp;
 use IO::File;
 
 BEGIN { extends 'Catalyst::Controller'; }
@@ -34,9 +32,8 @@ sub index :Path('/logo') :Args(1) Does('ValidateUUID') {
   }
 
 
-  my @dirs = split /-/, $uuid;
-  # mkdir the path
-  my $data_dir = $c->config->{logo_dir} .'/'. join '/', @dirs;
+  my $data = $c->model('LogoData');
+  my $data_dir = $data->_data_dir($uuid);
 
   my $hmm_path = "$data_dir/hmm";
 
@@ -76,8 +73,7 @@ sub index :Path('/logo') :Args(1) Does('ValidateUUID') {
   }
   close $hmm;
 
-  my $param_json = read_file( "$data_dir/options" );
-  my $params = JSON->new->decode($param_json);
+  my $params = $data->get_options($uuid);
 
   if (exists $params->{logo_type}) {
     $c->stash->{logo_type} = $params->{logo_type};

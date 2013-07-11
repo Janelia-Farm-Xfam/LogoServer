@@ -4,9 +4,6 @@ use namespace::autoclean;
 use Data::Printer;
 use Try::Tiny;
 use Data::UUID;
-use File::Path qw( make_path );
-use File::Copy;
-use JSON;
 
 BEGIN { extends 'Catalyst::Controller::REST' }
 
@@ -110,7 +107,7 @@ sub index_POST_html :Private {
 sub build_logo : Private {
   my ($self, $c) = @_;
 
-  my $hmm_file = $c->stash->{data_dir};
+  my $hmm_file = $c->model('LogoData')->_data_dir($c->stash->{uuid});
   # convert uploaded file to hmm if not already an hmm
   my $hmm = undef;
   try {
@@ -132,11 +129,9 @@ sub build_logo : Private {
 sub save_upload : Private {
   my ($self, $c) = @_;
   my $uuid = Data::UUID->new()->create_str();
-  # split the  uuid into chuncks
-  my @dirs = split /-/, $uuid;
-  # mkdir the path
-  my $data_dir = $c->config->{logo_dir} .'/'. join '/', @dirs;
-  make_path($data_dir);
+
+  my $data = $c->model('LogoData');
+
   # save uploaded file into the new directory
   my $upload = $c->req->upload('file');
 
@@ -148,13 +143,12 @@ sub save_upload : Private {
     $c->detach('end');
   }
   else {
-    my $new_path = "$data_dir/upload";
-    copy($upload->tempname, $new_path);
+
+    $data->save_upload($uuid, $upload);
+
     # save this info for later use.
     $c->stash->{uuid} = $uuid;
-    $c->stash->{data_dir} = $data_dir;
 
-    open my $options, '>', "$data_dir/options";
     my $params = $c->req->params;
 
     # need to loop over params and validate here, before we store them.
@@ -168,9 +162,8 @@ sub save_upload : Private {
     }
     # if we got nothing, then we dont want the json encode to blow up.
     $params ||= {};
-    my $json = JSON->new->encode($valid);
-    print $options $json;
-    close $options;
+
+    $data->set_options($uuid, $valid);
 
     #check if we want an alignment only logo
     if ($c->req->param('logo_type')) {

@@ -12,10 +12,10 @@
           <fieldset>
             <legend>Logo Type</legend>
             <label class="radio">
-              <input type="radio" name="logo_type" value="model" checked="checked"/>Model <a class="help" href="/help#model_logo"><span aria-hidden="true" data-icon="?"></span><spna class="reader-text">help</span></a>
+              <input type="radio" id="model_type" name="logo_type" value="model" checked="checked"/>Model <a class="help" href="/help#model_logo"><span aria-hidden="true" data-icon="?"></span><spna class="reader-text">help</span></a>
             </label>
             <label class="radio">
-              <input type="radio" name="logo_type" value="alignment"/>Alignment <a class="help" href="/help#alignment_logo"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" id="ali_type" name="logo_type" value="alignment"/>Alignment <a class="help" href="/help#alignment_logo"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
           </fieldset>
         </div>
@@ -27,16 +27,16 @@
           <fieldset>
             <legend>Height Calculation</legend>
             <label class="radio">
-              <input type="radio" name="height_calc" value="emission" checked="checked" />Emission <a class="help" href="/help#emission"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" id="emission_calc" name="height_calc" value="emission" checked="checked" />Emission <a class="help" href="/help#emission"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
-              <input type="radio" name="height_calc" value="posscore"/>Positive Score <a class="help" href="/help#positive_score"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" class="model_calc" name="height_calc" value="posscore"/>Positive Score <a class="help" href="/help#positive_score"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
-              <input type="radio" name="height_calc" value="score"/>Score <a class="help" href="/help#score"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" class="model_calc" name="height_calc" value="score"/>Score <a class="help" href="/help#score"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
-              <input type="radio" name="height_calc" value="bild"/>BILD <a class="help" href="/help#bild"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" class="ali_calc" name="height_calc" value="bild"/>BILD <a class="help" href="/help#bild"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
           </fieldset>
         </div>

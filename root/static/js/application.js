@@ -10,6 +10,20 @@
       hmm_logo = $('#logo_graphic').hmm_logo({height_toggle: 1, column_width: 34, data: logo_data, alphabet: alphabet, scaled_max: true});
     }
 
+    $('#model_type').on('click', function () {
+      $('.ali_calc').attr('disabled', 'disabled');
+      $('.model_calc').attr('disabled', false);
+      $('#emission_calc').click();
+    });
+    $('#ali_type').on('click', function () {
+      $('.model_calc').attr('disabled', 'disabled');
+      $('.ali_calc').attr('disabled', false);
+      $('#emission_calc').click();
+    });
+
+    // disable the alignment calculations by default.
+    $('.ali_calc').attr('disabled', 'disabled');
+
     if ($("#joyRideTipContent").length > 0) {
       $("#joyRideTipContent").joyride({
         'autoStart' : true,

@@ -22,8 +22,16 @@ Catalyst Controller.
 
 =cut
 
-sub index :Path :Args(2) {
+sub index :Path :Args(2) Does('ValidateUUID') {
   my ( $self, $c, $uuid, $type ) = @_;
+  if ($c->stash->{uuid}) {
+    $uuid = $c->stash->{uuid};
+  }
+  else {
+    #validation failed.
+    return;
+  }
+
   my @dirs = split /-/, $uuid;
   # mkdir the path
   my $data_dir = $c->config->{logo_dir} .'/'. join '/', @dirs;
@@ -48,7 +56,6 @@ sub index :Path :Args(2) {
         last;
       }
     }
-
 
     # run the logo generation
     my $png = $c->model('LogoGen')->generate_png($hmm_path,$alphabet);
@@ -81,8 +88,6 @@ sub index :Path :Args(2) {
     $c->res->header( 'Content-Disposition' => "attachment; filename=$fname" );
     $c->res->header( 'Content-Type'        => 'text/plain' );
   }
-
-
 
   close $hmm;
   return;

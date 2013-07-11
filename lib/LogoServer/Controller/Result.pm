@@ -24,10 +24,15 @@ Catalyst Controller.
 
 =cut
 
-sub index :Path('/logo') :Args(1) {
-  my ( $self, $c, $uuid ) = @_;
+sub index :Path('/logo') :Args(1) Does('ValidateUUID') {
+  my ( $self, $c ) = @_;
   # grab the uuid and figure out directory
-  $c->stash->{uuid} = $uuid;
+  my $uuid = $c->stash->{uuid};
+
+  if (!$uuid) {
+    return;
+  }
+
 
   my @dirs = split /-/, $uuid;
   # mkdir the path
@@ -105,8 +110,15 @@ sub index :Path('/logo') :Args(1) {
   return;
 }
 
-sub hmm :Path('/logo') : Args(2) {
-  my ($self, $c, $uuid) = @_;
+sub hmm :Path('/logo') : Args(2) Does('ValidateUUID') {
+  my ($self, $c) = @_;
+  my $uuid = $c->stash->{uuid};
+
+  if (!$uuid) {
+    #bail out if we didn't get a uuid from validation.
+    return;
+  }
+
   # if content-type not text/plain, then throw not supported error.
   if ($c->req->preferred_content_type ne 'text/plain') {
     $c->res->status(415);

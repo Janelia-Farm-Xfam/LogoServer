@@ -42,7 +42,6 @@
       });
 
       $('#restart').on('click', function () {
-        console.log('restarting');
         $("#joyRideTipContent").joyride('restart');
       });
     }

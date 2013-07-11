@@ -31,11 +31,7 @@ sub index :Path('/logo') :Args(1) Does('ValidateUUID') {
     return;
   }
 
-
-  my $data = $c->model('LogoData');
-  my $data_dir = $data->_data_dir($uuid);
-
-  my $hmm_path = "$data_dir/hmm";
+  my $hmm_path = $c->model('LogoData')->get_hmm_path($uuid);
 
   if (! -e $hmm_path) {
     $c->stash->{error} = {uuid => "We were unable to find a result for the supplied identifier."};
@@ -73,7 +69,7 @@ sub index :Path('/logo') :Args(1) Does('ValidateUUID') {
   }
   close $hmm;
 
-  my $params = $data->get_options($uuid);
+  my $params = $c->model('LogoData')->get_options($uuid);
 
   if (exists $params->{logo_type}) {
     $c->stash->{logo_type} = $params->{logo_type};

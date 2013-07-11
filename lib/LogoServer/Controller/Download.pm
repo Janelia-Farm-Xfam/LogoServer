@@ -39,6 +39,8 @@ sub index :Path :Args(2) Does('ValidateUUID') {
     return;
   }
 
+  my $params = $c->model('LogoData')->get_options($uuid);
+
   open my $hmm, '<', $hmm_path;
 
   if ($type eq 'image') {
@@ -54,24 +56,23 @@ sub index :Path :Args(2) Does('ValidateUUID') {
       }
     }
 
-    my $params = $c->model('LogoData')->get_options($uuid);
 
     # run the logo generation
-    my $png = $c->model('LogoGen')->generate_png($hmm_path,$alphabet);
+    my $png = $c->model('LogoGen')->generate_png($hmm_path, $alphabet, $params->{height_calc});
     $c->response->body($png);
     my $fname = "$uuid.png";
     $c->res->header( 'Content-Disposition' => "attachment; filename=$fname" );
     $c->res->header( 'Content-Type'        => 'text/plain' );
   }
   elsif ($type eq 'json') {
-    my $json = $c->model('LogoGen')->generate_json($hmm_path);
+    my $json = $c->model('LogoGen')->generate_json($hmm_path, $params->{height_calc});
     $c->response->body($json);
     my $fname = "$uuid.json";
     $c->res->header( 'Content-Disposition' => "attachment; filename=$fname" );
     $c->res->header( 'Content-Type'        => 'application/json' );
   }
   elsif ($type eq 'text') {
-    my $data = $c->model('LogoGen')->generate_tabbed($hmm_path);
+    my $data = $c->model('LogoGen')->generate_tabbed($hmm_path, $params->{height_calc});
     my $output = "#ID\t$uuid\n" . $data;
 
     my $fname = "$uuid.txt";

@@ -93,7 +93,7 @@ sub index :Path('/logo') :Args(1) Does('ValidateUUID') {
     $c->stash->{template} = 'result/tabbed.tt';
   }
   elsif ($c->req->preferred_content_type eq 'image/png') {
-    $c->stash->{rest} = $c->model('LogoGen')->generate_png($hmm_path, $c->stash->{alphabet});
+    $c->stash->{rest} = $c->model('LogoGen')->generate_png($hmm_path, $c->stash->{alphabet}, $c->stash->{height_calc});
   }
   else {
     $c->stash->{rest} = $c->model('LogoGen')->generate_raw($hmm_path, $c->stash->{height_calc});

@@ -484,6 +484,9 @@ function isCanvasSupported() {
             for (j = 0; j < letters; j++) {
               var letter = column[j];
               var values = letter.split(':', 2);
+              // we don't render anything with a value between 0 and 0.01. These
+              // letters would be too small to be meaningful on any scale, so we
+              // just squash them out.
               if (values[1] > 0.01) {
                 var letter_height = (1 * values[1]) / this.data.max_height;
                 var x_pos = x + (this.zoomed_column / 2);
@@ -508,7 +511,7 @@ function isCanvasSupported() {
                 this.contexts[context_num].setTransform(1, 0, 0, 1, 0, 0);
                 previous_height = previous_height + glyph_height;
               }
-              else {
+              else if (values[1] < 0) {
                 var letter_height = (1 * Math.abs(values[1])) / Math.abs(this.data.min_height_obs);
                 var x_pos = x + (this.zoomed_column / 2);
                 var glyph_height = bottom_pix_height * letter_height;

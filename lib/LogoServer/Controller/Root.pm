@@ -177,8 +177,15 @@ sub save_upload : Private {
       if ($c->req->param('logo_type') eq 'alignment') {
         $c->stash->{alignment_logo} = 1;
       }
-      else {
+      elsif ($c->req->param('logo_type') eq 'model') {
         $c->stash->{alignment_logo} = 0;
+      }
+      else {
+        $c->stash->{error} = {
+          'logo_type' => 'Please choose either model or alignment for the type of logo you wish to create.'
+        };
+        $c->stash->{rest}->{error} = $c->stash->{error};
+        $c->detach('end');
       }
     }
 

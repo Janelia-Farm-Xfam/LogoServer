@@ -358,40 +358,85 @@ function isCanvasSupported() {
       return;
     };
 
-    this.render_x_axis = function () {
+    this.render_x_axis_label = function () {
       $(this.dom_element).parent().before('<div id="logo_xaxis" class="centered" style="margin-left:40px"><p class="xaxis_text" style="width:10em;margin:1em auto">Model Position</p></div>');
     };
 
-    this.render_y_axis = function () {
+    this.render_y_axis_label = function () {
       //attach a canvas for the y-axis
       $(this.dom_element).parent().before('<canvas id="logo_yaxis" class="logo_yaxis" height="300" width="40"></canvas>');
-      var canvas = $('#logo_yaxis');
+      var canvas = $('#logo_yaxis'),
+        top_pix_height = 0,
+        bottom_pix_height = 0,
+        top_height = Math.abs(this.data.max_height),
+        bottom_height = Math.abs(this.data.min_height_obs);
       if(!isCanvasSupported()) {
         canvas[0] = G_vmlCanvasManager.initElement(canvas[0]);
       }
       var context = canvas[0].getContext('2d');
-      //draw tick marks
+      //draw min/max tick marks
       context.beginPath();
       context.moveTo(40, 1);
       context.lineTo(30, 1);
+
       context.moveTo(40, 271);
       context.lineTo(30, 271);
-      context.moveTo(40, (271 / 2));
-      context.lineTo(30, (271 / 2));
+
+
+      if (this.data.min_height_obs === 0) {
+        context.moveTo(40, (271 / 2));
+        context.lineTo(30, (271 / 2));
+      } else {
+        // we need to draw three more ticks.
+        // work out the center point
+        var total_height = top_height + bottom_height;
+
+        var top_percentage    = Math.round((Math.abs(this.data.max_height) * 100) / total_height);
+        var bottom_percentage = Math.round((Math.abs(this.data.min_height_obs) * 100) / total_height);
+        //convert % to pixels
+        top_pix_height = Math.round((271 * top_percentage) / 100);
+        bottom_pix_height = 271 - top_pix_height;
+        // draw 0 tick
+        context.moveTo(40, top_pix_height + 1);
+        context.lineTo(30, top_pix_height + 1);
+        //draw top mid-point
+        context.moveTo(40, top_pix_height / 2);
+        context.lineTo(30, top_pix_height / 2);
+        //draw bottom mid-point
+        context.moveTo(40, top_pix_height + (bottom_pix_height / 2));
+        context.lineTo(30, top_pix_height + (bottom_pix_height / 2));
+      }
       context.lineWidth = 1;
       context.strokeStyle = "#666666";
       context.stroke();
-      context.fillStyle = "#000000";
+
+      //draw the label text
+      context.fillStyle = "#666666";
       context.textAlign = "right";
       context.font = "bold 10px Arial";
+
+      // draw the max label
       context.textBaseline = "top";
       context.fillText(this.data.max_height.toFixed(1), 28, 0);
       context.textBaseline = "middle";
-      context.fillText(parseFloat(this.data.max_height / 2).toFixed(1), 28, (271 / 2));
-      context.fillText('0', 28, 271);
-      // draw the label
+
+      // draw the midpoint labels
+      if (this.data.min_height_obs === 0) {
+        context.fillText(parseFloat((this.data.max_height + this.data.min_height_obs) / 2).toFixed(1), 28, (271 / 2));
+      } else {
+        //draw 0
+        context.fillText(0, 28, top_pix_height + 1);
+        // draw top mid-point
+        context.fillText(parseFloat(top_height / 2).toFixed(1), 28, top_pix_height / 2);
+        //draw bottom mid-point
+        context.fillText(parseFloat(bottom_height / 2).toFixed(1), 28, top_pix_height + (bottom_pix_height / 2));
+      }
+      // draw the min label
+      context.fillText(this.data.min_height_obs.toFixed(1), 28, 271);
+
+      // draw the axis label
       context.save();
-      context.translate(10, this.height / 2);
+      context.translate(5, this.height / 2);
       context.rotate(-Math.PI / 2);
       context.textAlign = "center";
       context.font = "normal 12px Arial";
@@ -399,13 +444,25 @@ function isCanvasSupported() {
       context.restore();
     };
 
-    this.render_x_axis();
-    this.render_y_axis();
+    this.render_x_axis_label();
+    this.render_y_axis_label();
 
     this.render_with_text = function (start, end, context_num, fontsize) {
       var x = 0,
         column_num = start,
         i = 0;
+        top_height = Math.abs(this.data.max_height),
+        bottom_height = Math.abs(this.data.min_height_obs),
+        total_height = top_height + bottom_height,
+        top_percentage    = Math.round((Math.abs(this.data.max_height) * 100) / total_height),
+        //convert % to pixels
+        top_pix_height = Math.round((271 * top_percentage) / 100),
+        bottom_pix_height = 271 - top_pix_height,
+        // this is used to transform the 271px high letters into the correct size
+        // when displaying negative values, so that they fit above the 0 line.
+        top_pix_conversion = top_pix_height / 271;
+        bottom_pix_conversion = bottom_pix_height / 271;
+
       // add 3 extra columns so that numbers don't get clipped at the end of a canvas
       // that ends before a large column. DF0000830 was suffering at zoom level 0.6,
       // column 2215. This adds a little extra overhead, but is the easiest fix for now.
@@ -420,8 +477,9 @@ function isCanvasSupported() {
         } else {
           var column = this.data.height_arr[i - 1];
           if (column) {
-            var previous_height = 0;
-            var letters = column.length;
+            var previous_height = 0,
+              letters = column.length,
+              previous_neg_height = top_pix_height;
             var j = 0;
             for (j = 0; j < letters; j++) {
               var letter = column[j];
@@ -429,8 +487,8 @@ function isCanvasSupported() {
               if (values[1] > 0.01) {
                 var letter_height = (1 * values[1]) / this.data.max_height;
                 var x_pos = x + (this.zoomed_column / 2);
-                var y_pos = 269 - previous_height;
-                var glyph_height = 258 * letter_height;
+                var y_pos = top_pix_height - previous_height;
+                var glyph_height = top_pix_height * letter_height;
 
                 // The positioning in IE is off, so we need to modify the y_pos when
                 // canvas is not supported and we are using VML instead.
@@ -438,16 +496,41 @@ function isCanvasSupported() {
                   y_pos = y_pos + (glyph_height * (letter_height / 2));
                 }
 
+
                 this.contexts[context_num].font = "bold 350px Arial";
                 this.contexts[context_num].textAlign = "center";
                 this.contexts[context_num].fillStyle = this.colors[values[0]];
                 // fonts are scaled to fit into the column width
                 // formula is y = 0.0024 * col_width + 0.0405
                 var x_scale = ((0.0024 * this.zoomed_column) + 0.0405).toFixed(2);
-                this.contexts[context_num].transform(x_scale, 0, 0, letter_height, x_pos, y_pos);
+                this.contexts[context_num].transform(x_scale, 0, 0, top_pix_conversion * letter_height, x_pos, y_pos);
                 this.contexts[context_num].fillText(values[0], 0, 0);
                 this.contexts[context_num].setTransform(1, 0, 0, 1, 0, 0);
                 previous_height = previous_height + glyph_height;
+              }
+              else {
+                var letter_height = (1 * Math.abs(values[1])) / Math.abs(this.data.min_height_obs);
+                var x_pos = x + (this.zoomed_column / 2);
+                var glyph_height = bottom_pix_height * letter_height;
+                var y_pos = glyph_height + previous_neg_height;
+
+                // The positioning in IE is off, so we need to modify the y_pos when
+                // canvas is not supported and we are using VML instead.
+                if(!isCanvasSupported()) {
+                  y_pos = y_pos + (glyph_height * (letter_height / 2));
+                }
+
+
+                this.contexts[context_num].font = "bold 350px Arial";
+                this.contexts[context_num].textAlign = "center";
+                this.contexts[context_num].fillStyle = this.colors[values[0]];
+                // fonts are scaled to fit into the column width
+                // formula is y = 0.0024 * col_width + 0.0405
+                var x_scale = ((0.0024 * this.zoomed_column) + 0.0405).toFixed(2);
+                this.contexts[context_num].transform(x_scale, 0, 0, bottom_pix_conversion * letter_height, x_pos, y_pos);
+                this.contexts[context_num].fillText(values[0], 0, 0);
+                this.contexts[context_num].setTransform(1, 0, 0, 1, 0, 0);
+                previous_neg_height = previous_neg_height + glyph_height;
               }
             }
           }
@@ -486,6 +569,19 @@ function isCanvasSupported() {
         x += this.zoomed_column;
         column_num++;
       }
+      // draw horizontal divider line for 0
+      var top_height = Math.abs(this.data.max_height),
+        bottom_height = Math.abs(this.data.min_height_obs);
+      var total_height = top_height + bottom_height;
+
+      var top_percentage    = Math.round((Math.abs(this.data.max_height) * 100) / total_height);
+      var bottom_percentage = Math.round((Math.abs(this.data.min_height_obs) * 100) / total_height);
+      //convert % to pixels
+      var top_pix_height = Math.round((271 * top_percentage) / 100);
+      draw_border(this.contexts[context_num], top_pix_height, this.total_width);
+
+
+      // draw other dividers
       draw_border(this.contexts[context_num], this.height - 15, this.total_width);
       draw_border(this.contexts[context_num], this.height - 30, this.total_width);
       draw_border(this.contexts[context_num], 0, this.total_width);
@@ -494,15 +590,24 @@ function isCanvasSupported() {
     this.render_with_rects = function (start, end, context_num) {
       var x = 0,
         column_num = start,
-        i = 0;
+        i = 0,
+        top_height = Math.abs(this.data.max_height),
+        bottom_height = Math.abs(this.data.min_height_obs),
+        total_height = top_height + bottom_height,
+        top_percentage    = Math.round((Math.abs(this.data.max_height) * 100) / total_height),
+        //convert % to pixels
+        top_pix_height = Math.round((271 * top_percentage) / 100),
+        bottom_pix_height = 271 - top_pix_height;
+
       for (i = start; i <= end; i++) {
         if (this.data.mmline && this.data.mmline[i - 1] === 1) {
           this.contexts[context_num].fillStyle = '#cccccc';
           this.contexts[context_num].fillRect(x, 10, this.zoomed_column, this.height - 40);
         } else {
-          var column = this.data.height_arr[i - 1];
-          var previous_height = 0;
-          var letters = column.length;
+          var column = this.data.height_arr[i - 1],
+            previous_height = 0,
+            previous_neg_height = top_pix_height,
+            letters = column.length;
           var j = 0;
           for (j = 0; j < letters; j++) {
             var letter = column[j];
@@ -510,13 +615,24 @@ function isCanvasSupported() {
             if (values[1] > 0.01) {
               var letter_height = (1 * values[1]) / this.data.max_height;
               var x_pos = x;
-              var glyph_height = 258 * letter_height;
-              var y_pos = 269 - previous_height - glyph_height;
+              var glyph_height = top_pix_height * letter_height;
+              var y_pos = top_pix_height - previous_height - glyph_height;
 
               this.contexts[context_num].fillStyle = this.colors[values[0]];
               this.contexts[context_num].fillRect(x_pos, y_pos, this.zoomed_column, glyph_height);
 
               previous_height = previous_height + glyph_height;
+            }
+            else {
+              //render the negatives
+              var letter_height = Math.abs(values[1]) / Math.abs(this.data.min_height_obs);
+              var x_pos = x;
+              var glyph_height = bottom_pix_height * letter_height;
+              var y_pos = previous_neg_height;
+              this.contexts[context_num].fillStyle = this.colors[values[0]];
+              this.contexts[context_num].fillRect(x_pos, y_pos, this.zoomed_column, glyph_height);
+
+              previous_neg_height = previous_neg_height + glyph_height;
             }
           }
         }
@@ -541,6 +657,12 @@ function isCanvasSupported() {
 
         // draw insert probabilities/lengths
         draw_small_insert(this.contexts[context_num], x, this.height - 28, this.zoomed_column, this.data.insert_probs[i - 1] / 100, this.data.insert_lengths[i - 1]);
+
+        // draw horizontal divider line for 0
+        draw_border(this.contexts[context_num], top_pix_height, this.total_width);
+        // draw other dividers
+        draw_border(this.contexts[context_num], this.height - 30, this.total_width);
+        draw_border(this.contexts[context_num], 0, this.total_width);
 
         x += this.zoomed_column;
         column_num++;
@@ -567,7 +689,7 @@ function isCanvasSupported() {
       this.rendered = [];
       //update the y-axis
       $('#logo_yaxis').remove();
-      this.render_y_axis();
+      this.render_y_axis_label();
 
       // re-flow and re-render the content
       this.scrollme.reflow();

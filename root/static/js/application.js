@@ -22,7 +22,11 @@
     });
 
     // disable the alignment calculations by default.
-    $('.ali_calc').attr('disabled', 'disabled');
+    if ($('.logo_type:checked').attr('value') === 'model') {
+      $('.ali_calc').attr('disabled', 'disabled');
+    } else {
+      $('.model_calc').attr('disabled', 'disabled');
+    }
 
     if ($("#joyRideTipContent").length > 0) {
       $("#joyRideTipContent").joyride({

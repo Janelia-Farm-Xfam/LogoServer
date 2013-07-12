@@ -58,7 +58,11 @@ sub index :Path :Args(2) Does('ValidateUUID') {
 
 
     # run the logo generation
-    my $png = $c->model('LogoGen')->generate_png($hmm_path, $alphabet, $params->{height_calc});
+    my $png = $c->model('LogoGen')->generate_png({
+      hmm => $hmm_path,
+      alphabet => $alphabet,
+      height_calc => $params->{height_calc}
+    });
     $c->response->body($png);
     my $fname = "$uuid.png";
     $c->res->header( 'Content-Disposition' => "attachment; filename=$fname" );

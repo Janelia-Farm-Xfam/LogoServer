@@ -46,9 +46,16 @@ sub generate_json {
 =cut
 
 sub generate_png {
-  my ($self, $hmm, $alphabet, $scaled, $height_calc) = @_;
-  $height_calc ||= 'emission';
-  return Bio::HMM::Logo::hmmToLogoPNG($hmm, $height_calc, $alphabet, $scaled);
+  my ($self, $ops ) = @_;
+  if (!exists $ops->{height_calc}) {
+    $ops->{'height_scale'} = 'emission';
+  }
+  return Bio::HMM::Logo::hmmToLogoPNG(
+    $ops->{hmm},
+    $ops->{height_calc},
+    $ops->{alphabet},
+    $ops->{scaled}
+  );
 }
 
 =head2 genreate_raw

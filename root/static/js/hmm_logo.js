@@ -369,7 +369,7 @@ function isCanvasSupported() {
         top_pix_height = 0,
         bottom_pix_height = 0,
         top_height = Math.abs(this.data.max_height),
-        bottom_height = Math.abs(this.data.min_height_obs);
+        bottom_height = this.data.min_height_obs;
       if(!isCanvasSupported()) {
         canvas[0] = G_vmlCanvasManager.initElement(canvas[0]);
       }
@@ -389,7 +389,7 @@ function isCanvasSupported() {
       } else {
         // we need to draw three more ticks.
         // work out the center point
-        var total_height = top_height + bottom_height;
+        var total_height = top_height + Math.abs(bottom_height);
 
         var top_percentage    = Math.round((Math.abs(this.data.max_height) * 100) / total_height);
         var bottom_percentage = Math.round((Math.abs(this.data.min_height_obs) * 100) / total_height);
@@ -452,8 +452,8 @@ function isCanvasSupported() {
         column_num = start,
         i = 0;
         top_height = Math.abs(this.data.max_height),
-        bottom_height = Math.abs(this.data.min_height_obs),
-        total_height = top_height + bottom_height,
+        bottom_height = this.data.min_height_obs,
+        total_height = top_height + Math.abs(bottom_height),
         top_percentage    = Math.round((Math.abs(this.data.max_height) * 100) / total_height),
         //convert % to pixels
         top_pix_height = Math.round((271 * top_percentage) / 100),

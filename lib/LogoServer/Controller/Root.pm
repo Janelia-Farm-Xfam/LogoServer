@@ -150,27 +150,59 @@ sub save_upload : Private {
     $c->stash->{uuid} = $uuid;
 
     my $params = $c->req->params;
-
-    # need to loop over params and validate here, before we store them.
-    my @allowed = qw(height_calc logo_type file);
     my $valid = {};
 
+    # need to loop over params and validate here, before we store them.
+
+    # 1. check that the logo / height combo is valid:
+    #
+    # type: model
+    # height_calc: emission, positive score or score.
+    #
+    # type: alignment
+    # height_calc: emission, BILD
+    if (exists $params->{logo_type}) {
+      if ( $params->{logo_type} eq 'model') {
+        if (exists $params->{height_calc} && $params->{height_calc} =~ /^(emission|posscore|score)$/) {
+          $valid->{logo_type} = $params->{logo_type};
+          $valid->{height_calc} = $params->{height_calc};
+        }
+        else {
+          $c->stash->{error} = {
+            'logo_type' => 'This is not a valid logo type and height calculation combination.'
+          };
+          $c->stash->{rest}->{error} = $c->stash->{error};
+          $c->detach('end');
+        }
+      }
+      elsif ($params->{logo_type} eq 'alignment') {
+        if (exists $params->{height_calc} && $params->{height_calc} =~ /^(emission|bild)$/) {
+          $valid->{logo_type} = $params->{logo_type};
+          $valid->{height_calc} = $params->{height_calc};
+        }
+        else {
+          $c->stash->{error} = {
+            'logo_type' => 'This is not a valid logo type and height calculation combination.'
+          };
+          $c->stash->{rest}->{error} = $c->stash->{error};
+          $c->detach('end');
+        }
+      }
+    }
+
+    my @allowed = qw(file);
     for my $param (@allowed) {
       if (exists $params->{$param}) {
         $valid->{$param} = $params->{$param};
       }
     }
-    # if we got nothing, then we dont want the json encode to blow up.
-    $params ||= {};
-
-    $data->set_options($uuid, $valid);
 
     #check if we want an alignment only logo
-    if ($c->req->param('logo_type')) {
-      if ($c->req->param('logo_type') eq 'alignment') {
+    if ($valid->{'logo_type'}) {
+      if ($valid->{'logo_type'} eq 'alignment') {
         $c->stash->{alignment_logo} = 1;
       }
-      elsif ($c->req->param('logo_type') eq 'model') {
+      elsif ($valid->{'logo_type'} eq 'model') {
         $c->stash->{alignment_logo} = 0;
       }
       else {
@@ -181,6 +213,12 @@ sub save_upload : Private {
         $c->detach('end');
       }
     }
+
+    # if we got nothing, then we dont want the json encode to blow up.
+    $params ||= {};
+
+    $data->set_options($uuid, $valid);
+
 
     $c->forward('build_logo');
   }

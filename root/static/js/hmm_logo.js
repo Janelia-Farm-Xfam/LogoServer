@@ -785,7 +785,7 @@ function isCanvasSupported() {
 
       logo.render(options);
 
-      if (logo.scale_height_enabled) {
+      if (logo.scale_height_enabled && options.data.min_height_obs >= 0) {
         form.append('<button id="scale" class="button">Toggle Scale</button><br/>');
       }
 

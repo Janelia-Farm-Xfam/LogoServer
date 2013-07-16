@@ -602,7 +602,8 @@
         top_percentage    = Math.round((Math.abs(this.data.max_height) * 100) / total_height),
         //convert % to pixels
         top_pix_height = Math.round((271 * top_percentage) / 100),
-        bottom_pix_height = 271 - top_pix_height;
+        bottom_pix_height = 271 - top_pix_height,
+        mod = 10;
 
       for (i = start; i <= end; i++) {
         if (this.data.mmline && this.data.mmline[i - 1] === 1) {
@@ -612,23 +613,22 @@
           var column = this.data.height_arr[i - 1],
             previous_height = 0,
             previous_neg_height = top_pix_height,
-            letters = column.length;
-          var j = 0;
+            letters = column.length,
+            j = 0;
           for (j = 0; j < letters; j++) {
-            var letter = column[j];
-            var values = letter.split(':', 2);
+            var letter = column[j],
+              values = letter.split(':', 2);
             if (values[1] > 0.01) {
-              var letter_height = (1 * values[1]) / this.data.max_height;
-              var x_pos = x;
-              var glyph_height = top_pix_height * letter_height;
-              var y_pos = top_pix_height - previous_height - glyph_height;
+              var letter_height = parseFloat(values[1]) / this.data.max_height,
+                x_pos = x,
+                glyph_height = top_pix_height * letter_height,
+                y_pos = top_pix_height - previous_height - glyph_height;
 
               this.contexts[context_num].fillStyle = this.colors[values[0]];
               this.contexts[context_num].fillRect(x_pos, y_pos, this.zoomed_column, glyph_height);
 
               previous_height = previous_height + glyph_height;
-            }
-            else {
+            } else {
               //render the negatives
               var letter_height = Math.abs(values[1]) / Math.abs(this.data.min_height_obs);
               var x_pos = x;
@@ -642,7 +642,6 @@
           }
         }
 
-        var mod = 10;
 
         if (this.zoom < 0.2) {
           mod = 20;
@@ -652,7 +651,7 @@
 
         if (i % mod === 0) {
           // draw column dividers
-          draw_ticks(this.contexts[context_num], x + this.zoomed_column, this.height - 30, 0 - this.height, '#dddddd');
+          draw_ticks(this.contexts[context_num], x + this.zoomed_column, this.height - 30, parseFloat(this.height), '#dddddd');
           // draw top ticks
           draw_ticks(this.contexts[context_num], x + this.zoomed_column, 0, 5);
           // draw column numbers
@@ -700,14 +699,14 @@
       this.scrollToColumn(col_total);
     };
 
-    this.current_column = function() {
+    this.current_column = function () {
       var before_left = this.scrollme.scroller.getValues().left,
         col_width = (this.column_width * this.zoom),
         col_count = before_left / col_width,
         half_visible_columns = ($('#logo_container').width() / col_width) / 2,
         col_total = Math.ceil(col_count + half_visible_columns);
       return col_total;
-    }
+    };
 
     this.change_zoom = function (options) {
       var zoom_level = 0.3;
@@ -774,16 +773,17 @@
 
 
   $.fn.hmm_logo = function (options) {
-    if(Modernizr.canvas) {
+    var logo = null;
+    if (Modernizr.canvas) {
       options = options || {};
       options.dom_element = $(this);
       var zoom = options.zoom || 0.3,
-        logo = new HMMLogo(options),
         form = $('<form id="logo_form"><fieldset><label for="position">Column number</label>' +
           '<input type="text" name="position" id="position"></input>' +
           '<button class="button" id="logo_change">Go</button></fieldset>' +
           '</form>');
 
+      logo = new HMMLogo(options);
       logo.render(options);
 
       if (logo.scale_height_enabled && options.data.min_height_obs >= 0) {
@@ -843,18 +843,19 @@
 
       $('#logo_graphic').bind('dblclick', function (e) {
         // need to get coordinates of mouse click
-        var hmm_logo = logo;
-        var offset = $(this).offset();
-        var x = parseInt((e.pageX - offset.left), 10);
+        var hmm_logo = logo,
+          offset = $(this).offset(),
+          x = parseInt((e.pageX - offset.left), 10),
 
-        // get mouse position in the window
-        var window_position = e.pageX - $(this).parent().offset().left;
+          // get mouse position in the window
+          window_position = e.pageX - $(this).parent().offset().left,
 
-        // get column number
-        var col = hmm_logo.columnFromCoordinates(x);
+          // get column number
+          col = hmm_logo.columnFromCoordinates(x),
 
-        // choose new zoom level and zoom in.
-        var current = hmm_logo.zoom;
+          // choose new zoom level and zoom in.
+          current = hmm_logo.zoom;
+
         if (current < 1) {
           hmm_logo.change_zoom({'target': 1, offset: window_position, column: col});
         } else {
@@ -887,6 +888,6 @@
     }
 
 
-   return logo;
+    return logo;
   };
 })(jQuery);

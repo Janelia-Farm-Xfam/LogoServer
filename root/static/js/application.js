@@ -21,6 +21,7 @@
       $('#emission_calc').click();
     });
 
+
     // disable the alignment calculations by default.
     if ($('.logo_type:checked').attr('value') === 'model') {
       $('.ali_calc').attr('disabled', 'disabled');
@@ -45,6 +46,10 @@
         $("#joyRideTipContent").joyride('restart');
       });
     }
+
+
+    // start up the carousel.
+    $('#showcase').carousel();
   });
 
 })(jQuery);

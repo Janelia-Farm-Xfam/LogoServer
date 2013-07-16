@@ -1,14 +1,17 @@
-var canv_support = null;
-
-function isCanvasSupported() {
-  if (!canv_support) {
-    var elem = document.createElement('canvas');
-    canv_support = !!(elem.getContext && elem.getContext('2d'));
-  }
-  return canv_support;
-}
-
+/*jslint browser:true */
+/*global Modernizr, G_vmlCanvasManager, EasyScroller */
 (function ($) {
+  "use strict";
+
+  // checking for canvas support and caching result
+  var canv_support = null;
+  function isCanvasSupported() {
+    if (!canv_support) {
+      var elem = document.createElement('canvas');
+      canv_support = !!(elem.getContext && elem.getContext('2d'));
+    }
+    return canv_support;
+  }
 
   function HMMLogo(options) {
     options = options || {};
@@ -120,6 +123,15 @@ function isCanvasSupported() {
       context.stroke();
     }
 
+    function draw_ticks(context, x, y, height, color) {
+      color = color || '#999999';
+      context.beginPath();
+      context.moveTo(x, y);
+      context.lineTo(x, y + height);
+      context.strokeStyle = color;
+      context.stroke();
+    }
+
     function draw_insert_odds(context, x, height, col_width, text, fontsize) {
       var y        = height - 20,
         fill     = '#ffffff',
@@ -143,7 +155,7 @@ function isCanvasSupported() {
 
       //draw vertical line to indicate where the insert would occur
       if (text > 0.1) {
-        draw_ticks(context, x + col_width, height - 30, 0 - height - 30, fill);
+        draw_ticks(context, x + col_width, height - 30, -30 + height, fill);
       }
     }
 
@@ -178,14 +190,6 @@ function isCanvasSupported() {
       context.fillText(col_num, x + (col_width / 2), y);
     }
 
-    function draw_ticks(context, x, y, height, color) {
-      color = color || '#999999';
-      context.beginPath();
-      context.moveTo(x, y);
-      context.lineTo(x, y + height);
-      context.strokeStyle = color;
-      context.stroke();
-    }
 
     function attach_canvas(DOMid, height, width, id, canv_width) {
       var canvas = $(DOMid).find('#canv_' + id);
@@ -197,7 +201,7 @@ function isCanvasSupported() {
 
       $(canvas).attr('width', width).attr('height', height);
 
-      if(!isCanvasSupported()) {
+      if (!isCanvasSupported()) {
         canvas[0] = G_vmlCanvasManager.initElement(canvas[0]);
       }
 
@@ -210,9 +214,12 @@ function isCanvasSupported() {
         return;
       }
       options    = options || {};
-      var zoom   = options.zoom || this.zoom;
-      var target = options.target || 1;
-      var scaled = options.scaled || null;
+      var zoom   = options.zoom || this.zoom,
+        target = options.target || 1,
+        scaled = options.scaled || null,
+        parent_width = $(this.dom_element).parent().width(),
+        max_canvas_width = 1,
+        i = 0;
 
       if (target === this.previous_target) {
         return;
@@ -244,11 +251,9 @@ function isCanvasSupported() {
       start     = (start > end) ? end : start;
       start     = (start > 1) ? start : 1;
 
-
       this.y = this.height - 20;
       // Check to see if the logo will fit on the screen at full zoom.
       this.max_width = this.column_width * ((end - start) + 1);
-      var parent_width = $(this.dom_element).parent().width();
       // If it fits then zoom out and disable zooming.
       if (parent_width > this.max_width) {
         zoom = 1;
@@ -292,13 +297,11 @@ function isCanvasSupported() {
       this.canvases = [];
       this.contexts = [];
 
-      var max_canvas_width = 1,
-        i = 0;
 
       for (i = 0; i < canvas_count; i++) {
 
-        var split_start = (this.columns_per_canvas * i) + start;
-        var split_end   = split_start + this.columns_per_canvas - 1;
+        var split_start = (this.columns_per_canvas * i) + start,
+          split_end   = split_start + this.columns_per_canvas - 1;
         if (split_end > end) {
           split_end = end;
         }
@@ -370,7 +373,7 @@ function isCanvasSupported() {
         bottom_pix_height = 0,
         top_height = Math.abs(this.data.max_height),
         bottom_height = this.data.min_height_obs;
-      if(!isCanvasSupported()) {
+      if (!isCanvasSupported()) {
         canvas[0] = G_vmlCanvasManager.initElement(canvas[0]);
       }
       var context = canvas[0].getContext('2d');
@@ -389,10 +392,9 @@ function isCanvasSupported() {
       } else {
         // we need to draw three more ticks.
         // work out the center point
-        var total_height = top_height + Math.abs(bottom_height);
-
-        var top_percentage    = Math.round((Math.abs(this.data.max_height) * 100) / total_height);
-        var bottom_percentage = Math.round((Math.abs(this.data.min_height_obs) * 100) / total_height);
+        var total_height = top_height + Math.abs(bottom_height),
+          top_percentage    = Math.round((Math.abs(this.data.max_height) * 100) / total_height),
+          bottom_percentage = Math.round((Math.abs(this.data.min_height_obs) * 100) / total_height);
         //convert % to pixels
         top_pix_height = Math.round((271 * top_percentage) / 100);
         bottom_pix_height = 271 - top_pix_height;
@@ -450,7 +452,7 @@ function isCanvasSupported() {
     this.render_with_text = function (start, end, context_num, fontsize) {
       var x = 0,
         column_num = start,
-        i = 0;
+        i = 0,
         top_height = Math.abs(this.data.max_height),
         bottom_height = this.data.min_height_obs,
         total_height = top_height + Math.abs(bottom_height),
@@ -460,7 +462,7 @@ function isCanvasSupported() {
         bottom_pix_height = 271 - top_pix_height,
         // this is used to transform the 271px high letters into the correct size
         // when displaying negative values, so that they fit above the 0 line.
-        top_pix_conversion = top_pix_height / 271;
+        top_pix_conversion = top_pix_height / 271,
         bottom_pix_conversion = bottom_pix_height / 271;
 
       // add 3 extra columns so that numbers don't get clipped at the end of a canvas
@@ -479,23 +481,27 @@ function isCanvasSupported() {
           if (column) {
             var previous_height = 0,
               letters = column.length,
-              previous_neg_height = top_pix_height;
-            var j = 0;
+              previous_neg_height = top_pix_height,
+              j = 0;
             for (j = 0; j < letters; j++) {
-              var letter = column[j];
-              var values = letter.split(':', 2);
+              var letter = column[j],
+                values = letter.split(':', 2),
+                x_pos = x + (this.zoomed_column / 2),
+                // fonts are scaled to fit into the column width
+                // formula is y = 0.0024 * col_width + 0.0405
+                x_scale = ((0.0024 * this.zoomed_column) + 0.0405).toFixed(2);
+
               // we don't render anything with a value between 0 and 0.01. These
               // letters would be too small to be meaningful on any scale, so we
               // just squash them out.
               if (values[1] > 0.01) {
                 var letter_height = (1 * values[1]) / this.data.max_height;
-                var x_pos = x + (this.zoomed_column / 2);
                 var y_pos = top_pix_height - previous_height;
                 var glyph_height = top_pix_height * letter_height;
 
                 // The positioning in IE is off, so we need to modify the y_pos when
                 // canvas is not supported and we are using VML instead.
-                if(!isCanvasSupported()) {
+                if (!isCanvasSupported()) {
                   y_pos = y_pos + (glyph_height * (letter_height / 2));
                 }
 
@@ -503,23 +509,18 @@ function isCanvasSupported() {
                 this.contexts[context_num].font = "bold 350px Arial";
                 this.contexts[context_num].textAlign = "center";
                 this.contexts[context_num].fillStyle = this.colors[values[0]];
-                // fonts are scaled to fit into the column width
-                // formula is y = 0.0024 * col_width + 0.0405
-                var x_scale = ((0.0024 * this.zoomed_column) + 0.0405).toFixed(2);
                 this.contexts[context_num].transform(x_scale, 0, 0, top_pix_conversion * letter_height, x_pos, y_pos);
                 this.contexts[context_num].fillText(values[0], 0, 0);
                 this.contexts[context_num].setTransform(1, 0, 0, 1, 0, 0);
                 previous_height = previous_height + glyph_height;
-              }
-              else if (values[1] < 0) {
-                var letter_height = (1 * Math.abs(values[1])) / Math.abs(this.data.min_height_obs);
-                var x_pos = x + (this.zoomed_column / 2);
+              } else if (values[1] < 0) {
+                var letter_height = (Math.abs(values[1])) / Math.abs(this.data.min_height_obs);
                 var glyph_height = bottom_pix_height * letter_height;
                 var y_pos = glyph_height + previous_neg_height;
 
                 // The positioning in IE is off, so we need to modify the y_pos when
                 // canvas is not supported and we are using VML instead.
-                if(!isCanvasSupported()) {
+                if (!isCanvasSupported()) {
                   y_pos = y_pos + (glyph_height * (letter_height / 2));
                 }
 
@@ -527,9 +528,6 @@ function isCanvasSupported() {
                 this.contexts[context_num].font = "bold 350px Arial";
                 this.contexts[context_num].textAlign = "center";
                 this.contexts[context_num].fillStyle = this.colors[values[0]];
-                // fonts are scaled to fit into the column width
-                // formula is y = 0.0024 * col_width + 0.0405
-                var x_scale = ((0.0024 * this.zoomed_column) + 0.0405).toFixed(2);
                 this.contexts[context_num].transform(x_scale, 0, 0, bottom_pix_conversion * letter_height, x_pos, y_pos);
                 this.contexts[context_num].fillText(values[0], 0, 0);
                 this.contexts[context_num].setTransform(1, 0, 0, 1, 0, 0);
@@ -547,7 +545,7 @@ function isCanvasSupported() {
         if (this.zoom < 0.7) {
           if (i % 5 === 0) {
             // draw column dividers
-            draw_ticks(this.contexts[context_num], x + this.zoomed_column, this.height - 30, 0 - this.height - 30, '#dddddd');
+            draw_ticks(this.contexts[context_num], x + this.zoomed_column, this.height - 30, -30 + this.height, '#dddddd');
             // draw top ticks
             draw_ticks(this.contexts[context_num], x + this.zoomed_column, 0, 5);
             // draw column numbers
@@ -555,7 +553,7 @@ function isCanvasSupported() {
           }
         } else {
           // draw column dividers
-          draw_ticks(this.contexts[context_num], x, this.height - 30, 0 - this.height - 30, '#dddddd');
+          draw_ticks(this.contexts[context_num], x, this.height - 30, -30 + this.height, '#dddddd');
           // draw top ticks
           draw_ticks(this.contexts[context_num], x, 0, 5);
           // draw column numbers
@@ -572,22 +570,26 @@ function isCanvasSupported() {
         x += this.zoomed_column;
         column_num++;
       }
-      // draw horizontal divider line for 0
-      var top_height = Math.abs(this.data.max_height),
-        bottom_height = Math.abs(this.data.min_height_obs);
-      var total_height = top_height + bottom_height;
-
-      var top_percentage    = Math.round((Math.abs(this.data.max_height) * 100) / total_height);
-      var bottom_percentage = Math.round((Math.abs(this.data.min_height_obs) * 100) / total_height);
-      //convert % to pixels
-      var top_pix_height = Math.round((271 * top_percentage) / 100);
-      draw_border(this.contexts[context_num], top_pix_height, this.total_width);
+      this.draw_zero_divider(context_num);
 
 
       // draw other dividers
       draw_border(this.contexts[context_num], this.height - 15, this.total_width);
       draw_border(this.contexts[context_num], this.height - 30, this.total_width);
       draw_border(this.contexts[context_num], 0, this.total_width);
+    };
+
+    this.draw_zero_divider = function (context_num) {
+      // draw horizontal divider line for 0
+      var top_height = Math.abs(this.data.max_height),
+        bottom_height = Math.abs(this.data.min_height_obs),
+        total_height = top_height + bottom_height,
+        top_percentage    = Math.round((Math.abs(this.data.max_height) * 100) / total_height),
+        bottom_percentage = Math.round((Math.abs(this.data.min_height_obs) * 100) / total_height),
+      //convert % to pixels
+        top_pix_height = Math.round((271 * top_percentage) / 100);
+      draw_border(this.contexts[context_num], top_pix_height, this.total_width);
+
     };
 
     this.render_with_rects = function (start, end, context_num) {
@@ -675,11 +677,7 @@ function isCanvasSupported() {
 
     this.toggle_scale = function () {
       // work out the current column we are on so we can return there
-      var before_left = this.scrollme.scroller.getValues().left,
-        col_width = (this.column_width * this.zoom),
-        col_count = before_left / col_width,
-        half_visible_columns = ($('#logo_container').width() / col_width) / 2,
-        col_total = Math.ceil(col_count + half_visible_columns);
+      var col_total = this.current_column();
 
       // toggle the max height
       if (this.data.max_height === this.data.max_height_obs) {
@@ -701,6 +699,15 @@ function isCanvasSupported() {
       //scroll back to the location we started at.
       this.scrollToColumn(col_total);
     };
+
+    this.current_column = function() {
+      var before_left = this.scrollme.scroller.getValues().left,
+        col_width = (this.column_width * this.zoom),
+        col_count = before_left / col_width,
+        half_visible_columns = ($('#logo_container').width() / col_width) / 2,
+        col_total = Math.ceil(col_count + half_visible_columns);
+      return col_total;
+    }
 
     this.change_zoom = function (options) {
       var zoom_level = 0.3;
@@ -725,13 +732,7 @@ function isCanvasSupported() {
         // if a center is not specified, then use the current center of the view
         if (!options.column) {
           //work out my current position
-          var before_left = this.scrollme.scroller.getValues().left;
-
-          var col_width = (this.column_width * this.zoom);
-          var col_count = before_left / col_width;
-          var half_visible_columns = ($('#logo_container').width() / col_width) / 2;
-          var col_total = Math.ceil(col_count + half_visible_columns);
-
+          var col_total = this.current_column();
 
           this.zoom = zoom_level;
           this.render({zoom: this.zoom});

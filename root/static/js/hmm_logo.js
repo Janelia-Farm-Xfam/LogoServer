@@ -128,6 +128,7 @@
       context.beginPath();
       context.moveTo(x, y);
       context.lineTo(x, y + height);
+      context.lineWidth = 1;
       context.strokeStyle = color;
       context.stroke();
     }
@@ -489,13 +490,14 @@
                 x_pos = x + (this.zoomed_column / 2),
                 // fonts are scaled to fit into the column width
                 // formula is y = 0.0024 * col_width + 0.0405
-                x_scale = ((0.0024 * this.zoomed_column) + 0.0405).toFixed(2);
+                x_scale = ((0.0024 * this.zoomed_column) + 0.0405).toFixed(2),
+                letter_height = null;
 
               // we don't render anything with a value between 0 and 0.01. These
               // letters would be too small to be meaningful on any scale, so we
               // just squash them out.
               if (values[1] > 0.01) {
-                var letter_height = (1 * values[1]) / this.data.max_height;
+                letter_height = parseFloat(values[1]) / this.data.max_height;
                 var y_pos = top_pix_height - previous_height;
                 var glyph_height = top_pix_height * letter_height;
 
@@ -514,7 +516,7 @@
                 this.contexts[context_num].setTransform(1, 0, 0, 1, 0, 0);
                 previous_height = previous_height + glyph_height;
               } else if (values[1] < 0) {
-                var letter_height = (Math.abs(values[1])) / Math.abs(this.data.min_height_obs);
+                letter_height = (Math.abs(values[1])) / Math.abs(this.data.min_height_obs);
                 var glyph_height = bottom_pix_height * letter_height;
                 var y_pos = glyph_height + previous_neg_height;
 
@@ -794,6 +796,8 @@
         form.append('<button id="zoomout" class="button">-</button>' +
           '<button id="zoomin" class="button">+</button>');
       }
+
+      $(this).parent().append('<div class="logo_divider">');
 
       $(this).parent().after(form);
 

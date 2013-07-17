@@ -887,7 +887,6 @@
       $('#logo').replaceWith($('#no_canvas').html());
     }
 
-
     return logo;
   };
 })(jQuery);

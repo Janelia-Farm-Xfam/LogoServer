@@ -26,7 +26,7 @@
       this.zoom_enabled = true;
     }
 
-    this.alphabet = options.alphabet || 'dna';
+    this.alphabet = options.data.alphabet || 'dna';
     this.dom_element = options.dom_element || $('body');
     this.start = options.start || 1;
     this.end = options.end || this.data.height_arr.length;

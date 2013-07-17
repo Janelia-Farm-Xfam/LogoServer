@@ -53,7 +53,6 @@ sub generate_png {
   return Bio::HMM::Logo::hmmToLogoPNG(
     $ops->{hmm},
     $ops->{height_calc},
-    $ops->{alphabet},
     $ops->{scaled}
   );
 }

@@ -60,6 +60,5 @@
 </div>
 <script>
   var logo_data = [% logo %];
-  var alphabet = '[% alphabet || 'aa' %]';
 </script>
 [% END %]

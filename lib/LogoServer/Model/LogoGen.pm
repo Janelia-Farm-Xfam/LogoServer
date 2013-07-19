@@ -41,14 +41,14 @@ sub generate_json {
   Takes the hmm in the first poistion. The second argument is the
   type of alphabet to use, either 'aa' or 'dna'. The final argument
   is optional and determines if the png should be scaled or left at
-  the theroetical maximum height.
+  the observed maximum height.
 
 =cut
 
 sub generate_png {
   my ($self, $ops ) = @_;
   if (!exists $ops->{height_calc}) {
-    $ops->{'height_scale'} = 'emission';
+    $ops->{'height_calc'} = 'emission';
   }
   return Bio::HMM::Logo::hmmToLogoPNG(
     $ops->{hmm},

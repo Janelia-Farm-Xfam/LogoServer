@@ -31,6 +31,12 @@
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'image') %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a></dt>
         <dd><h5>PNG file</h5><p>A static image of the logo.</p></dd>
       </dl>
+      [% IF c.stash.height_calc == 'emission' %]
+      <dl>
+        <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'image', { 'scaled' => '1'}) %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a></dt>
+        <dd><h5>scaled PNG file</h5><p>A static image of the logo scaled to the theoretical maximum height.</p></dd>
+      </dl>
+      [% END %]
       [% IF c.stash.logo_type && c.stash.logo_type == 'model' %]
       <dl>
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'hmm') %]" ><img src="/static/gfx/hmm_dl.png" alt="download .hmm"/></a></dt>

@@ -45,24 +45,17 @@ sub index :Path :Args(2) Does('ValidateUUID') {
 
   if ($type eq 'image') {
 
-    my $alphabet = 'dna';
-    # check to see if HMM is DNA or AA
-    while (my $line = <$hmm>) {
-      if ($line =~ /^ALPH/) {
-        if ($line =~ /amino/) {
-          $alphabet = 'aa';
-        }
-        last;
-      }
+    my $options = {
+      hmm => $hmm_path,
+      height_calc => $params->{height_calc},
+    };
+
+    if ($c->req->param('scaled')) {
+      $options->{scaled} = 1;
     }
 
-
     # run the logo generation
-    my $png = $c->model('LogoGen')->generate_png({
-      hmm => $hmm_path,
-      alphabet => $alphabet,
-      height_calc => $params->{height_calc}
-    });
+    my $png = $c->model('LogoGen')->generate_png($options);
     $c->response->body($png);
     my $fname = "$uuid.png";
     $c->res->header( 'Content-Disposition' => "attachment; filename=$fname" );

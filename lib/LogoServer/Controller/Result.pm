@@ -95,7 +95,6 @@ sub index :Path('/logo') :Args(1) Does('ValidateUUID') {
   elsif ($c->req->preferred_content_type eq 'image/png') {
     $c->stash->{rest} = $c->model('LogoGen')->generate_png({
       hmm => $hmm_path,
-      alphabet => $c->stash->{alphabet},
       height_calc => $c->stash->{height_calc}
     });
   }

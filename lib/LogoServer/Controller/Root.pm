@@ -163,7 +163,7 @@ sub save_upload : Private {
     # height_calc: emission, BILD
     if (exists $params->{logo_type}) {
       if ( $params->{logo_type} eq 'model') {
-        if (exists $params->{height_calc} && $params->{height_calc} =~ /^(emission|posscore|score)$/) {
+        if (exists $params->{height_calc} && $params->{height_calc} =~ /^(emission|score)$/) {
           $valid->{logo_type} = $params->{logo_type};
           $valid->{height_calc} = $params->{height_calc};
         }

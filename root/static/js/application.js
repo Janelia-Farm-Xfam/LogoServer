@@ -6,9 +6,11 @@
     hmm_logo;
 
   $(document).ready(function () {
-    if (typeof logo_data !== 'undefined') {
-      hmm_logo = $('#logo_graphic').hmm_logo({height_toggle: 1, column_width: 34, data: logo_data, scaled_max: true});
-    }
+    $('#logo').hmm_logo({
+      height_toggle: 1,
+      column_width: 34,
+      scaled_max: true
+    });
 
     $('#model_type').on('click', function () {
       $('.ali_calc').attr('disabled', 'disabled');

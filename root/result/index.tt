@@ -1,10 +1,6 @@
 [% IF logo %]
 <div class="logo_wrapper">
-  <div id="logo">
-    <div id="logo_container">
-      <div id="logo_graphic"></div>
-    </div>
-  </div>
+  <div class="logo" id="logo" data-logo = '[% logo %]'></div>
 </div>
 <div class="container-fluid info_block">
   <div class="row-fluid">
@@ -57,7 +53,4 @@
     </div>
   </div>
 </div>
-<script>
-  var logo_data = [% logo %];
-</script>
 [% END %]

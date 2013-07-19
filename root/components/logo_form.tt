@@ -30,9 +30,6 @@
               <input type="radio" id="emission_calc" name="height_calc" value="emission" [% IF !c.req.params.height_calc || c.req.params.height_calc == "emission" %]checked="checked"[% END %] />Emission <a class="help" href="/help#emission"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
-              <input type="radio" class="model_calc" name="height_calc" value="posscore" [% IF c.req.params.height_calc == "posscore" %]checked="checked"[% END %]/>Positive Score <a class="help" href="/help#positive_score"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
-            </label>
-            <label class="radio">
               <input type="radio" class="model_calc" name="height_calc" value="score" [% IF c.req.params.height_calc == "score" %]checked="checked"[% END %] />Score <a class="help" href="/help#score"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">

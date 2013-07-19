@@ -59,10 +59,9 @@
           <tr>
             <td><strong>height_calc</strong><br/> <span class="small subtle">optional</span></td>
             <td>
-              <p>Which height calculation algorithm should be used during logo generation. There are four different algorithms to choose from:</p>
+              <p>Which height calculation algorithm should be used during logo generation. There are three different algorithms to choose from:</p>
               <ul>
                 <li>emission - </li>
-                <li>posscore - </li>
                 <li>score - </li>
                 <li>bild - </li>
               </ul>

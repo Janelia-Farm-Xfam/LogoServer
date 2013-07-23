@@ -1,6 +1,7 @@
 [% IF logo %]
-<div class="logo_wrapper">
+<div class="logo_wrapper clearfix">
   <div class="logo" id="logo" data-logo = '[% logo %]'></div>
+  <div id="col_info"></div>
 </div>
 <div class="container-fluid info_block">
   <div class="row-fluid">

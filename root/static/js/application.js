@@ -6,10 +6,11 @@
     hmm_logo;
 
   $(document).ready(function () {
-    $('#logo').hmm_logo({
+    $('div#logo').hmm_logo({
       height_toggle: 1,
       column_width: 34,
-      scaled_max: true
+      scaled_max: true,
+      column_info: "#col_info"
     });
 
     $('#model_type').on('click', function () {

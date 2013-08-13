@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="span6 download">
-      <h2 id="#download">Download</h2>
+      <h2 id="download">Download</h2>
       <dl>
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'image') %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a></dt>
         <dd><h5>PNG file</h5><p>A static image of the logo.</p></dd>

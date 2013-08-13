@@ -13,7 +13,9 @@
     <p>The best place to get this is from the <a href="http://jquery.com">jQuery</a> website. We have tested with version 1.8.2 but newer versions should also work.</p>
   </li>
   <li>
-    <h3><span class="step">Step 3</span> Get </h3>
+    <h3><span class="step">Step 3</span> Get the JSON for your logo.</h3>
+    <p>If you have already run the search, then you should be able to download the JSON
+    from the <a href="#download">Download</a> section above.</p>
   <li>
     <h3><span class="step">Step 4</span> Insert the following markup into your page.</h3>
   <pre class="code">

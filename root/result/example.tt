@@ -7,13 +7,9 @@
   </div>
 </div>
 
-<div class="logo_wrapper">
-  <div id="logo">
-    <div id="logo_container">
-      <div id="logo_graphic"></div>
-      <div id="divider"></div>
-    </div>
-  </div>
+<div class="logo_wrapper clearfix">
+  <div class="logo" id="logo" data-logo = '[% logo %]'></div>
+  <div id="col_info"></div>
 </div>
 <div class="container-fluid info_block">
   <div class="row-fluid">
@@ -130,8 +126,3 @@
     <p>Alternatively, head over to the <a href="/">home page</a> and start there.</p>
   </li>
 </ol>
-
-<script>
-  var logo_data = [% logo %];
-  var alphabet = 'aa';
-</script>

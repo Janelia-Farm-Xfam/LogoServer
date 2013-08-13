@@ -2,15 +2,14 @@
 (function ($) {
   "use strict";
 
-  var document,
-    hmm_logo;
+  var document;
 
   $(document).ready(function () {
     $('div#logo').hmm_logo({
       height_toggle: 1,
       column_width: 34,
-      scaled_max: true,
-      column_info: "#col_info"
+      column_info: "#col_info",
+      scaled_max: true
     });
 
     $('#model_type').on('click', function () {

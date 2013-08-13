@@ -26,7 +26,7 @@
         <dd>Mon Jul 1 10:52:15 2013</dd>
       </dl>
       <div class="row-fluid">
-        <div class="span12 logo_form">
+        <div class="span12">
           <h2>Try another search</h2>
           [% INCLUDE 'components/logo_form.tt' %]
         </div>

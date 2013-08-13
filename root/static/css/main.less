@@ -105,7 +105,7 @@ a {
   color: #5B99D6;
 }
 
-a:hover {
+#content a:hover {
   text-decoration: underline;
   color: #8E5BD6;
 }
@@ -409,7 +409,7 @@ pre {
 }
 
 .parameters {
-  width: 56em;
+  max-width: 56em;
   margin: 1em;
   strong {
     color: #900 ;
@@ -431,8 +431,11 @@ pre {
   text-transform: uppercase;
 }
 
-ul.usage {
+.usage {
   list-style: none;
+  ul {
+    list-style: none;
+  }
   h3 span {
     display: block;
   }

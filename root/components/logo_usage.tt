@@ -3,15 +3,19 @@
 <ul class="usage">
   <li>
     <h3><span class="step">Step 1</span> Download the javascript and css.</h3>
-    <a href="/static/js/hmm_logo.min.js"><img src="/static/gfx/json_dl.png" alt="download"/>hmm_logo.min.js</a>
-    <a href="/static/css/hmm_logo.min.css"><img src="/static/gfx/json_dl.png" alt="download"/>hmm_logo.min.css</a>
+    <ul>
+      <li><a href="/static/js/hmm_logo.min.js"><img src="/static/gfx/json_dl.png" alt="download"/>hmm_logo.min.js (28KB)</a></li>
+      <li><a href="/static/css/hmm_logo.min.css"><img src="/static/gfx/json_dl.png" alt="download"/>hmm_logo.min.css (2KB)</a></li>
+    </ul>
   </li>
   <li>
     <h3><span class="step">Step 2</span> Get a copy of jQuery (version 1.8+)</h3>
     <p>The best place to get this is from the <a href="http://jquery.com">jQuery</a> website. We have tested with version 1.8.2 but newer versions should also work.</p>
   </li>
   <li>
-    <h3><span class="step">Step 3</span> Insert the following markup into your page.</h3>
+    <h3><span class="step">Step 3</span> Get </h3>
+  <li>
+    <h3><span class="step">Step 4</span> Insert the following markup into your page.</h3>
   <pre class="code">
 <span class="hilight">/* set css rules for styling the logo */</span>
 &lt;link rel="stylesheet" type="text/css" href="hmm_logo.min.css"&gt;
@@ -28,16 +32,60 @@
 <span class="hilight">/* finally run the call to render the logo on page load */</span>
 &lt;script&gt;
   $(document).ready(function () {
-    $('#logo').hmm_logo({
-      column_width: 34,
-      height_toggle: 'enabled',
-      column_info: '#logo_info'
-    });
+    $('#logo').hmm_logo();
   });
 &lt;/script&gt;
 </pre>
 </ul>
 <h3>Options</h3>
+<p>There are a number of ways to change the initial display of the logo. These options are passed to the logo code when calling the hmm_logo() function.</p>
+
+
+<table class="parameters">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>column_width</strong></td>
+      <td>
+        <p>The maximum width of each column in the logo when zoom is set to 1.</p>
+        <pre class="code">$('#logo').hmm_logo({column_width: '30px'});</pre>
+        <span class="subtle">Default:</span> 34px
+      </td>
+    </tr>
+    <tr>
+      <td><strong>height_toggle</strong></td>
+      <td>
+        <p>Enables or disables the "Toggle Scale" button, which allows one to toggle between
+        maximum observed and maximum theoretical scales.</p>
+        <pre class="code">$('#logo').hmm_logo({height_toggle: true});</pre>
+        <span class="subtle">Default:</span> null
+      </td>
+    </tr>
+    <tr>
+      <td><strong>zoom</strong><br/></td>
+      <td>
+        <p>Sets the initial zoom level that the logo will use.</p>
+        <pre class="code">$('#logo').hmm_logo({zoom: 1});</pre>
+        <span class="subtle">Default:</span> 0.4
+      </td>
+    </tr>
+    <tr>
+      <td><strong>column_info</strong><br/></td>
+      <td>
+        <p>Passing this option enables the onclick display of information for individual
+        columns. If specified, this will tell the code where to display a table of the
+        scores for each residue in a selected column.</p>
+        <pre class="code">$('#logo').hmm_logo({column_info: "#col_info"});</pre>
+        <span class="subtle">Default:</span> null
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 
 <p>See the <a href="/help">help pages</a> for more information.</p>

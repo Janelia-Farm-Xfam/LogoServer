@@ -1,33 +1,43 @@
 <h2>Using the logo elsewhere</h2>
 
-
-<h3>Using the dynamic logo</h3>
-
-<ol>
-  <li>Download the javascript library</li>
-  <li>Download jQuery</li>
-  <li>Insert the following markup into your page, just above the &lt;/body&gt; tag.</li>
-  <pre class="code">
-code example here
-&lt;/body&gt;</pre>
-  <li>Options</li>
-</ol>
-
-
-<h3>Embedding the static logo in a webpage.</h3>
-
-<ol>
-  <li>Download the image from the <a href="#download">download</a> section above or grab it with a command line tool like curl:</li>
-  <pre class="code">curl '[% c.uri_for('/download', c.stash.uuid, 'image') %]' > [% c.stash.uuid %].png</pre> 
+<ul class="usage">
   <li>
-    <p>Save it in the static content directory for your webserver. For example using the default installation of Apache on Ubuntu copy the image to:</p>
-    <pre class="code">/var/www/</pre>
-    <p>The image will then be available from:</p>
-    <pre class="code">http://yourdomain/[% c.stash.uuid %].png</pre>
+    <h3><span class="step">Step 1</span> Download the javascript and css.</h3>
+    <a href="/static/js/hmm_logo.min.js"><img src="/static/gfx/json_dl.png" alt="download"/>hmm_logo.min.js</a>
+    <a href="/static/css/hmm_logo.min.css"><img src="/static/gfx/json_dl.png" alt="download"/>hmm_logo.min.css</a>
   </li>
-  <li>Link to it from a webpage with an &lt;img&gt; tag.</li>
-  <pre class="code">&lt;img src="/[% c.stash.uuid %].png" alt="HMMLogo"/&gt;</pre>
-</ol>
+  <li>
+    <h3><span class="step">Step 2</span> Get a copy of jQuery (version 1.8+)</h3>
+    <p>The best place to get this is from the <a href="http://jquery.com">jQuery</a> website. We have tested with version 1.8.2 but newer versions should also work.</p>
+  </li>
+  <li>
+    <h3><span class="step">Step 3</span> Insert the following markup into your page.</h3>
+  <pre class="code">
+<span class="hilight">/* set css rules for styling the logo */</span>
+&lt;link rel="stylesheet" type="text/css" href="hmm_logo.min.css"&gt;
+
+<span class="hilight">/* make sure jQuery has been loaded */</span>
+&lt;script src="jquery-1.8.2.min.js"&gt;&lt;/script&gt;
+
+<span class="hilight">/* load in the hmm_logo code */</span>
+&lt;script src="hmm_logo.min.js"&gt;&lt;/script&gt;
+
+<span class="hilight">/* At the location where you want the logo to appear in your page */</span>
+&lt;div id="logo" class="logo" data-logo="YOUR LOGO JSON"&gt;&lt;/div&gt;
+
+<span class="hilight">/* finally run the call to render the logo on page load */</span>
+&lt;script&gt;
+  $(document).ready(function () {
+    $('#logo').hmm_logo({
+      column_width: 34,
+      height_toggle: 'enabled',
+      column_info: '#logo_info'
+    });
+  });
+&lt;/script&gt;
+</pre>
+</ul>
+<h3>Options</h3>
 
 
 <p>See the <a href="/help">help pages</a> for more information.</p>

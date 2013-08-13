@@ -14,7 +14,7 @@
 <div class="container-fluid info_block">
   <div class="row-fluid">
     <div class="span6 logo_info">
-      <h2>Your Model Logo</h2>
+      <h2><span>Your Model Logo</span></h2>
       <dl>
         <dt>Alphabet</dt>
         <dd>AA</dd>
@@ -27,13 +27,13 @@
       </dl>
       <div class="row-fluid">
         <div class="span12">
-          <h2>Try another search</h2>
+          <h2><span>Try another search</span></h2>
           [% INCLUDE 'components/logo_form.tt' %]
         </div>
       </div>
     </div>
     <div class="span6 download">
-      <h2>Download</h2>
+      <h2 id="download"><span>Download</span></h2>
       <dl>
         <dt id="png_dl"><img src="/static/gfx/png_dl.png" alt="download .png"/></dt>
         <dd><h5>PNG file</h5><p>A static image of the logo.</p></dd>

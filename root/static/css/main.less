@@ -257,6 +257,11 @@ logo styles
   text-align:center;
 }
 
+#col_info {
+  float: left;
+  margin-left: 1em;
+}
+
 .centered {
   text-align:center;
 }
@@ -353,10 +358,31 @@ html.js .jshide {
     text-decoration: none;
   }
 }
+.home, .info_block {
+  max-width: 1024px;
+  margin: auto;
+}
 
 .info_block {
   h2 {
-    border-bottom: 1px solid #ccc;
+    position: relative;
+    text-align: center;
+    span {
+      z-index: 100;
+      padding: 0 10px;
+      background: #fff;
+      position: relative;
+    }
+  }
+  h2:after {
+    border-bottom: 2px dotted #ccc;
+    height: 0;
+    left: 0;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    content: "";
+    z-index: 10;
   }
   dt {
    float:left;
@@ -450,5 +476,9 @@ pre {
 @media (max-width: 900px) {
   #content {
     margin: 0 1em;
+  }
+  .logo_wrapper {
+    margin-left:-16px;
+    width:100%;
   }
 }

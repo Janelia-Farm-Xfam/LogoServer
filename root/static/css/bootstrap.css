@@ -2111,7 +2111,7 @@ button.close {
     margin-right: -20px;
   }
   .container-fluid {
-    padding: 0;
+    padding: 20px 0;
   }
   .dl-horizontal dt {
     float: none;

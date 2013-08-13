@@ -6,7 +6,7 @@
 <div class="container-fluid info_block">
   <div class="row-fluid">
     <div class="span6">
-      <h2>Your [% IF c.stash.logo_type && c.stash.logo_type == 'model' %] Model [% ELSE %] Alignment [% END %] Logo</h2>
+      <h2><span>Your [% IF c.stash.logo_type && c.stash.logo_type == 'model' %] Model [% ELSE %] Alignment [% END %] Logo</span></h2>
       <dl>
         <dt>Alphabet</dt>
         <dd>[% c.stash.alphabet | upper %]</dd>
@@ -21,13 +21,13 @@
       </dl>
       <div class="row-fluid">
         <div class="span12">
-          <h2>Try another search</h2>
+          <h2><span>Try another search</span></h2>
           [% INCLUDE 'components/logo_form.tt' %]
         </div>
       </div>
     </div>
     <div class="span6 download">
-      <h2 id="download">Download</h2>
+      <h2 id="download"><span>Download</span></h2>
       <dl>
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'image') %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a></dt>
         <dd><h5>PNG file</h5><p>A static image of the logo.</p></dd>

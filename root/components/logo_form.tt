@@ -12,7 +12,7 @@
           <fieldset>
             <legend>Logo Type</legend>
             <label class="radio">
-              <input class="logo_type" type="radio" id="model_type" name="logo_type" value="model" [% IF c.req.params.logo_type == "model" || !c.req.params.logo_type %]checked="checked"[% END %] />Model <a class="help" href="/help#model_logo"><span aria-hidden="true" data-icon="?"></span><spna class="reader-text">help</span></a>
+              <input class="logo_type" type="radio" id="model_type" name="logo_type" value="model" [% IF c.req.params.logo_type == "model" || !c.req.params.logo_type %]checked="checked"[% END %] />Model <a class="help" href="/help#model_logo"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
               <input class="logo_type" type="radio" id="ali_type" name="logo_type" value="alignment" [% IF c.req.params.logo_type == "alignment" %]checked="checked"[% END %] />Alignment <a class="help" href="/help#alignment_logo"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>

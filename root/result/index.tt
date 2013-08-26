@@ -31,24 +31,16 @@
       <dl>
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'image') %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a></dt>
         <dd><h5>PNG file</h5><p>A static image of the logo.</p></dd>
-      </dl>
       [% IF c.stash.height_calc == 'emission' %]
-      <dl>
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'image', { 'scaled' => '1'}) %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a></dt>
         <dd><h5>scaled PNG file</h5><p>A static image of the logo scaled to the theoretical maximum height.</p></dd>
-      </dl>
       [% END %]
       [% IF c.stash.logo_type && c.stash.logo_type == 'model' %]
-      <dl>
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'hmm') %]" ><img src="/static/gfx/hmm_dl.png" alt="download .hmm"/></a></dt>
         <dd><h5>HMM</h5><p>The HMM file used to calculate this logo.</p></dd>
-      </dl>
       [% END %]
-      <dl>
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'json') %]" ><img src="/static/gfx/json_dl.png" alt="download .json"/></a></dt>
         <dd><h5>JSON</h5><p>Raw data for the logo formatted in JavaScript Object Notation.</p></dd>
-      </dl>
-      <dl>
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'text') %]" ><img src="/static/gfx/tab_dl.png" alt="download tab delimited"/></a></dt>
         <dd><h5>Tabular Text</h5><p>Raw data for the logo in a tab delimited text file.</p></dd>
       </dl>

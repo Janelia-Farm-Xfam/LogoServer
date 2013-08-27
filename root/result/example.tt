@@ -10,6 +10,7 @@
 <div class="logo_wrapper clearfix">
   <div class="logo" id="logo" data-logo = '[% logo %]'></div>
   <div id="col_info"></div>
+  [% INCLUDE 'components/compatibility.tt' %]
 </div>
 <div class="container-fluid info_block">
   <div class="row-fluid">

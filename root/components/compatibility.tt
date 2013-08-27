@@ -1,0 +1,13 @@
+<script id="no_canvas" type="text/x-handlebars-template">
+  <h3>We're sorry, the browser you are using does not support HTML5/canvas.</h3>
+  <p>The interactive logos rely heavily on HTML5 and javascript for providing a dynamic interface.
+  For this reason we can only show logos in browsers with support for these features. You can still
+  download the static image or other data formats from our downloads section below.</p>
+  <p> If you would like to see the interactive logos, please consider upgrading your browser.</p>
+  <ul>
+    <li><a href="http://www.microsoft.com/windows/downloads/ie/getitnow.mspx">Internet Explorer</a></li>
+    <li><a href="http://www.mozilla.com/firefox/">Firefox</a>.</li>
+    <li><a href="http://www.apple.com/safari/download/">Safari</a>, by Apple.</li>
+    <li><a href="http://www.google.com/chrome">Chrome</a>, by Google.</li>
+  </ul>
+</script>

@@ -2,20 +2,23 @@
   <div class="control-group">
     <label for="file" class="control-label">Upload an HMM or Multiple sequence alignment <a class="help" href="/help#upload"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a></label>
     <div class="controls">
-      <input type="file" name="file"/>
+      <input id="file_upload" type="file" name="file"/>
     </div>
   </div>
   <div class="row-fluid">
-    <div class="span6">
+    <div class="span6 processing">
       <div class="control-group">
         <div class="controls">
           <fieldset>
-            <legend>Logo Type</legend>
+            <legend>Alignment Processing</legend>
             <label class="radio">
-              <input class="logo_type" type="radio" id="model_type" name="logo_type" value="model" [% IF c.req.params.logo_type == "model" || !c.req.params.logo_type %]checked="checked"[% END %] />Model <a class="help" href="/help#model_logo"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" id="observed_process" name="processing" value="observed" [% IF c.req.params.processing == "observed" || !c.req.params.processing %]checked="checked"[% END %] />Use Observed Counts <a class="help" href="/help#model_logo"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
-              <input class="logo_type" type="radio" id="ali_type" name="logo_type" value="alignment" [% IF c.req.params.logo_type == "alignment" %]checked="checked"[% END %] />Alignment <a class="help" href="/help#alignment_logo"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" id="weighted_process" name="processing" value="weighted" [% IF c.req.params.processing == "weighted" %]checked="checked"[% END %] />Use Weighted Counts <a class="help" href="/help#model_logo"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+            </label>
+            <label class="radio">
+              <input type="radio" id="hmm_process" name="processing" value="hmm" [% IF c.req.params.processing == "hmm" %]checked="checked"[% END %] />Convert to an HMM <a class="help" href="/help#model_logo"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
           </fieldset>
         </div>
@@ -25,12 +28,15 @@
       <div class="control-group">
         <div class="controls">
           <fieldset>
-            <legend>Height Calculation</legend>
+            <legend>Letter Height</legend>
             <label class="radio">
-              <input type="radio" id="emission_calc" name="height_calc" value="emission" [% IF !c.req.params.height_calc || c.req.params.height_calc == "emission" %]checked="checked"[% END %] />Emission <a class="help" href="/help#emission"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" id="emission_calc" name="letter_height" value="entropy_all" [% IF !c.req.params.letter_height || c.req.params.letter_height == "entropy_all" %]checked="checked"[% END %] />Relative Entropy - All <a class="help" href="/help#emission"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
-              <input type="radio" class="model_calc" name="height_calc" value="score" [% IF c.req.params.height_calc == "score" %]checked="checked"[% END %] />Score <a class="help" href="/help#score"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" id="posscore_calc" name="letter_height" value="entropy_above" [% IF c.req.params.letter_height == "entropy_above" %]checked="checked"[% END %] />Relative Entropy - Above Background <a class="help" href="/help#posscore"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+            </label>
+            <label class="radio">
+              <input type="radio" class="model_calc" name="letter_height" value="score" [% IF c.req.params.letter_height == "score" %]checked="checked"[% END %] />Score <a class="help" href="/help#score"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
           </fieldset>
         </div>

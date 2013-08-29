@@ -7,12 +7,12 @@
 <div class="container-fluid info_block">
   <div class="row-fluid">
     <div class="span6">
-      <h2><span>Your [% IF c.stash.logo_type && c.stash.logo_type == 'model' %] Model [% ELSE %] Alignment [% END %] Logo</span></h2>
+      <h2><span>Your [% IF c.stash.processing && c.stash.processing == 'hmm' %] Model [% ELSE %] Alignment [% END %] Logo</span></h2>
       <dl>
         <dt>Alphabet</dt>
         <dd>[% c.stash.alphabet | upper %]</dd>
-        <dt>Height Calculation</dt>
-        <dd>[% c.stash.height_calc | html %]</dd>
+        <dt>Letter Height</dt>
+        <dd>[% c.stash.letter_height_display | html %]</dd>
         <dt>Number of Sequences</dt>
         <dd>[% c.stash.nseq %]</dd>
         <dt>Length</dt>
@@ -32,7 +32,7 @@
       <dl>
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'image') %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a></dt>
         <dd><h5>PNG file</h5><p>A static image of the logo.</p></dd>
-      [% IF c.stash.height_calc == 'emission' %]
+      [% IF c.stash.letter_height == 'emission' %]
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'image', { 'scaled' => '1'}) %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a></dt>
         <dd><h5>scaled PNG file</h5><p>A static image of the logo scaled to the theoretical maximum height.</p></dd>
       [% END %]

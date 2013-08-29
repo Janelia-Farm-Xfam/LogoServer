@@ -47,7 +47,7 @@ sub index :Path :Args(2) Does('ValidateUUID') {
 
     my $options = {
       hmm => $hmm_path,
-      height_calc => $params->{height_calc},
+      letter_height => $params->{letter_height},
     };
 
     if ($c->req->param('scaled')) {
@@ -62,14 +62,14 @@ sub index :Path :Args(2) Does('ValidateUUID') {
     $c->res->header( 'Content-Type'        => 'text/plain' );
   }
   elsif ($type eq 'json') {
-    my $json = $c->model('LogoGen')->generate_json($hmm_path, $params->{height_calc});
+    my $json = $c->model('LogoGen')->generate_json($hmm_path, $params->{letter_height});
     $c->response->body($json);
     my $fname = "$uuid.json";
     $c->res->header( 'Content-Disposition' => "attachment; filename=$fname" );
     $c->res->header( 'Content-Type'        => 'application/json' );
   }
   elsif ($type eq 'text') {
-    my $data = $c->model('LogoGen')->generate_tabbed($hmm_path, $params->{height_calc});
+    my $data = $c->model('LogoGen')->generate_tabbed($hmm_path, $params->{letter_height});
     my $output = "#ID\t$uuid\n" . $data;
 
     my $fname = "$uuid.txt";

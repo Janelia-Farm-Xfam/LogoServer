@@ -57,7 +57,7 @@
             </td>
           </tr>
           <tr>
-            <td><strong>height_calc</strong><br/> <span class="small subtle">optional</span></td>
+            <td><strong>letter_height</strong><br/> <span class="small subtle">optional</span></td>
             <td>
               <p>Which height calculation algorithm should be used during logo generation. There are three different algorithms to choose from:</p>
               <ul>

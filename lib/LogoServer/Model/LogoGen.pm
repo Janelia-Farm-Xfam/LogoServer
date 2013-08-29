@@ -24,6 +24,23 @@ it under the same terms as Perl itself.
 
 =cut
 
+=head2 convert_args(scalar)
+
+=cut
+
+sub convert_args {
+  my ($self, $arg) = @_;
+  my %conversion = (
+    entropy_all   => 'emission',
+    entropy_above => 'posscore',
+    score         => 'score',
+  );
+  if ($arg && exists $conversion{$arg}) {
+    return $conversion{$arg};
+  }
+  return;
+}
+
 =head2 generate_json(SCALAR)
 
   Takes the hmm in a scalar variable and returns a JSON string.
@@ -31,9 +48,10 @@ it under the same terms as Perl itself.
 =cut
 
 sub generate_json {
-  my ($self, $hmm, $height_calc) = @_;
-  $height_calc ||= 'emission';
-  return Bio::HMM::Logo::hmmToLogoJson($hmm, $height_calc);
+  my ($self, $hmm, $letter_height) = @_;
+  $letter_height = $self->convert_args($letter_height);
+  $letter_height ||= 'emission';
+  return Bio::HMM::Logo::hmmToLogoJson($hmm, $letter_height);
 }
 
 =head2 generate_png(SCALAR, SCALAR, SCALAR)
@@ -47,12 +65,14 @@ sub generate_json {
 
 sub generate_png {
   my ($self, $ops ) = @_;
-  if (!exists $ops->{height_calc}) {
-    $ops->{'height_calc'} = 'emission';
+  if (!exists $ops->{letter_height}) {
+    $ops->{'letter_height'} = 'emission';
   }
+  $ops->{letter_height} = $self->convert_args($ops->{'letter_height'});
+
   return Bio::HMM::Logo::hmmToLogoPNG(
     $ops->{hmm},
-    $ops->{height_calc},
+    $ops->{letter_height},
     $ops->{scaled}
   );
 }
@@ -62,9 +82,10 @@ sub generate_png {
 =cut
 
 sub generate_raw {
-  my ($self, $hmm, $height_calc) = @_;
-  $height_calc ||= 'emission';
-  my $data = Bio::HMM::Logo::hmmToLogo($hmm, $height_calc);
+  my ($self, $hmm, $letter_height) = @_;
+  $letter_height = $self->convert_args($letter_height);
+  $letter_height ||= 'emission';
+  my $data = Bio::HMM::Logo::hmmToLogo($hmm, $letter_height);
   return $data;
 }
 
@@ -73,8 +94,8 @@ sub generate_raw {
 =cut
 
 sub generate_tabbed {
-  my ($self, $hmm, $height_calc) = @_;
-  my $data = $self->generate_raw($hmm, $height_calc);
+  my ($self, $hmm, $letter_height) = @_;
+  my $data = $self->generate_raw($hmm, $letter_height);
   my @keys = keys $data;
 
   my $sorted = $self->sort_residues($data->{height_arr}->[0]);

@@ -71,31 +71,38 @@ sub index :Path('/logo') :Args(1) Does('ValidateUUID') {
 
   my $params = $c->model('LogoData')->get_options($uuid);
 
-  if (exists $params->{logo_type}) {
-    $c->stash->{logo_type} = $params->{logo_type};
+  if (exists $params->{processing}) {
+    $c->stash->{processing} = $params->{processing};
   }
 
-  if (exists $params->{height_calc}) {
-    $c->stash->{height_calc} = $params->{height_calc};
+  if (exists $params->{letter_height}) {
+    my %conversion = (
+      entropy_all   => 'Relative Entropy - All',
+      entropy_above => 'Relative Entropy - Above Background',
+      score         => 'Score',
+    );
+    $c->stash->{letter_height_display} = $conversion{$params->{letter_height}};
+    $c->stash->{letter_height} = $params->{letter_height};
   }
   else {
-    $c->stash->{height_calc} = 'emission';
+    $c->stash->{letter_height} = 'entropy_all';
+    $c->stash->{letter_height_display} = 'Realtive Entropy - All';
   }
 
   # run the logo generation
-  my $json = $c->model('LogoGen')->generate_json($hmm_path, $c->stash->{height_calc});
+  my $json = $c->model('LogoGen')->generate_json($hmm_path, $c->stash->{letter_height});
   # save it to a temp file
   $c->stash->{alphabet} = $alphabet;
   $c->stash->{logo} = $json;
 
   if ($c->req->preferred_content_type eq 'text/plain') {
-    $c->stash->{rest} = $c->model('LogoGen')->generate_tabbed($hmm_path, $c->stash->{height_calc});
+    $c->stash->{rest} = $c->model('LogoGen')->generate_tabbed($hmm_path, $c->stash->{letter_height});
     $c->stash->{template} = 'result/tabbed.tt';
   }
   elsif ($c->req->preferred_content_type eq 'image/png') {
     my $options = {
       hmm => $hmm_path,
-      height_calc => $params->{height_calc},
+      letter_height => $params->{letter_height},
     };
 
     if ($c->req->param('scaled')) {
@@ -105,7 +112,7 @@ sub index :Path('/logo') :Args(1) Does('ValidateUUID') {
     $c->stash->{rest} = $c->model('LogoGen')->generate_png($options);
   }
   else {
-    $c->stash->{rest} = $c->model('LogoGen')->generate_raw($hmm_path, $c->stash->{height_calc});
+    $c->stash->{rest} = $c->model('LogoGen')->generate_raw($hmm_path, $c->stash->{letter_height});
   }
 
   return;

@@ -110,10 +110,22 @@ sub build_logo : Private {
   my $hmm_file = $c->model('LogoData')->_data_dir($c->stash->{uuid});
   # convert uploaded file to hmm if not already an hmm
   my $hmm = undef;
+
+  my %conversion = (
+    'hmm' => 0,
+    'observed' => 1,
+    'weighted' => 2,
+  );
+
+  my $processing = 0;
+  if (exists $conversion{$c->stash->{processing}}) {
+    $processing = $conversion{$c->stash->{processing}};
+  }
+
   try {
     $hmm = $c->model('Logo::Processing')->convert_upload(
       $hmm_file,
-      $c->stash->{alignment_logo}
+      $processing
     );
   }
   catch {
@@ -146,49 +158,42 @@ sub save_upload : Private {
 
     $data->save_upload($uuid, $upload);
 
+    my $file_contents = $upload->slurp;
+
+    if ($file_contents =~ /^[\n\r\s]*HMMER/ && $file_contents =~ m|//[\n\r\s]*$|) {
+      warn "it's an hmm";
+    }
+
     # save this info for later use.
     $c->stash->{uuid} = $uuid;
 
     my $params = $c->req->params;
     my $valid = {};
 
-    # need to loop over params and validate here, before we store them.
+    # TODO: need to loop over parameters and validate here, before we store them.
 
-    # 1. check that the logo / height combo is valid:
+    # 1. check that the processing / file type combo is valid:
     #
-    # type: model
-    # height_calc: emission, positive score or score.
+    # hmm: processing type
+    #   hmm
     #
-    # type: alignment
-    # height_calc: emission, BILD
-    if (exists $params->{logo_type}) {
-      if ( $params->{logo_type} eq 'model') {
-        if (exists $params->{height_calc} && $params->{height_calc} =~ /^(emission|score)$/) {
-          $valid->{logo_type} = $params->{logo_type};
-          $valid->{height_calc} = $params->{height_calc};
-        }
-        else {
-          $c->stash->{error} = {
-            'logo_type' => 'This is not a valid logo type and height calculation combination.'
-          };
-          $c->stash->{rest}->{error} = $c->stash->{error};
-          $c->detach('end');
-        }
+    #alignment: processing type
+    #   observed, weighted or hmm
+    #
+
+    if (exists $params->{letter_height}) {
+      if ($params->{letter_height} =~ /^(?:score|entropy_(?:all|above))$/) {
+        $valid->{letter_height} = $params->{letter_height};
       }
-      elsif ($params->{logo_type} eq 'alignment') {
-        if (exists $params->{height_calc} && $params->{height_calc} =~ /^(emission|bild)$/) {
-          $valid->{logo_type} = $params->{logo_type};
-          $valid->{height_calc} = $params->{height_calc};
-        }
-        else {
-          $c->stash->{error} = {
-            'logo_type' => 'This is not a valid logo type and height calculation combination.'
-          };
-          $c->stash->{rest}->{error} = $c->stash->{error};
-          $c->detach('end');
-        }
+      else {
+        $c->stash->{error} = {
+          'letter_height' => 'This is not a valid letter height.'
+        };
+        $c->stash->{rest}->{error} = $c->stash->{error};
+        $c->detach('end');
       }
     }
+
 
     my @allowed = qw(file);
     for my $param (@allowed) {
@@ -197,6 +202,14 @@ sub save_upload : Private {
       }
     }
 
+    # check what type of processing we want to do if we are using an MSA
+    if (exists $params->{processing}) {
+      if ($params->{processing} =~ /^(?:weighted|hmm|observed)$/) {
+        $c->stash->{processing} = $valid->{processing} = $params->{processing};
+      }
+    }
+
+=for comment
     #check if we want an alignment only logo
     if ($valid->{'logo_type'}) {
       if ($valid->{'logo_type'} eq 'alignment') {
@@ -213,12 +226,12 @@ sub save_upload : Private {
         $c->detach('end');
       }
     }
+=cut
 
-    # if we got nothing, then we dont want the json encode to blow up.
+    # if we got nothing, then we don't want the json encode to blow up.
     $params ||= {};
 
     $data->set_options($uuid, $valid);
-
 
     $c->forward('build_logo');
   }

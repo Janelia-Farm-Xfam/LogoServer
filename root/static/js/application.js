@@ -1,3 +1,4 @@
+/*jslint browser: true */
 /*global alphabet, logo_data */
 (function ($) {
   "use strict";
@@ -11,25 +12,6 @@
       column_info: "#col_info",
       scaled_max: true
     });
-
-    $('#model_type').on('click', function () {
-      $('.ali_calc').attr('disabled', 'disabled');
-      $('.model_calc').attr('disabled', false);
-      $('#emission_calc').click();
-    });
-    $('#ali_type').on('click', function () {
-      $('.model_calc').attr('disabled', 'disabled');
-      $('.ali_calc').attr('disabled', false);
-      $('#emission_calc').click();
-    });
-
-
-    // disable the alignment calculations by default.
-    if ($('.logo_type:checked').attr('value') === 'model') {
-      $('.ali_calc').attr('disabled', 'disabled');
-    } else {
-      $('.model_calc').attr('disabled', 'disabled');
-    }
 
     if ($("#joyRideTipContent").length > 0) {
       $("#joyRideTipContent").joyride({
@@ -48,6 +30,27 @@
         $("#joyRideTipContent").joyride('restart');
       });
     }
+
+    $('#file_upload').on('change', function () {
+      // if the api to read a file is available, then we can decide if we have
+      // an hmm on the client side.
+      if (window.FileReader()) {
+        // do we have a file to read?
+        if (this.files.length >= 1) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+            if (/^[\n\r\s]*HMMER/.test(e.target.result) && /\/\/[\n\r\s]*$/.test(e.target.result)) {
+              $('#hmm_process').prop('checked',true);
+            } else {
+              console.log('this is not an hmm');
+            }
+          }
+
+          reader.readAsText(this.files[0]);
+        }
+      }
+    });
 
 
     // start up the carousel.

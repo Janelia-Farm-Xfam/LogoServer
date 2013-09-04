@@ -31,12 +31,12 @@
       <h2 id="api_use">Using the API</h2>
       <h3>Creating a logo</h3>
       <p>The first thing you will need to do is upload your alignment or hmm file to our server.</p>
-      <pre class="code">curl -H 'Accept:application/json' -F logo_type=model -F file='@hmm'&nbsp;http://skylign.org</pre>
+      <pre class="code">curl -H 'Accept:application/json' -F file='@hmm'&nbsp;http://skylign.org</pre>
       <p> If something went wrong then a 400 response will be returned.</p>
 
       <pre class="code">
 <span class="hilight"># Request</span> missing the file upload.
-curl -H 'Accept:application/json' -F logo_type=model http://skylign.org
+curl -H 'Accept:application/json' -F processing=hmm http://skylign.org
 
 <span class="hilight"># Response</span>
 {

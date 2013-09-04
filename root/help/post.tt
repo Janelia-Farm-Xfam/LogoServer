@@ -46,14 +46,15 @@
             </td>
           </tr>
           <tr>
-            <td><strong>logo_type</strong><br/> <span class="small subtle">optional</span></td>
+            <td><strong>processing</strong><br/> <span class="small subtle">optional</span></td>
             <td>
-              <p>The type of logo to be created:</p>
+              <p>The type of post processing to be performed on an alignment:</p>
               <ul>
-                <li>alignment - </li>
-                <li>model - </li>
+                <li>observed - </li>
+                <li>weighted - </li>
+                <li>hmm - </li>
               </ul>
-              <strong>Default:</strong> model
+              <strong>Default:</strong> hmm
             </td>
           </tr>
           <tr>
@@ -61,11 +62,11 @@
             <td>
               <p>Which height calculation algorithm should be used during logo generation. There are three different algorithms to choose from:</p>
               <ul>
-                <li>emission - </li>
+                <li>entropy_all - </li>
+                <li>entropy_above - </li>
                 <li>score - </li>
-                <li>bild - </li>
               </ul>
-              <strong>Default:</strong> emission
+              <strong>Default:</strong> entropy_all
             </td>
           </tr>
         </tbody>

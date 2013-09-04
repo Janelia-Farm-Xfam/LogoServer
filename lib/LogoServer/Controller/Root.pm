@@ -161,7 +161,7 @@ sub save_upload : Private {
     my $file_contents = $upload->slurp;
 
     if ($file_contents =~ /^[\n\r\s]*HMMER/ && $file_contents =~ m|//[\n\r\s]*$|) {
-      warn "it's an hmm";
+      $c->stash->{file_is_hmm}++;
     }
 
     # save this info for later use.
@@ -170,7 +170,7 @@ sub save_upload : Private {
     my $params = $c->req->params;
     my $valid = {};
 
-    # TODO: need to loop over parameters and validate here, before we store them.
+    #need to loop over parameters and validate here, before we store them.
 
     # 1. check that the processing / file type combo is valid:
     #
@@ -207,6 +207,18 @@ sub save_upload : Private {
       if ($params->{processing} =~ /^(?:weighted|hmm|observed)$/) {
         $c->stash->{processing} = $valid->{processing} = $params->{processing};
       }
+    }
+    else {
+      $c->stash->{processing} = $valid->{processing} = 'hmm';
+    }
+
+
+    if ($valid->{processing} =~ /^(?:weighted|observed)$/ && exists $c->stash->{file_is_hmm}) {
+      $c->stash->{error} = {
+        'processing' => 'HMM files do not require a post processing step. If you are uploading an hmm file, you can leave the processing argument blank.'
+      };
+      $c->stash->{rest}->{error} = $c->stash->{error};
+      $c->detach('end');
     }
 
     # if we got nothing, then we don't want the json encode to blow up.

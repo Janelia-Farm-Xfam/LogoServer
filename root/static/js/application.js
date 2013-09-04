@@ -34,7 +34,7 @@
 
     // we need to hide some of the form elements if we can.
     if (window.FileReader()) {
-      if ($('#file_upload').get(0).files.length >= 1) {
+      if ($('#file_upload').length > 0 && $('#file_upload').get(0).files.length >= 1) {
 
         var reader = new FileReader();
 

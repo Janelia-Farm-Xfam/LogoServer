@@ -31,6 +31,27 @@
       });
     }
 
+
+    // we need to hide some of the form elements if we can.
+    if (window.FileReader()) {
+      if ($('#file_upload').get(0).files.length >= 1) {
+
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          if (/^[\n\r\s]*HMMER/.test(e.target.result) && /\/\/[\n\r\s]*$/.test(e.target.result)) {
+            $('.processing').hide();
+          }
+        }
+
+        reader.readAsText($('#file_upload').get(0).files[0]);
+      } else {
+        $('.processing').hide();
+      }
+    }
+
+
+
     $('#file_upload').on('change', function () {
       // if the api to read a file is available, then we can decide if we have
       // an hmm on the client side.
@@ -42,8 +63,9 @@
           reader.onload = function (e) {
             if (/^[\n\r\s]*HMMER/.test(e.target.result) && /\/\/[\n\r\s]*$/.test(e.target.result)) {
               $('#hmm_process').prop('checked',true);
+              $('.processing').hide();
             } else {
-              console.log('this is not an hmm');
+              $('.processing').show();
             }
           }
 

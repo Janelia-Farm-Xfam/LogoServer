@@ -24,23 +24,6 @@ it under the same terms as Perl itself.
 
 =cut
 
-=head2 convert_args(scalar)
-
-=cut
-
-sub convert_args {
-  my ($self, $arg) = @_;
-  my %conversion = (
-    entropy_all   => 'emission',
-    entropy_above => 'posscore',
-    score         => 'score',
-  );
-  if ($arg && exists $conversion{$arg}) {
-    return $conversion{$arg};
-  }
-  return;
-}
-
 =head2 generate_json(SCALAR)
 
   Takes the hmm in a scalar variable and returns a JSON string.
@@ -49,8 +32,7 @@ sub convert_args {
 
 sub generate_json {
   my ($self, $hmm, $letter_height) = @_;
-  $letter_height = $self->convert_args($letter_height);
-  $letter_height ||= 'emission';
+  $letter_height ||= 'entropy_all';
   return Bio::HMM::Logo::hmmToLogoJson($hmm, $letter_height);
 }
 
@@ -66,7 +48,7 @@ sub generate_json {
 sub generate_png {
   my ($self, $ops ) = @_;
   if (!exists $ops->{letter_height}) {
-    $ops->{'letter_height'} = 'emission';
+    $ops->{'letter_height'} = 'entropy_all';
   }
   $ops->{letter_height} = $self->convert_args($ops->{'letter_height'});
 
@@ -83,8 +65,7 @@ sub generate_png {
 
 sub generate_raw {
   my ($self, $hmm, $letter_height) = @_;
-  $letter_height = $self->convert_args($letter_height);
-  $letter_height ||= 'emission';
+  $letter_height ||= 'entropy_all';
   my $data = Bio::HMM::Logo::hmmToLogo($hmm, $letter_height);
   return $data;
 }

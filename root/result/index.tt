@@ -32,11 +32,11 @@
       <dl>
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'image') %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a></dt>
         <dd><h5>PNG file</h5><p>A static image of the logo.</p></dd>
-      [% IF c.stash.letter_height == 'emission' %]
+      [% IF c.stash.letter_height == 'entropy_all' %]
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'image', { 'scaled' => '1'}) %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a></dt>
         <dd><h5>scaled PNG file</h5><p>A static image of the logo scaled to the theoretical maximum height.</p></dd>
       [% END %]
-      [% IF c.stash.logo_type && c.stash.logo_type == 'model' %]
+      [% IF c.stash.processing && c.stash.processing == 'hmm' %]
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'hmm') %]" ><img src="/static/gfx/hmm_dl.png" alt="download .hmm"/></a></dt>
         <dd><h5>HMM</h5><p>The HMM file used to calculate this logo.</p></dd>
       [% END %]

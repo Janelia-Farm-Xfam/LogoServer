@@ -20,5 +20,5 @@ set :default_environment, {
 
 set :deploy_via, :remote_cache
 
-role :web, "xfam-web-stage"                          # Your HTTP server, Apache/etc
-role :app, "xfam-web-stage"                          # This may be the same as your `Web` server
+role :web, "dfam-web-stage"                          # Your HTTP server, Apache/etc
+role :app, "dfam-web-stage"                          # This may be the same as your `Web` server

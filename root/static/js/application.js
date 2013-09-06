@@ -50,8 +50,6 @@
       }
     }
 
-
-
     $('#file_upload').on('change', function () {
       // if the api to read a file is available, then we can decide if we have
       // an hmm on the client side.

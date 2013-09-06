@@ -10,13 +10,12 @@ set :repository, "git@github.com:Janelia-Farm-Xfam/LogoServer.git"  # Your clone
 
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+set :scm_command, "/opt/bin/git"
 
 set :deploy_to, "/opt/www/#{application}"
 set :use_sudo, false
 
-set :default_environment, {
-  'PATH' => "/opt/bin/:$PATH"
-}
+default_run_options[:shell] = '/bin/bash'
 
 set :deploy_via, :remote_cache
 

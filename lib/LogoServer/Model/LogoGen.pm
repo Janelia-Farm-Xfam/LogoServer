@@ -77,7 +77,7 @@ sub generate_raw {
 sub generate_tabbed {
   my ($self, $hmm, $letter_height) = @_;
   my $data = $self->generate_raw($hmm, $letter_height);
-  my @keys = keys $data;
+  my @keys = keys %$data;
 
   my $sorted = $self->sort_residues($data->{height_arr}->[0]);
   my $letter_header = join "\t", @$sorted;

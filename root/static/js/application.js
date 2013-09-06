@@ -33,7 +33,7 @@
 
 
     // we need to hide some of the form elements if we can.
-    if (window.FileReader()) {
+    if (window.FileReader) {
       if ($('#file_upload').length > 0 && $('#file_upload').get(0).files.length >= 1) {
 
         var reader = new FileReader();
@@ -53,7 +53,7 @@
     $('#file_upload').on('change', function () {
       // if the api to read a file is available, then we can decide if we have
       // an hmm on the client side.
-      if (window.FileReader()) {
+      if (window.FileReader) {
         // do we have a file to read?
         if (this.files.length >= 1) {
           var reader = new FileReader();

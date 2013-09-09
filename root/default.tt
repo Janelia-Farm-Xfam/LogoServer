@@ -1,0 +1,16 @@
+<div class="container-fluid home">
+  <div class="row-fluid">
+    <div class="span12">
+      <h2>404: Not Found</h2>
+      <p>We're sorry, the page you are looking for doesn't seem to exist. If you believe this is an error, please send an email to <a href="&#104;&#101;&#108;&#112;&#064;&#115;&#107;&#121;&#108;&#105;&#103;&#110;&#046;&#111;&#114;&#103;">&#104;&#101;&#108;&#112;&#064;&#115;&#107;&#121;&#108;&#105;&#103;&#110;&#046;&#111;&#114;&#103;</a> and we will look into it.</p>
+      <h3>What to do now...</h3>
+      <ul>
+        <li>Have a look in the <a href="/help">help documentation</a>.</li>
+        <li>Try running a new search.</li>
+      </ul>
+
+      [% INCLUDE 'components/logo_form.tt' %]
+    </div>
+  </div>
+</div>
+

@@ -50,8 +50,6 @@ sub generate_png {
   if (!exists $ops->{letter_height}) {
     $ops->{'letter_height'} = 'entropy_all';
   }
-  $ops->{letter_height} = $self->convert_args($ops->{'letter_height'});
-
   return Bio::HMM::Logo::hmmToLogoPNG(
     $ops->{hmm},
     $ops->{letter_height},

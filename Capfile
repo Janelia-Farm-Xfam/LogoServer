@@ -31,7 +31,7 @@ namespace :deploy do
 
   desc "Compress css files into one file for production"
   task :compresscss, :roles => :web do
-    run "/opt/bin/lessc --yui-compress #{release_path}/root/static/css/main.less #{release_path}/Server/root/static/css/main.min.css"
+    run "/opt/bin/lessc --yui-compress #{release_path}/root/static/css/main.less #{release_path}/root/static/css/main.min.css"
   end
 
   desc "Minify javascript with Google closure compiler"
@@ -51,7 +51,7 @@ namespace :local do
 
   desc "Compress css files into one production file"
   task :compresscss, :roles => :web do
-    existing = Dir.glob('Server/root/static/css/main.*')
+    existing = Dir.glob('root/static/css/main.*')
     existing.each {|file|
       system("rm #{file}")
     }

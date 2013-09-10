@@ -9,7 +9,7 @@ set :stages, %w(staging production)
 before 'deploy:symlink', 'deploy:compresscss'
 before 'deploy:symlink', 'deploy:minifyjs'
 before 'deploy:symlink', 'deploy:modify_ownership'
-after 'deploy:linkconfig', 'deploy:restart'
+after 'deploy:symlink', 'deploy:restart'
 
 # Always cleanup after ourselves. This will keep only the
 # five most recent versions of the site around.

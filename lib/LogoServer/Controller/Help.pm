@@ -2,7 +2,7 @@ package LogoServer::Controller::Help;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller'; }
+BEGIN { extends 'LogoServer::Controller::Base' }
 
 =head1 NAME
 

@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 use IO::File;
 
-BEGIN { extends 'Catalyst::Controller'; }
+BEGIN { extends 'LogoServer::Controller::Base' }
 
 =head1 NAME
 

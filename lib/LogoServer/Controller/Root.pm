@@ -5,7 +5,7 @@ use Data::Printer;
 use Try::Tiny;
 use Data::UUID;
 
-BEGIN { extends 'Catalyst::Controller::REST' }
+BEGIN { extends 'LogoServer::Controller::Base' }
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -15,27 +15,6 @@ __PACKAGE__->config(
   namespace => '',
 );
 
-# set up the REST response serializing.
-__PACKAGE__->config(
-  default   => 'text/html',
-  stash_key => 'rest',
-  "map"     => {
-    "application/json"   => "JSON",
-    "application/x-yaml" => "YAML",
-    "application/yaml"   => "YAML",
-    "text/html"          => [ "View", "HTML" ],
-    "text/plain"         => [ "View", "Text" ],
-    "text/x-yaml"        => "YAML",
-    "text/xml"           => "XML::Simple",
-    "application/xml"    => "XML::Simple",
-    "text/yaml"          => "YAML",
-    "image/png"          => [ 'Callback', {
-                                            deserialize => \&_deserialize_image,
-                                            serialize   => \&_serialize_image,
-                                          }
-                            ],
-  }
-);
 
 =head1 NAME
 
@@ -67,7 +46,8 @@ sub index : Path : Args(0) : ActionClass('REST::ForBrowsers') {
 =cut
 
 sub index_GET_html : Private {
-
+  my ($self, $c) = @_;
+  return;
 }
 
 =head2 index_GET
@@ -248,8 +228,6 @@ sub default :Path {
 Attempt to render a view, if needed.
 
 =cut
-
-sub end : ActionClass('Serialize') {}
 
 sub _deserialize_image {
   return 1;

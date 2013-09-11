@@ -44,8 +44,19 @@ sub convert_upload {
 
   my $result = Easel::Validation::guessInput($input, $alignment_only, $dna_rna_ok);
 
+
   # if we can get an hmm out then we need to save it
   if ($result->{type} =~ /^MSA|HMM$/) {
+    if ($result->{type} =~ /^MSA/ && exists $result->{error}) {
+      my $message = sprintf "There was a problem parsing your multiple sequence alignment. It looked like you were trying to upload using %s format, but we couldn't parse it because: %s", $result->{guess}, $result->{error};
+      if (exists $result->{position} && $result->{position}) {
+        $message .= sprintf " at or near line %s.\n", $result->{position};
+      }
+      else {
+        $message .= ".\n";
+      }
+      die $message;
+    }
 
     my $hmm = $result->{hmmpgmd};
 

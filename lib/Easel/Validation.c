@@ -100,7 +100,6 @@ SV* isaHMM (char *input){
   HV* hash        = newHV();
   hv_store(hash, "type", strlen("type"), newSVpv("UNK", 3), 0);
 
-
   /* read the hmm */
   if ((status = p7_hmmfile_OpenBuffer(input, strlen(input), &hfp)) != 0 ) {
     hv_store(hash, "error", strlen("error"), newSViv(status), 0);
@@ -165,16 +164,10 @@ SV* isaMSA (const char *input, int is_msa, int ali_hmm, int dna_ok){
           hv_store(hash, "hmmpgmd", strlen("hmmpgmd"), newSVpv(input, strlen(input)), 0);
         }else{
           // We have been told it is an MSA or it is any other format other than AFA
-          if(is_msa == 1 || mfp->format != eslMSAFILE_AFA){
-            hv_store(hash, "type", strlen("type"), newSVpv("MSA", 3), 0);
-
-            ret_hmm = constructHMM( msa, abc, ali_hmm );
-            p7_hmmfile_WriteToString(&ascii_hmm, -1, ret_hmm);
-            hv_store(hash, "hmmpgmd", strlen("hmmpgmd"), newSVpv(ascii_hmm, strlen(ascii_hmm)), 0);
-          }else{
-            //Otherwise I just can not tell at the moment....
-            hv_store(hash, "type", strlen("type"), newSVpv("MS?", 3), 0);
-          }
+          hv_store(hash, "type", strlen("type"), newSVpv("MSA", 3), 0);
+          ret_hmm = constructHMM( msa, abc, ali_hmm );
+          p7_hmmfile_WriteToString(&ascii_hmm, -1, ret_hmm);
+          hv_store(hash, "hmmpgmd", strlen("hmmpgmd"), newSVpv(ascii_hmm, strlen(ascii_hmm)), 0);
         }
       }else{
         if(alpha == 0 ){

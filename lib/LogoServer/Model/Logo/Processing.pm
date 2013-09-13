@@ -68,10 +68,10 @@ sub convert_upload {
 
   }
   elsif ($result->{type} =~ /^SS$/) {
-    die "Uploaded data looks like a single sequence. Logo generation requires an alignment or HMM.\n";
+    die "The file you have uploaded looks like a single sequence. Logo generation requires an alignment or an HMM.\n";
   }
   elsif ($result->{type} =~ /^MS$/) {
-    die "Uploaded data looks like multiple unaligned sequences. Logo generation requires an alignment or HMM.\n";
+    die "The file you have uploaded looks like multiple unaligned sequences. Logo generation requires an alignment or an HMM.\n";
   }
   else {
     # otherwise die and throw an error

@@ -115,6 +115,14 @@ sub index :Path('/logo') :Args(1) Does('ValidateUUID') {
     $c->stash->{rest} = $c->model('LogoGen')->generate_raw($hmm_path, $c->stash->{letter_height});
   }
 
+  # if there is an error message, then we should display it once and remove
+  # it so that doesn't keep popping up.
+  if (exists $params->{error}) {
+    $c->stash->{message} = $params->{error};
+    delete $params->{error};
+    $c->model('LogoData')->set_options($uuid, $params);
+  }
+
   return;
 }
 

@@ -193,12 +193,19 @@ sub save_upload : Private {
     }
 
 
+
     if ($valid->{processing} =~ /^(?:weighted|observed)$/ && exists $c->stash->{file_is_hmm}) {
-      $c->stash->{error} = {
-        'processing' => 'HMM files do not require a post processing step. If you are uploading an hmm file, you can leave the processing argument blank.'
-      };
-      $c->stash->{rest}->{error} = $c->stash->{error};
-      $c->detach('end');
+      if ($c->request->looks_like_browser) {
+        $valid->{processing} = 'hmm';
+        $valid->{error} = 'HMM files do not require an alignment processing step. We have modified your alignment processing choice accordingly. In future please select the "Convert to an HMM" option to prevent this message.';
+      }
+      else {
+        $c->stash->{error} = {
+          'processing' => 'HMM files do not require an alignment processing step. If you are uploading an hmm file, you can leave the processing argument blank.'
+        };
+        $c->stash->{rest}->{error} = $c->stash->{error};
+        $c->detach('end');
+      }
     }
 
     # if we got nothing, then we don't want the json encode to blow up.

@@ -269,7 +269,26 @@ logo styles
 
 #col_info {
   float: left;
-  margin-left: 1em;
+  margin: 0.3em 0.3em 0.3em 1em;
+  padding: 0.3em;
+  border: 1px solid #ccc;
+  display: none;
+  table {
+    border-collapse: collapse;
+    th {
+      padding: 0 1em;
+    }
+  }
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  p {
+    text-align:center;
+    margin: 0;
+  }
+  .odd {
+    border-right: 1px solid #ccc;
+  }
 }
 
 .centered {

@@ -6,7 +6,7 @@
 </div>
 <div class="container-fluid info_block">
   <div class="row-fluid">
-    <div class="span6">
+    <div class="span7">
       <h2><span>Your [% IF c.stash.processing && c.stash.processing == 'hmm' %] Model [% ELSE %] Alignment [% END %] Logo</span></h2>
       <dl>
         <dt>Alphabet</dt>
@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="span6 download">
+    <div class="span5 download">
       <h2 id="download"><span>Download</span></h2>
       <dl>
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'image') %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a></dt>

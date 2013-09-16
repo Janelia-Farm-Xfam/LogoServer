@@ -14,7 +14,7 @@
 </div>
 <div class="container-fluid info_block">
   <div class="row-fluid">
-    <div class="span6 logo_info">
+    <div class="span7 logo_info">
       <h2><span>Your Model Logo</span></h2>
       <dl>
         <dt>Alphabet</dt>
@@ -33,7 +33,7 @@
         </div>
       </div>
     </div>
-    <div class="span6 download">
+    <div class="span5 download">
       <h2 id="download"><span>Download</span></h2>
       <dl>
         <dt id="png_dl"><img src="/static/gfx/png_dl.png" alt="download .png"/></dt>

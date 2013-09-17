@@ -15,7 +15,9 @@ set :scm_command, "/opt/bin/git"
 set :deploy_to, "/opt/www/#{application}"
 set :use_sudo, false
 
-default_run_options[:shell] = '/bin/bash'
+set :default_environment, {
+  'PATH' => "/opt/bin/:$PATH"
+}
 
 set :deploy_via, :copy
 

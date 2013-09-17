@@ -24,6 +24,7 @@
   <link rel="stylesheet" type="text/css" href="/static/css/main.min.css">
   [% END %]
 	<script src="/static/js/libs/modernizr-2.0.6.min.js"></script>
+  <link rel="icon" type="image/x-icon" href="/static/gfx/favicon.ico" />
 </head>
 <body>
 

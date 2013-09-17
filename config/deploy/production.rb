@@ -17,7 +17,7 @@ set :use_sudo, false
 
 default_run_options[:shell] = '/bin/bash'
 
-set :deploy_via, :remote_cache
+set :deploy_via, :copy
 
 role :web, "dfam-web-prod1", :primary => true
 role :web, "dfam-web-prod2"

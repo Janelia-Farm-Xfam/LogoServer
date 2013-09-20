@@ -57,7 +57,24 @@ sub generate_png {
   );
 }
 
-=head2 genreate_raw
+=head2 generate_svg
+
+=cut
+
+sub generate_svg {
+  my ($self, $ops ) = @_;
+  if (!exists $ops->{letter_height}) {
+    $ops->{'letter_height'} = 'entropy_all';
+  }
+  return Bio::HMM::Logo::hmmToLogoSVG(
+    $ops->{hmm},
+    $ops->{letter_height},
+    $ops->{scaled}
+  );
+}
+
+
+=head2 generate_raw
 
 =cut
 

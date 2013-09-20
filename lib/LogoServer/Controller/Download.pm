@@ -61,6 +61,23 @@ sub index :Path :Args(2) Does('ValidateUUID') {
     $c->res->header( 'Content-Disposition' => "attachment; filename=$fname" );
     $c->res->header( 'Content-Type'        => 'text/plain' );
   }
+  elsif ($type eq 'svg') {
+
+    my $options = {
+      hmm => $hmm_path,
+      letter_height => $params->{letter_height},
+    };
+
+    if ($c->req->param('scaled')) {
+      $options->{scaled} = 1;
+    }
+
+    my $svg = $c->model('LogoGen')->generate_svg($options);
+    $c->response->body($svg);
+    my $fname = "$uuid.svg";
+    $c->res->header( 'Content-Disposition' => "attachment; filename=$fname" );
+    $c->res->header( 'Content-Type'        => 'image/svg+xml' );
+  }
   elsif ($type eq 'json') {
     my $json = $c->model('LogoGen')->generate_json($hmm_path, $params->{letter_height});
     $c->response->body($json);

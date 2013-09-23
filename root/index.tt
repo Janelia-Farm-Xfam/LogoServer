@@ -1,12 +1,12 @@
 <div class="container-fluid home">
   <div class="row-fluid">
     <div class="span5">
-      <h2>About the Logo server here</h2>
-      <p>This is some place holder text. It should be replaced with a blurb about what the logo server is providing and what it does behind the scenes to produce the logos.</p>
+      <h2>Informative, interactive logos representing sequence alignments and profile hidden Markov models</h2>
+      <p>Skylign provides a unified framework for creating logos for both sequence alignments and profile hidden Markov models. In addition to static image files, Skylign creates a novel interactive logo plot for inclusion in web pages. These interactive logos enable scrolling, zooming, and inspection of underlying values.</p><p> Skylign can avoid sampling bias by down-weighting redundant sequences and by combining observed counts with informed priors. It also simplifies representation of gap parameters, and can optionally base letter heights on alternate calculations of the conservation of a position.</p>
       <a href="[% c.uri_for('/logo', 'example') %]">See an example</a>
     </div>
     <div class="span7">
-      <h2>Create your logo.</h2>
+      <h2>Create your logo</h2>
       [% INCLUDE 'components/logo_form.tt' %]
     </div>
   </div>

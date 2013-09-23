@@ -7,7 +7,13 @@
   <div class="row-fluid">
     <div class="span3 sidebar">
       <ul>
-        <li><a href="#logo">What is an HMM logo?</a></li>
+        <li><a href="#logo">What is a logo?</a></li>
+        <li>
+          <a href="#logo_details">What is shown in a logo?</a>
+          <li><a href="#letter_cons">Letter conservation</a></li>
+          <li><a href="#gap_params">Gap parameters</a></li>
+        </li>
+
         <li><a href="#upload">Uploading a file</a></li>
         <li>
           <a href="#logo_type">Logo Types</a>
@@ -18,6 +24,7 @@
         </li>
         <li><a href="#api_docs">API Dcoumentation</a></li>
         <li><a href="#api_use">Using the API</a></li>
+        <li><a href="#cite">Citing Skylign</a></li>
       </ul>
     </div>
     <div class="span9">
@@ -30,10 +37,8 @@
         letters for each position, where
         <ul>
           <li>
-          the height of the stack corresponds to the conservation at
-          that position (typically, this is the
-          <span class="hilight">information content</span> of the
-          position), and
+          the height of the stack typically corresponds to the
+          conservation at that position, and
           </li>
           <li>
           the height of each letter within a stack depends on the
@@ -41,6 +46,8 @@
           </li>
         </ul>
       </p>
+      <h2 id="logo_details">What is shown in a logo?</h2>
+      <h3 id="letter_cons">Letter conservation</h3>
       <p>
         The per-positon probabilities underlying the letter stack
         calculations are estimates of those per-position distributions
@@ -52,16 +59,93 @@
         (b) from observed counts after assigning sequence weights to
         account for sequence redundancy, or (c) after assigning weights
         and combining with a Dirichlet mixture prior. These options are
-        implemented using HMMER (<a href="http://hmmer.org">hmmer.org</a>).
+        implemented using HMMER (<a href="http://hmmer.org">http://hmmer.org</a>).
       </p>
+      <p>
+        Skylign offers three ways of calculating letter- and stack heights
+        for each column of the underlying alignment:
+        <ul>
+          <li>
+            Stack height is the <i>information content</i>
+            (aka relative entropy) of the position,
+            and letters divide that height according to their estimated
+            probability.  This is default, and is the way logo letter
+            stacks are typically computed in other tools.
+          </li>
+          <li>
+            Stack height is the <i>information content</i> of the position,
+            and only positive-scoring letters are included in the stack -
+            the height of the stack is subdivided according to the relative
+            probabilities of those positive scoring letters. This reduces
+            the noisy mash of letters at the bottom of logos when strong
+            priors are mixed with observed counts (as with HMMER 3.1 profile
+            HMMs).
+          </li>
+          <li>
+            The height of each letter depends on that letter’s score, and
+            only positive-scoring letters are included in the stack. The
+            height of a stack does not have any inherent meaning in this case.
+          </li>
+        </ul>
+      </p>
+
+      <h3 id="gap_params">Gap parameters</h3>
+      <p>
+        In addition to representing the per-position letter
+        distribution, Skylign renders position-specific gap
+        parameters. It does this by presenting three values for each
+        position k:
+        <ul>
+          <li>
+          Insert probability: the probability of observing one or more letters inserted between the letter corresponding to position k and the letter corresponding to position (k+1).
+	      </li>
+	      <li>
+          Insert length: the expected length of an insertion following position k, if one is observed.
+	      </li>
+	      <li>
+          Occupancy: the probability of observing a letter at position k. If we call this value occ(k), the probability of observing a gap character (part of a deletion relative to the model) is 1- occ(k).
+          </li>
+        </ul>
+        These parameters are represented by three rows of numerical
+        values placed below the letter stacks of the logo, with a heat
+        map laid over the top of each value to provide a visual aid.
+      </p>
+
       <p> This description leaves many details unexplained. Please
-      see Skylign paper for details
+      see Skylign paper for details.
       </p>
 
       <h2 id="upload">Uploading a file</h2>
+      <p>
+      Skylign will accept a HMMER-formatted profile HMM, and sequence
+      alignments in any format accepted by HMMER (including Stockholm and
+      aligned fasta format).
+      </p>
       <h2 id="logo_type">Logo Types</h2>
+      <h3 id="model_logo">Profile HMM</h3>
+      <p>
+      Producing a profile logo is a straightforward business:
+      Skylign reads the estimated per-position distributions from the
+      HMM file and uses them to compute stack heights and gap values.
+      The submission form requires selection of preferred method for
+      computing letter and stack heights.
+      </p>
+
       <h3 id="alignment_logo">Alignment</h3>
-      <h3 id="model_logo">Model</h3>
+      <p>
+      Producing an alignment logo requires selection of the preferred
+      method of estimating parameters (Alignment Processing: observed
+      counts, weighted counts, or combination with priors), in addition
+      to choosing height method.
+      </p>
+
+      <p>
+      Note: in older browsers, it is not
+      possible to discern an HMM file from an alignment file, so the
+      "Alignment Processing" option will be shown even for an uploaded
+      profile HMM. Simply select "Convert to an HMM".
+      </p>
+
       <h3 id="api_docs">API Documentation</h3>
       <p>All documentation for the resources made available by the REST API can be found on the <a href="/help/api">REST API Documentation</a> pages.</p>
       <h2 id="api_use">Using the API</h2>
@@ -171,7 +255,7 @@ curl -H 'Accept:application/json' http://skylign.org/logo/6BBFEB96-E7E0-11E2-A24
 }
       </pre>
 
-      <h2 id="api_use">Citing Skylign</h2>
+      <h2 id="cite">Citing Skylign</h2>
       <p>
       Please cite: Wheeler, T.J., Clements, J., Finn, R.D.
       Skylign: a tool for creating informative, interactive logos

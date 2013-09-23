@@ -21,7 +21,43 @@
       </ul>
     </div>
     <div class="span9">
-      <h2 id="logo">What is an HMM logo?</h2>
+      <h2 id="logo">What is a logo?</h2>
+      <p>
+        Logos are commonly used in molecular biology to provide a compact
+        graphical representation of the conservation pattern of a set of
+        sequences. They render the information contained in sequence
+        alignments or profile hidden Markov models by drawing a stack of
+        letters for each position, where
+        <ul>
+          <li>
+          the height of the stack corresponds to the conservation at
+          that position (typically, this is the
+          <span class="hilight">information content</span> of the
+          position), and
+          </li>
+          <li>
+          the height of each letter within a stack depends on the
+          frequency of that letter at that position,
+          </li>
+        </ul>
+      </p>
+      <p>
+        The per-positon probabilities underlying the letter stack
+        calculations are estimates of those per-position distributions
+        across the family of homologous sequences. In the case of
+        rendering a logo for a profile HMM, those estimates are taken
+        directly from the HMM. When rendering a logo for a sequence
+        alignment, Skylign enables calculation of these estimates
+        (a) directly from frequencies observed in the alignment,
+        (b) from observed counts after assigning sequence weights to
+        account for sequence redundancy, or (c) after assigning weights
+        and combining with a Dirichlet mixture prior. These options are
+        implemented using HMMER (<a href="http://hmmer.org">hmmer.org</a>).
+      </p>
+      <p> This description leaves many details unexplained. Please
+      see Skylign paper for details
+      </p>
+
       <h2 id="upload">Uploading a file</h2>
       <h2 id="logo_type">Logo Types</h2>
       <h3 id="alignment_logo">Alignment</h3>
@@ -66,7 +102,7 @@ curl -H 'Accept:image/png' http://skylign.org/logo/6BBFEB96-E7E0-11E2-A243-DF86A
       </pre>
       <h3>Retrieving the raw data</h3>
       <p>If you would like to get the JSON used in the javascript logo, then you can get to that by requesting a JSON repsonse.
-      Go to the <a href="/help/api/get/logo/:uuid">GET /logo/:uuid</a> page to see the other download formats that are available. </p> 
+      Go to the <a href="/help/api/get/logo/:uuid">GET /logo/:uuid</a> page to see the other download formats that are available. </p>
       <pre class="code">
 <span class="hilight"># Request</span>
 curl -H 'Accept:application/json' http://skylign.org/logo/6BBFEB96-E7E0-11E2-A243-DF86A4A34227
@@ -134,6 +170,15 @@ curl -H 'Accept:application/json' http://skylign.org/logo/6BBFEB96-E7E0-11E2-A24
   "insert_probs":[0,0,0,0,0,0,0,0]
 }
       </pre>
+
+      <h2 id="api_use">Citing Skylign</h2>
+      <p>
+      Please cite: Wheeler, T.J., Clements, J., Finn, R.D.
+      Skylign: a tool for creating informative, interactive logos
+      representing sequence alignments and profile hidden Markov models.
+      2013. Submitted.
+      </p>
     </div>
+
   </div>
 </div>

@@ -40,6 +40,10 @@
         <dd><h5>PNG file</h5><p>A static image of the logo.</p></dd>
       </dl>
       <dl>
+        <dt id="svg_dl"><img src="/static/gfx/svg_dl.png" alt="download .svg"/></dt>
+        <dd><h5>SVG file</h5><p>A vector image of the logo.</p></dd>
+      </dl>
+      <dl>
         <dt id="hmm_dl"><img src="/static/gfx/hmm_dl.png" alt="download .hmm"/></dt>
         <dd><h5>HMM</h5><p>The HMM file used to calculate this logo.</p></dd>
       </dl>
@@ -104,6 +108,10 @@
   <li data-id="png_dl" data-button="next">
     <h3>PNG Download</h3>
     <p>This is a static version of the logo in PNG format. It is set to show the letters at the maximum width and the information content is scaled to the theoretical maximum.</p>
+  </li>
+  <li data-id="svg_dl" data-button="next">
+    <h3>SVG Download</h3>
+    <p>This is a vector version of the logo in SVG format. It is set to show the letters at the maximum width and the information content is scaled to the theoretical maximum.</p>
   </li>
   <li data-id="hmm_dl" data-button="next">
     <h3>HMM Download</h3>

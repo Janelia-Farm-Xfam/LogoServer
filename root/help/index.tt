@@ -42,7 +42,7 @@
           </li>
           <li>
           the height of each letter within a stack depends on the
-          frequency of that letter at that position,
+          frequency of that letter at that position.
           </li>
         </ul>
       </p>
@@ -62,7 +62,7 @@
         implemented using HMMER (<a href="http://hmmer.org">http://hmmer.org</a>).
       </p>
       <p>
-        Skylign offers three ways of calculating letter- and stack heights
+        Skylign offers three ways of calculating letter- and stack-heights
         for each column of the underlying alignment:
         <ul>
           <li>
@@ -110,20 +110,19 @@
         values placed below the letter stacks of the logo, with a heat
         map laid over the top of each value to provide a visual aid.
       </p>
-
+      <h3 id="more_details">More details</h3>
       <p> This description leaves many details unexplained. Please
       see Skylign paper for details.
       </p>
 
       <h2 id="upload">Uploading a file</h2>
       <p>
-      Skylign will accept a HMMER-formatted profile HMM, and sequence
-      alignments in any format accepted by HMMER (including Stockholm and
-      aligned fasta format).
+      Skylign will compute a logo for a profile HMM or for a sequence
+      alignment
       </p>
-      <h2 id="logo_type">Logo Types</h2>
       <h3 id="model_logo">Profile HMM</h3>
       <p>
+      Skylign accepts HMMER-formatted profile HMM files.
       Producing a profile logo is a straightforward business:
       Skylign reads the estimated per-position distributions from the
       HMM file and uses them to compute stack heights and gap values.
@@ -133,6 +132,8 @@
 
       <h3 id="alignment_logo">Alignment</h3>
       <p>
+      Skylign accepts for sequence alignments in any format accepted
+      by HMMER (this includes Stockholm and aligned fasta format).
       Producing an alignment logo requires selection of the preferred
       method of estimating parameters (Alignment Processing: observed
       counts, weighted counts, or combination with priors), in addition

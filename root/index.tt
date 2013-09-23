@@ -1,8 +1,14 @@
 <div class="container-fluid home">
   <div class="row-fluid">
     <div class="span5">
-      <h2>Informative, interactive logos representing sequence alignments and profile hidden Markov models</h2>
-      <p>Skylign provides a unified framework for creating logos for both sequence alignments and profile hidden Markov models. In addition to static image files, Skylign creates a novel interactive logo plot for inclusion in web pages. These interactive logos enable scrolling, zooming, and inspection of underlying values.</p><p> Skylign can avoid sampling bias by down-weighting redundant sequences and by combining observed counts with informed priors. It also simplifies representation of gap parameters, and can optionally base letter heights on alternate calculations of the conservation of a position.</p>
+      <h2>Interactive logos for alignments and profile HMMs</h2>
+      <p>
+      Skylign is a tool for creating logos representing
+      both sequence alignments and profile hidden Markov models.
+      Submit to the form on the right in order to produce
+      (i) interactive logos for inclusion
+      in webpages, or (ii) static logos for use in documents.
+      </p>
       <a href="[% c.uri_for('/logo', 'example') %]">See an example</a>
     </div>
     <div class="span7">

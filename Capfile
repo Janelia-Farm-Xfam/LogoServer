@@ -31,12 +31,15 @@ namespace :deploy do
 
   desc "Compress css files into one file for production"
   task :compresscss, :roles => :web do
-    run "/opt/bin/lessc --yui-compress #{release_path}/root/static/css/main.less #{release_path}/root/static/css/main.min.css"
+    run "/opt/bin/lessc --yui-compress #{release_path}/root/static/css/app.less #{release_path}/root/static/css/main.min.css"
   end
 
   desc "Minify javascript with Google closure compiler"
   task :minifyjs, :roles => :web do
-    run "cat #{release_path}/root/static/js/*.js > #{release_path}/root/static/js/main.js"
+
+    run "cat #{release_path}/root/static/js/libs/*.js > #{release_path}/root/static/00-libs.js"
+    run "cat #{release_path}/root/static/js/*.js >> #{release_path}/root/static/js/main.js"
+
     run "/usr/bin/java -jar /opt/lib/java/compiler.jar --js #{release_path}/root/static/js/main.js --js_output_file #{release_path}/root/static/js/main.min.js"
   end
 
@@ -55,8 +58,8 @@ namespace :local do
     existing.each {|file|
       system("rm #{file}")
     }
-    system("/opt/bin/lessc --yui-compress root/static/css/main.less root/static/css/main.min.css")
-    system("/opt/bin/lessc root/static/css/main.less root/static/css/main.css")
+    system("/opt/bin/lessc --yui-compress root/static/css/app.less root/static/css/main.min.css")
+    system("/opt/bin/lessc root/static/css/app.less root/static/css/main.css")
   end
 
   desc "Minify javascript with Google closure compiler"
@@ -65,7 +68,10 @@ namespace :local do
     existing.each {|file|
       system("rm #{file}")
     }
-    system('cd root/static/js;cat *.js > main.js;cd -')
+
+    system('cd root/static/js/libs; cat *.js > ../00-libs.js;cd -')
+    system('cd root/static/js; cat *.js >> main.js;cd -')
+
     system("/usr/bin/java -jar /opt/lib/java/compiler.jar --js root/static/js/main.js --js_output_file root/static/js/main.min.js")
   end
 end

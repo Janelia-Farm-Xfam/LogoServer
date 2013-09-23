@@ -72,6 +72,46 @@
       }
     });
 
+    //tooltips for the help icons.
+    $.fn.tooltip = function () {
+      $(this).each(function () {
+
+        $(this).click(function (e) {
+          e.preventDefault();
+        });
+
+        // if this has a title attribute, then use that
+        var content = $('<p>');
+        content.append($(this).attr('title'));
+        content.append('<br/>').append($('<a>more</a>').attr('href',$(this).attr('href'))).html();
+
+        $(this).qtip({
+          content: {
+            text: content
+          },
+          style: {
+            classes: 'qtip-bootstrap'
+          },
+          position: {
+            my: 'center left',
+            at: 'center right',
+            target: $(this)
+          },
+          hide: {
+            fixed: true,
+            delay: 1000,
+            event: "mouseleave"
+          },
+          show: {
+            solo: true
+          }
+        });
+
+      });
+      return this;
+    };
+
+    $('.help').tooltip();
 
     // start up the carousel.
     $('#showcase').carousel();

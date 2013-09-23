@@ -6,14 +6,16 @@ export PATH=/opt/bin:$PATH
 
 # minify css
 
-/opt/bin/lessc --yui-compress root/static/css/main.less root/static/css/main.min.css
+/opt/bin/lessc --yui-compress root/static/css/app.less root/static/css/main.min.css
 
 # clear out old build files
 rm /opt/www/Skylign/current/root/static/js/main.js
 rm /opt/www/Skylign/current/root/static/js/main.min.js
+rm /opt/www/Skylign/current/root/static/js/00-libs.js
 
 
 # minify and compress the javascript
+cat /opt/www/Skylign/current/root/static/js/libs/*.js > /opt/www/Skylign/current/root/static/js/00-libs.js
 cat /opt/www/Skylign/current/root/static/js/*.js > /opt/www/Skylign/current/root/static/js/main.js
 
 

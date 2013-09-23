@@ -1,6 +1,6 @@
 <form id="logo_in" class="upload" action="/" method="post" enctype="multipart/form-data">
   <div class="control-group">
-    <label for="file" class="control-label">Upload an HMM or Multiple sequence alignment <a class="help" href="/help#upload"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a></label>
+    <label for="file" class="control-label">Upload an HMM or Multiple sequence alignment <a class="help" href="/help#upload" title="CHANGEME"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a></label>
     <div class="controls">
       <input id="file_upload" type="file" name="file"/>
     </div>
@@ -12,13 +12,13 @@
           <fieldset>
             <legend>Alignment Processing</legend>
             <label class="radio">
-              <input type="radio" id="observed_process" name="processing" value="observed" [% IF c.req.params.processing == "observed" || !c.req.params.processing %]checked="checked"[% END %] />Use Observed Counts <a class="help" href="/help#model_logo"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" id="observed_process" name="processing" value="observed" [% IF c.req.params.processing == "observed" || !c.req.params.processing %]checked="checked"[% END %] />Use Observed Counts <a class="help" href="/help#model_logo" title="CHANGEME"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
-              <input type="radio" id="weighted_process" name="processing" value="weighted" [% IF c.req.params.processing == "weighted" %]checked="checked"[% END %] />Use Weighted Counts <a class="help" href="/help#model_logo"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" id="weighted_process" name="processing" value="weighted" [% IF c.req.params.processing == "weighted" %]checked="checked"[% END %] />Use Weighted Counts <a class="help" href="/help#model_logo" title="CHANGEME"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
-              <input type="radio" id="hmm_process" name="processing" value="hmm" [% IF c.req.params.processing == "hmm" %]checked="checked"[% END %] />Convert to an HMM <a class="help" href="/help#model_logo"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" id="hmm_process" name="processing" value="hmm" [% IF c.req.params.processing == "hmm" %]checked="checked"[% END %] />Convert to an HMM <a class="help" href="/help#model_logo" title="CHANGEME"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
           </fieldset>
         </div>
@@ -30,13 +30,13 @@
           <fieldset>
             <legend>Letter Height</legend>
             <label class="radio">
-              <input type="radio" id="emission_calc" name="letter_height" value="info_content_all" [% IF !c.req.params.letter_height || c.req.params.letter_height == "info_content_all" %]checked="checked"[% END %] />Information Content - All <a class="help" href="/help#emission"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" id="emission_calc" name="letter_height" value="info_content_all" [% IF !c.req.params.letter_height || c.req.params.letter_height == "info_content_all" %]checked="checked"[% END %] />Information Content - All <a class="help" href="/help#emission" title="CHANGEME"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
-              <input type="radio" id="posscore_calc" name="letter_height" value="info_content_above" [% IF c.req.params.letter_height == "info_content_above" %]checked="checked"[% END %] />Information Content - Above Background <a class="help" href="/help#posscore"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" id="posscore_calc" name="letter_height" value="info_content_above" [% IF c.req.params.letter_height == "info_content_above" %]checked="checked"[% END %] />Information Content - Above Background <a class="help" href="/help#posscore" title="CHANGEME"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
-              <input type="radio" class="model_calc" name="letter_height" value="score" [% IF c.req.params.letter_height == "score" %]checked="checked"[% END %] />Score <a class="help" href="/help#score"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" class="model_calc" name="letter_height" value="score" [% IF c.req.params.letter_height == "score" %]checked="checked"[% END %] />Score <a class="help" href="/help#score" title="CHANGEME"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
           </fieldset>
         </div>

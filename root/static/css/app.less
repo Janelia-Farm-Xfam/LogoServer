@@ -1,3 +1,4 @@
+@import "qtip";
 @import "bootstrap";
 
 header {
@@ -15,7 +16,7 @@ header {
     position: absolute;
     text-shadow: 1px 1px 1px #999999;
     top: 0;
-    a {
+    a, a:hover {
       text-decoration: none;
       color: #fff;
     }
@@ -70,7 +71,7 @@ footer {
   background: #ccc;
   color:#999;
   padding-left:2em;
-  a {
+  a, a:hover {
     text-decoration:none;
     color:#333;
   }
@@ -115,7 +116,7 @@ a {
   color: #5B99D6;
 }
 
-#content a:hover {
+a:hover {
   text-decoration: underline;
   color: #8E5BD6;
 }
@@ -466,7 +467,7 @@ button, input[type=submit], input[type=reset]{
   left: -9999px;
 }
 
-a.help {
+a.help, .content a.help:hover {
   text-decoration: none;
   color: #999;
 }
@@ -603,8 +604,13 @@ pre {
   }
 }
 
+.carousel-control:hover {
+  text-decoration:none;
+  color:#fff;
+}
+
 @media (max-width: 900px) {
-  #content {
+  .content {
     margin: 0 1em;
   }
   .logo_wrapper {

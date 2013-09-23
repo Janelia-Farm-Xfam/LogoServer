@@ -30,10 +30,10 @@
           <fieldset>
             <legend>Letter Height</legend>
             <label class="radio">
-              <input type="radio" id="emission_calc" name="letter_height" value="entropy_all" [% IF !c.req.params.letter_height || c.req.params.letter_height == "entropy_all" %]checked="checked"[% END %] />Information Content - All <a class="help" href="/help#emission"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" id="emission_calc" name="letter_height" value="info_content_all" [% IF !c.req.params.letter_height || c.req.params.letter_height == "info_content_all" %]checked="checked"[% END %] />Information Content - All <a class="help" href="/help#emission"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
-              <input type="radio" id="posscore_calc" name="letter_height" value="entropy_above" [% IF c.req.params.letter_height == "entropy_above" %]checked="checked"[% END %] />Information Content - Above Background <a class="help" href="/help#posscore"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" id="posscore_calc" name="letter_height" value="info_content_above" [% IF c.req.params.letter_height == "info_content_above" %]checked="checked"[% END %] />Information Content - Above Background <a class="help" href="/help#posscore"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
               <input type="radio" class="model_calc" name="letter_height" value="score" [% IF c.req.params.letter_height == "score" %]checked="checked"[% END %] />Score <a class="help" href="/help#score"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>

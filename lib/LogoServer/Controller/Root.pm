@@ -162,7 +162,7 @@ sub save_upload : Private {
     #
 
     if (exists $params->{letter_height}) {
-      if ($params->{letter_height} =~ /^(?:score|entropy_(?:all|above))$/) {
+      if ($params->{letter_height} =~ /^(?:score|info_content_(?:all|above))$/) {
         $valid->{letter_height} = $params->{letter_height};
       }
       else {

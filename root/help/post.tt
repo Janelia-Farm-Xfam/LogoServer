@@ -62,11 +62,11 @@
             <td>
               <p>Which height calculation algorithm should be used during logo generation. There are three different algorithms to choose from:</p>
               <ul>
-                <li>entropy_all - </li>
-                <li>entropy_above - </li>
+                <li>info_content_all - </li>
+                <li>info_content_above - </li>
                 <li>score - </li>
               </ul>
-              <strong>Default:</strong> entropy_all
+              <strong>Default:</strong> info_content_all
             </td>
           </tr>
         </tbody>

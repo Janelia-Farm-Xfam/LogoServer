@@ -32,7 +32,7 @@ it under the same terms as Perl itself.
 
 sub generate_json {
   my ($self, $hmm, $letter_height) = @_;
-  $letter_height ||= 'entropy_all';
+  $letter_height ||= 'info_content_all';
   return Bio::HMM::Logo::hmmToLogoJson($hmm, $letter_height);
 }
 
@@ -48,7 +48,7 @@ sub generate_json {
 sub generate_png {
   my ($self, $ops ) = @_;
   if (!exists $ops->{letter_height}) {
-    $ops->{'letter_height'} = 'entropy_all';
+    $ops->{'letter_height'} = 'info_content_all';
   }
   return Bio::HMM::Logo::hmmToLogoPNG(
     $ops->{hmm},
@@ -64,7 +64,7 @@ sub generate_png {
 sub generate_svg {
   my ($self, $ops ) = @_;
   if (!exists $ops->{letter_height}) {
-    $ops->{'letter_height'} = 'entropy_all';
+    $ops->{'letter_height'} = 'info_content_all';
   }
   return Bio::HMM::Logo::hmmToLogoSVG(
     $ops->{hmm},
@@ -80,7 +80,7 @@ sub generate_svg {
 
 sub generate_raw {
   my ($self, $hmm, $letter_height) = @_;
-  $letter_height ||= 'entropy_all';
+  $letter_height ||= 'info_content_all';
   my $data = Bio::HMM::Logo::hmmToLogo($hmm, $letter_height);
   return $data;
 }

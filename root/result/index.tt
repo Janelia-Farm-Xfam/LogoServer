@@ -32,7 +32,7 @@
       <dl>
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'image') %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a></dt>
         <dd><h5>PNG file</h5><p>A static image of the logo.</p></dd>
-      [% IF c.stash.letter_height == 'entropy_all' %]
+      [% IF c.stash.letter_height == 'info_content_all' %]
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'image', { 'scaled' => '1'}) %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a></dt>
         <dd><h5>scaled PNG file</h5><p>A static image of the logo scaled to the theoretical maximum height.</p></dd>
       [% END %]

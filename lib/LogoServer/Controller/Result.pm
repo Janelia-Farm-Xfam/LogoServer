@@ -78,16 +78,16 @@ sub index :Path('/logo') :Args(1) Does('ValidateUUID') {
 
   if (exists $params->{letter_height}) {
     my %conversion = (
-      entropy_all   => 'Relative Entropy - All',
-      entropy_above => 'Relative Entropy - Above Background',
-      score         => 'Score',
+      info_content_all   => 'Information Content - All',
+      info_content_above => 'Information Content - Above Background',
+      score              => 'Score',
     );
     $c->stash->{letter_height_display} = $conversion{$params->{letter_height}};
     $c->stash->{letter_height} = $params->{letter_height};
   }
   else {
-    $c->stash->{letter_height} = 'entropy_all';
-    $c->stash->{letter_height_display} = 'Realtive Entropy - All';
+    $c->stash->{letter_height} = 'info_content_all';
+    $c->stash->{letter_height_display} = 'Information Content - All';
   }
 
   # run the logo generation

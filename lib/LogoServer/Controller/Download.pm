@@ -36,6 +36,7 @@ sub index :Path :Args(2) Does('ValidateUUID') {
 
   if (! -e $hmm_path) {
     $c->stash->{error} = {uuid => "We were unable to find a result for the supplied identifier."};
+    $c->stash->{template} = 'missing.tt';
     return;
   }
 

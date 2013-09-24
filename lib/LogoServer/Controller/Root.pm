@@ -36,7 +36,7 @@ The root page (/)
 
 =cut
 
-sub index : Path : Args(0) : ActionClass('REST::ForBrowsers') {
+sub index : Path : Args(0) : ActionClass('~REST::ForBrowsers') {
   my ($self, $c) = @_;
   return;
 }

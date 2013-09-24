@@ -4,8 +4,8 @@
   <li>
     <h3><span class="step">Step 1</span> Download the javascript and css.</h3>
     <ul>
-      <li><a href="/static/js/hmm_logo.min.js"><img src="/static/gfx/json_dl.png" alt="download"/>hmm_logo.min.js (28KB)</a></li>
-      <li><a href="/static/css/hmm_logo.min.css"><img src="/static/gfx/json_dl.png" alt="download"/>hmm_logo.min.css (2KB)</a></li>
+      <li><a href="/static/js/libs/hmm_logo.js"><img src="/static/gfx/json_dl.png" alt="download"/>hmm_logo.js (29KB)</a></li>
+      <li><a href="/static/css/hmm_logo.min.css"><img src="/static/gfx/json_dl.png" alt="download"/>hmm_logo.min.css (2.5KB)</a></li>
     </ul>
   </li>
   <li>

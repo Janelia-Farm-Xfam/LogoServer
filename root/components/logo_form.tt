@@ -1,6 +1,8 @@
 <form id="logo_in" class="upload" action="/" method="post" enctype="multipart/form-data">
   <div class="control-group">
-    <label for="file" class="control-label">Upload an HMM or Multiple sequence alignment <a class="help" href="/help#upload" title="CHANGEME"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a></label>
+    <label for="file" class="control-label">Upload an HMM or Multiple sequence alignment
+        <a class="help" href="/help#upload" title="Skylign accepts profile HMMs in HMMER format, and sequence alignments in a wide variety of formats including Stockholm and aligned fasta">
+        <span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a></label>
     <div class="controls">
       <input id="file_upload" type="file" name="file"/>
     </div>
@@ -12,13 +14,19 @@
           <fieldset>
             <legend>Alignment Processing</legend>
             <label class="radio">
-              <input type="radio" id="observed_process" name="processing" value="observed" [% IF c.req.params.processing == "observed" || !c.req.params.processing %]checked="checked"[% END %] />Use Observed Counts <a class="help" href="/help#model_logo" title="CHANGEME"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" id="observed_process" name="processing" value="observed" [% IF c.req.params.processing == "observed" || !c.req.params.processing %]checked="checked"[% END %] />Use Observed Counts
+                 <a class="help" href="/help#model_logo" title="Letter stacks and gap values depend on estimated distributions for each position. Estimate those distributions directly from observed frequencies.">
+                 <span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
-              <input type="radio" id="weighted_process" name="processing" value="weighted" [% IF c.req.params.processing == "weighted" %]checked="checked"[% END %] />Use Weighted Counts <a class="help" href="/help#model_logo" title="CHANGEME"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" id="weighted_process" name="processing" value="weighted" [% IF c.req.params.processing == "weighted" %]checked="checked"[% END %] />Use Weighted Counts
+                 <a class="help" href="/help#model_logo" title="Letter stacks and gap values depend on estimated distributions for each position. Redundant sequences are downweighted, and distributions are estimated from frequencies computed using those sequence weights.">
+                 <span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
-              <input type="radio" id="hmm_process" name="processing" value="hmm" [% IF c.req.params.processing == "hmm" %]checked="checked"[% END %] />Convert to an HMM <a class="help" href="/help#model_logo" title="CHANGEME"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" id="hmm_process" name="processing" value="hmm" [% IF c.req.params.processing == "hmm" %]checked="checked"[% END %] />Convert to an HMM
+                 <a class="help" href="/help#model_logo" title="Letter stacks and gap values depend on estimated distributions for each position. Use HMMER to estimate those distributions by applying sequence weights, absolute weights, and a Dirichlet mixture prior.">
+                 <span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
           </fieldset>
         </div>
@@ -30,13 +38,19 @@
           <fieldset>
             <legend>Letter Height</legend>
             <label class="radio">
-              <input type="radio" id="emission_calc" name="letter_height" value="info_content_all" [% IF !c.req.params.letter_height || c.req.params.letter_height == "info_content_all" %]checked="checked"[% END %] />Information Content - All <a class="help" href="/help#emission" title="CHANGEME"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" id="emission_calc" name="letter_height" value="info_content_all" [% IF !c.req.params.letter_height || c.req.params.letter_height == "info_content_all" %]checked="checked"[% END %] />Information Content - All
+                 <a class="help" href="/help#emission" title="Stack height of each position is that position's information content. All letters are shown, subdividing stack height according to estimated letter probability.">
+                 <span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
-              <input type="radio" id="posscore_calc" name="letter_height" value="info_content_above" [% IF c.req.params.letter_height == "info_content_above" %]checked="checked"[% END %] />Information Content - Above Background <a class="help" href="/help#posscore" title="CHANGEME"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" id="posscore_calc" name="letter_height" value="info_content_above" [% IF c.req.params.letter_height == "info_content_above" %]checked="checked"[% END %] />Information Content - Above Background
+                 <a class="help" href="/help#posscore" title="Stack height of each position is that position's information content. Positive-scoring (above background frequency) letters are shown, subdividing stack height according to estimated letter probability.">
+                 <span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
-              <input type="radio" class="model_calc" name="letter_height" value="score" [% IF c.req.params.letter_height == "score" %]checked="checked"[% END %] />Score <a class="help" href="/help#score" title="CHANGEME"><span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              <input type="radio" class="model_calc" name="letter_height" value="score" [% IF c.req.params.letter_height == "score" %]checked="checked"[% END %] />Score
+                 <a class="help" href="/help#score" title="In each position, letter height is the score of that letter at that position. Only positive-scoring letters are shown. Stack height has no inherent meaning.">
+                 <span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
           </fieldset>
         </div>

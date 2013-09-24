@@ -65,7 +65,7 @@
         Skylign offers three ways of calculating letter- and stack-heights
         for each column of the underlying alignment:
         <ul>
-          <li><a href="#height_infocontent_all">
+          <li id="height_infocontent_all">
             <b>Information content - all</b> :
             Stack height is the <i>information content</i>
             (aka relative entropy) of the position,
@@ -73,7 +73,7 @@
             probability.  This is default, and is the way logo letter
             stacks are typically computed in other tools.
           </li>
-          <li><a href="#height_infocontent_above">
+          <li id="height_infocontent_above">
             <b>Information content - above background</b> :
             Stack height is the <i>information content</i> of the position,
             and only positive-scoring letters are included in the stack -
@@ -83,7 +83,7 @@
             priors are mixed with observed counts (as with HMMER 3.1 profile
             HMMs).
           </li>
-          <li><a href="#height_score">
+          <li id="height_score">
             <b>Score</b> :
             The height of each letter depends on that letter’s score, and
             only positive-scoring letters are included in the stack. The
@@ -141,16 +141,16 @@
       method of estimating per-column parameters from the observed
       frequencies in the alignment (Alignment Processing):
         <ul>
-          <li><a href="#est_observed">
+          <li id="#est_observed">
           <b>Observed counts</b>: For each column, use the maximum-likelihood
           estimate - the observed counts.
 	      </li>
-	      <li><a href="#est_weighted">
+	      <li id="est_weighted">
           <b>Weighted counts</b>: For each column, use the maximum-likelihood
           estimate after applying weights to each sequence to account
           for high similarity in a subset of sequences.
 	      </li>
-	      <li><a href="#est_hmm">
+	      <li id="est_hmm">
           <b>Convert to profile HMM</b>: Apply sequence weights, and also combine
           with a Dirichlet mixture prior (incorporating absolute weighting
           to control relative contribution of observed counts and prior).

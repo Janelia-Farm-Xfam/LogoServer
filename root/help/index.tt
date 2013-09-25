@@ -65,14 +65,16 @@
         Skylign offers three ways of calculating letter- and stack-heights
         for each column of the underlying alignment:
         <ul>
-          <li>
+          <li id="height_infocontent_all">
+            <b>Information content - all</b> :
             Stack height is the <i>information content</i>
             (aka relative entropy) of the position,
             and letters divide that height according to their estimated
             probability.  This is default, and is the way logo letter
             stacks are typically computed in other tools.
           </li>
-          <li>
+          <li id="height_infocontent_above">
+            <b>Information content - above background</b> :
             Stack height is the <i>information content</i> of the position,
             and only positive-scoring letters are included in the stack -
             the height of the stack is subdivided according to the relative
@@ -81,7 +83,8 @@
             priors are mixed with observed counts (as with HMMER 3.1 profile
             HMMs).
           </li>
-          <li>
+          <li id="height_score">
+            <b>Score</b> :
             The height of each letter depends on that letter’s score, and
             only positive-scoring letters are included in the stack. The
             height of a stack does not have any inherent meaning in this case.
@@ -132,12 +135,30 @@
 
       <h3 id="alignment_logo">Alignment</h3>
       <p>
-      Skylign accepts for sequence alignments in any format accepted
+      Skylign accepts sequence alignments in any format accepted
       by HMMER (this includes Stockholm and aligned fasta format).
       Producing an alignment logo requires selection of the preferred
-      method of estimating parameters (Alignment Processing: observed
-      counts, weighted counts, or combination with priors), in addition
-      to choosing height method.
+      method of estimating per-column parameters from the observed
+      frequencies in the alignment (Alignment Processing):
+        <ul>
+          <li id="#est_observed">
+          <b>Observed counts</b>: For each column, use the maximum-likelihood
+          estimate - the observed counts.
+	      </li>
+	      <li id="est_weighted">
+          <b>Weighted counts</b>: For each column, use the maximum-likelihood
+          estimate after applying weights to each sequence to account
+          for high similarity in a subset of sequences.
+	      </li>
+	      <li id="est_hmm">
+          <b>Convert to profile HMM</b>: Apply sequence weights, and also combine
+          with a Dirichlet mixture prior (incorporating absolute weighting
+          to control relative contribution of observed counts and prior).
+          </li>
+        </ul>
+
+      In addition to estimation method, the stack/letter height method
+      must also be chosen, as with profile logos.
       </p>
 
       <p>

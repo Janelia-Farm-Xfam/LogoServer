@@ -37,7 +37,8 @@
 
       <p class="subtle">Note: You may already have perl installed on your system, so this step may not be necessary.</p>
       <h3 id="perlsupport">supporting perl modules</h3>
-      <p>You will then need to install the following perl modules.</p>
+      <p>You will then need to install the following perl modules. This can be done easily via cpan. For example, to install Catalyst: </p>
+      <pre class="code">$ cpan install Catalyst</pre>
       <p>Required by the <a href="http://www.catalystframework.org/`">Catalyst</a> web framework.</p>
       <ul>
         <li><a href="https://metacpan.org/module/Config::General">Config::General</a></li>

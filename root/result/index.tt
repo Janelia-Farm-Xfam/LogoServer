@@ -13,6 +13,18 @@
         <dd>[% c.stash.alphabet | upper %]</dd>
         <dt>Letter Height</dt>
         <dd>[% c.stash.letter_height_display | html %]</dd>
+        [% IF c.stash.processing && c.stash.processing != 'hmm' %]
+        <dt>Alignment Processing</dt>
+        <dd>
+        [% IF c.stash.processing == 'observed' %]
+        Observed Counts
+        [% ELSIF  c.stash.processing == 'weighted' %]
+        Weighted Counts
+        [% ELSE %]
+        Converted to HMM
+        [% END %]
+        </dd>
+        [% END %]
         <dt>Number of Sequences</dt>
         <dd>[% c.stash.nseq %]</dd>
         <dt>Length</dt>

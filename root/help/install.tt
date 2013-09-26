@@ -25,17 +25,18 @@
 
 
     <div class="span9">
+      <b>For the purpose of these instructions it will be assumed that source files are placed in /opt/src.</b></p>
       <h2 id="deps">Install Prerequisites</h2>
       <h3 id="png">PNG support</h3>
       <p><a href="http://www.libpng.org/pub/png/libpng.html">libpng</a> - required by Bio::HMM::Logo to produce PNG versions of the logos.</p>
       <h3 id="freetype">True Type font support (linux)</h3>
       <p><a href="http://www.freetype.org/">libfreetype</a> - required to produce PNG logos on linux.</p>
-      <h3 id="#perl">perl</h3>
+      <h3 id="perl">perl</h3>
       <p class="subtle">Note: We recommend using perl 5.14 or higher, older versions have not been tested but could also work.</p>
       <p><a href="http://www.perl.org/get.html">Download perl</a> and install from source following their instructions or use the package manager of your choice.</p>
 
       <p class="subtle">Note: You may already have perl installed on your system, so this step may not be necessary.</p>
-      <h3 id="#perlsupport">supporting perl modules</h3>
+      <h3 id="perlsupport">supporting perl modules</h3>
       <p>You will then need to install the following perl modules.</p>
       <p>Required by the <a href="http://www.catalystframework.org/`">Catalyst</a> web framework.</p>
       <ul>
@@ -70,10 +71,10 @@
         <li>Clone url - <a href="https://github.com/Janelia-Farm-Xfam/Bio-HMM-Logo.git">https://github.com/Janelia-Farm-Xfam/Bio-HMM-Logo.git</a></li>
         <li>Download - <a href="https://github.com/Janelia-Farm-Xfam/Bio-HMM-Logo/archive/master.zip">https://github.com/Janelia-Farm-Xfam/Bio-HMM-Logo/archive/master.zip</a></li>
       </ul>
-      <p>Make sure you place this somewhere on the file system that will be memorable and not likely to be deleted. The hmmer source files that are included with this module will be required later when the Skylign server is started. For the purpose of these instruction it will be assumed that it is installed in /opt/src.</p>
       <h4>Install</h4>
       <pre class="code">
-$ /path/to/perl Makefile.PL
+$ cd /opt/src/Bio-HMM-Logo
+$ perl Makefile.PL
 $ make
 $ make test
 $ sudo make install</pre>
@@ -85,13 +86,20 @@ $ sudo make install</pre>
         <li>Download - <a href="https://github.com/Janelia-Farm-Xfam/LogoServer/archive/master.zip">https://github.com/Janelia-Farm-Xfam/LogoServer/archive/master.zip</a></li>
       </ul>
       <h4>Install</h4>
+      <p>The validation code within the Skylign server requires the hmmer src during compilation. It is expecting it to be in /opt/src/hmmer, so we just create a link to the source we downloaded with the Bio::HMM::Logo module.</p>
       <pre class="code">
-$ ln -s /opt/src/Bio-HMM-Logo/src /opt/src/hmmer
-$mkdir /opt/data</pre>
+$ ln -s /opt/src/Bio-HMM-Logo/src /opt/src/hmmer</pre>
+
+      <p>Each time a logo is created we store the result on disk for later retrieval. The website code expects the directory to exist, so we create it now.</p>
+      <pre class="code">
+$ mkdir /opt/data/logos</pre>
       <h4>Starting the server.</h4>
+      <p>Set the working directory to be the root of the LogoServer download.</p>
+      <pre class="code">$ cd /opt/src/LogoServer</pre>
+      <p>Start the server in production mode on port 3000.</p>
       <pre class="code">
-$ cd /opt/src/LogoServer
-$ /path/to/perl ./script/logoserver_server -p &lt;port number&gt;</pre>
+$ /path/to/perl ./script/logoserver_server
+HTTP::Server::PSGI: Accepting connections at http://0:3000/</pre>
     </div>
   </div>
 </div>

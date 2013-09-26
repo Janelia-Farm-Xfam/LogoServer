@@ -26,6 +26,10 @@ sub index :Path :Args(0) {
   return;
 }
 
+sub install :Path('/help/install') :Args(0) {
+  return;
+}
+
 sub api :Path('/help/api') :Args(0) {
   my ($self, $c) = @_;
   return;

@@ -24,6 +24,7 @@
         </li>
         <li><a href="#api_docs">API Dcoumentation</a></li>
         <li><a href="#api_use">Using the API</a></li>
+        <li><a href="#install">Installing the Server</a></li>
         <li><a href="#cite">Citing Skylign</a></li>
       </ul>
     </div>
@@ -277,6 +278,10 @@ curl -H 'Accept:application/json' http://skylign.org/logo/6BBFEB96-E7E0-11E2-A24
 }
       </pre>
 
+      <h2 id="install">Installing the Server</h2>
+      <p>Skylign can be downloaded and installed as a stand alone web server. Details on
+      obtaining the source code and dependencies can be found on the <a href="/help/install">install</a> page.</p>
+
       <h2 id="cite">Citing Skylign</h2>
       <p>
       Please cite: Wheeler, T.J., Clements, J., Finn, R.D.
@@ -284,6 +289,7 @@ curl -H 'Accept:application/json' http://skylign.org/logo/6BBFEB96-E7E0-11E2-A24
       representing sequence alignments and profile hidden Markov models.
       2013. Submitted.
       </p>
+
     </div>
 
   </div>

@@ -27,16 +27,16 @@
     <div class="span9">
       <b>For the purpose of these instructions it will be assumed that source files are placed in /opt/src.</b></p>
       <h2 id="deps">Install Prerequisites</h2>
-      <h3 id="png">PNG support</h3>
+      <h3 id="png"><span class="step">step 1</span> PNG support</h3>
       <p><a href="http://www.libpng.org/pub/png/libpng.html">libpng</a> - required by Bio::HMM::Logo to produce PNG versions of the logos.</p>
-      <h3 id="freetype">True Type font support (linux)</h3>
+      <h3 id="freetype"><span class="step">step 2</span> True Type font support (linux)</h3>
       <p><a href="http://www.freetype.org/">libfreetype</a> - required to produce PNG logos on linux.</p>
-      <h3 id="perl">perl</h3>
+      <h3 id="perl"><span class="step">step 3</span> perl</h3>
       <p class="subtle">Note: We recommend using perl 5.14 or higher, older versions have not been tested but could also work.</p>
       <p><a href="http://www.perl.org/get.html">Download perl</a> and install from source following their instructions or use the package manager of your choice.</p>
 
       <p class="subtle">Note: You may already have perl installed on your system, so this step may not be necessary.</p>
-      <h3 id="perlsupport">supporting perl modules</h3>
+      <h3 id="perlsupport"><span class="step">step 4</span> supporting perl modules</h3>
       <p>You will then need to install the following perl modules. This can be done easily via cpan. For example, to install Catalyst: </p>
       <pre class="code">$ cpan install Catalyst</pre>
       <p>Required by the <a href="http://www.catalystframework.org/`">Catalyst</a> web framework.</p>
@@ -65,7 +65,7 @@
       <h2 id="server">Installing the Server</h2>
       <p class="subtle">Note: If you have git installed, Skylign and Bio::HMM::Logo can be cloned from github. Otherwise a zip of the required files can be downloaded from the respective project page on the github website.</p>
 
-      <h3 id="bio-hmm-logo">Bio::HMM::Logo</h3>
+      <h3 id="bio-hmm-logo"><span class="step">step 5</span> Bio::HMM::Logo</h3>
       <p>Skylign uses the Bio::HMM::Logo module for transforming alignments and HMMs into logos.</p>
       <ul>
         <li>Website - <a href="https://github.com/Janelia-Farm-Xfam/Bio-HMM-Logo">https://github.com/Janelia-Farm-Xfam/Bio-HMM-Logo</a></li>
@@ -79,7 +79,7 @@ $ perl Makefile.PL
 $ make
 $ make test
 $ sudo make install</pre>
-      <h3 id="skylign">Skylign</h3>
+      <h3 id="skylign"><span class="step">step 6</span> Skylign</h3>
       <p>The source code for the Skylign server is hosted on github.</p>
       <ul>
         <li>Website - <a href="https://github.com/Janelia-Farm-Xfam/LogoServer">https://github.com/Janelia-Farm-Xfam/LogoServer</a></li>

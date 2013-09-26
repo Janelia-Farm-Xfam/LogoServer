@@ -10,18 +10,17 @@
         <li><a href="#logo">What is a logo?</a></li>
         <li>
           <a href="#logo_details">What is shown in a logo?</a>
+          <ul>
           <li><a href="#letter_cons">Letter conservation</a></li>
           <li><a href="#gap_params">Gap parameters</a></li>
+          </ul>
         </li>
 
         <li><a href="#upload">Uploading a file</a></li>
-        <li>
-          <a href="#logo_type">Logo Types</a>
           <ul>
-            <li><a href="#alignment_logo">Alignment</a></li>
-            <li><a href="#model_logo">Model</a></li>
+            <li><a href="#profile_hmm">Profile HMM</a></li>
+            <li><a href="#alignment">Alignment</a></li>
           </ul>
-        </li>
         <li><a href="#api_docs">API Dcoumentation</a></li>
         <li><a href="#api_use">Using the API</a></li>
         <li><a href="#install">Installing the Server</a></li>
@@ -124,7 +123,7 @@
       Skylign will compute a logo for a profile HMM or for a sequence
       alignment
       </p>
-      <h3 id="model_logo">Profile HMM</h3>
+      <h3 id="profile_hmm">Profile HMM</h3>
       <p>
       Skylign accepts HMMER-formatted profile HMM files.
       Producing a profile logo is a straightforward business:
@@ -134,7 +133,7 @@
       computing letter and stack heights.
       </p>
 
-      <h3 id="alignment_logo">Alignment</h3>
+      <h3 id="alignment">Alignment</h3>
       <p>
       Skylign accepts sequence alignments in any format accepted
       by HMMER (this includes Stockholm and aligned fasta format).

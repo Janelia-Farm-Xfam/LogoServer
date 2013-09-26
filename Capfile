@@ -37,7 +37,7 @@ namespace :deploy do
   desc "Minify javascript with Google closure compiler"
   task :minifyjs, :roles => :web do
 
-    run "cat #{release_path}/root/static/js/libs/*.js > #{release_path}/root/static/00-libs.js"
+    run "cat #{release_path}/root/static/js/libs/*.js > #{release_path}/root/static/js/00-libs.js"
     run "cat #{release_path}/root/static/js/*.js >> #{release_path}/root/static/js/main.js"
 
     run "/usr/bin/java -jar /opt/lib/java/compiler.jar --js #{release_path}/root/static/js/main.js --js_output_file #{release_path}/root/static/js/main.min.js"

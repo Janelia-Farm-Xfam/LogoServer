@@ -56,7 +56,8 @@
       <td>
         <p>The maximum width of each column in the logo when zoom is set to 1.</p>
         <pre class="code">$('#logo').hmm_logo({column_width: '30px'});</pre>
-        <span class="subtle">Default:</span> 34px
+        <span class="subtle">Default:</span> 34px<br/>
+        <span class="subtle">Range:</span> 30px - 40px
       </td>
     </tr>
     <tr>
@@ -73,7 +74,8 @@
       <td>
         <p>Sets the initial zoom level that the logo will use.</p>
         <pre class="code">$('#logo').hmm_logo({zoom: 1});</pre>
-        <span class="subtle">Default:</span> 0.4
+        <span class="subtle">Default:</span> 0.4<br/>
+        <span class="subtle">Range:</span> 0.1 - 1
       </td>
     </tr>
     <tr>
@@ -81,7 +83,8 @@
       <td>
         <p>Passing this option enables the onclick display of information for individual
         columns. If specified, this will tell the code where to display a table of the
-        scores for each residue in a selected column.</p>
+        scores for each residue in a selected column. The value passed should be the id of the
+        element where the table is to be inserted.</p>
         <pre class="code">$('#logo').hmm_logo({column_info: "#col_info"});</pre>
         <span class="subtle">Default:</span> null
       </td>

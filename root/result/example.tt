@@ -60,6 +60,7 @@
   <div class="row-fluid">
     <div class="span12 usage">
       [% INCLUDE 'components/logo_usage.tt' %]
+      <p>See the <a href="/help">help pages</a> for more information.</p>
     </div>
   </div>
 </div>

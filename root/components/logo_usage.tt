@@ -1,4 +1,4 @@
-<h2><span>Using the logo elsewhere</span></h2>
+<h2 id="logo_usage"><span>Using the logo elsewhere</span></h2>
 
 <ul class="usage">
   <li>
@@ -91,6 +91,3 @@
     </tr>
   </tbody>
 </table>
-
-
-<p>See the <a href="/help">help pages</a> for more information.</p>

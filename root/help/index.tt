@@ -23,6 +23,7 @@
           </ul>
         <li><a href="#api_docs">API Dcoumentation</a></li>
         <li><a href="#api_use">Using the API</a></li>
+        <li><a href="#logo_usage">Using the Logo Elsewhere</a></li>
         <li><a href="#install">Installing the Server</a></li>
         <li><a href="#cite">Citing Skylign</a></li>
       </ul>
@@ -276,6 +277,8 @@ curl -H 'Accept:application/json' http://skylign.org/logo/6BBFEB96-E7E0-11E2-A24
   "insert_probs":[0,0,0,0,0,0,0,0]
 }
       </pre>
+
+      [% INCLUDE 'components/logo_usage.tt' %]
 
       <h2 id="install">Installing the Server</h2>
       <p>Skylign can be downloaded and installed as a stand alone web server. Details on

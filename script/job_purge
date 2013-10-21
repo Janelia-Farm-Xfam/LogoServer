@@ -12,7 +12,7 @@ main();
 
 sub main {
   my $opts = {};
-  GetOptions( $opts, 'help', 'date=s', 'trial', 'verbose') or usage();
+  GetOptions( $opts, 'help', 'days=s', 'trial', 'verbose') or usage();
 
   if (exists $opts->{help}) {
     usage();
@@ -20,18 +20,10 @@ sub main {
 
   my $start_dt = undef;
 
-  if ($opts->{date}) {
-    # parse the date in $opts->{date}
-    my ($year, $month, $day) = $opts->{date} =~ /^(\d{4})[_-](\d{2})[_-](\d{2})/;
-    if (!$year || !$month || !$day) {
-      usage();
-    }
-    $start_dt = DateTime::Format::MySQL->parse_date("$year-$month-$day");
-  }
-  else {
-    my $now = DateTime->now();
-    my $two_weeks = DateTime::Duration->new(weeks => 2);
-    $start_dt = $now - $two_weeks;
+  my $days = 14;
+
+  if ($opts->{days} && $opts->{days} =~ /^\d+$/) {
+    $days = $opts->{days};
   }
 
   if (!$opts->{trial}) {
@@ -42,9 +34,9 @@ sub main {
       warn "clearing out $dir\n" if ($opts->{verbose});
       # find only files in the $dir directory that are not
       # newer than the start date
-      `find $dir -type f -d -not -newerct $start_dt -exec rm {} \\;`;
-      # remove any empy directories that might be hanging around
-      `find $dir -type d -d -empty -exec rm -rf {} \\;`;
+      `find $dir -depth -type f -ctime +$days -exec rm {} \\;`;
+      # remove any empty directories that might be hanging around
+      `find $dir -mindepth 1 -depth -type d -empty -exec rm -rf {} \\;`;
     }
     warn "Old jobs have been purged.\n" if ($opts->{verbose});
   }
@@ -65,10 +57,9 @@ sub usage {
 
   options:
     -h, --help    : Print this message and exit
-    -d, --date    : Specify a date rather than using the defualt of 2 weeks ago.
-                    Should be formated like yyyy_mm_dd or yyyy-mm-dd
+    -d, --days    : Specify a number of days rather than using the default of 2 weeks ago.
     -t, --trial   : Do a dry run and don't delete anything.
-    -v, --verbose : Print out messages about the number of jobs to be deleted.
+    -v, --verbose : Print out messages.
 );
 
   exit;

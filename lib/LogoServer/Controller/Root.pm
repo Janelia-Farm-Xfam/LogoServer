@@ -129,7 +129,7 @@ sub save_upload : Private {
 
   if (!$upload) {
     $c->stash->{error} = {
-      'upload' => 'Please choose an alignment or HMM file to upload.'
+      'file' => 'Please choose an alignment or HMM file to upload.'
     };
     $c->stash->{rest}->{error} = $c->stash->{error};
     $c->detach('end');

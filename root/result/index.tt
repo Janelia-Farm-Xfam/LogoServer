@@ -29,6 +29,8 @@
         <dd>[% c.stash.nseq %]</dd>
         <dt>Length</dt>
         <dd>[% c.stash.hmm_length %]</dd>
+        <dt>Uploaded File Name</dt>
+        <dd>[% c.stash.uploaded | html %]</dd>
         <dt>Created</dt>
         <dd>[% c.stash.hmm_created %]</dd>
       </dl>

@@ -14,16 +14,20 @@ my $obj = $model->new();
 isa_ok($obj, $model);
 can_ok($obj, 'convert_upload');
 
+#########
 # test a valid hmm
 my $file = $data . '/valid_hmm';
-my ($fh, $converted_file) = @{$obj->convert_upload($file)};
-my $hmm = read_file( $file );
+my $converted_file = $obj->convert_upload($file);
+my $hmm = read_file( "$file/upload" );
 my $converted = read_file( $converted_file );
 is($hmm, $converted, "valid_hmm wasn't changed");
 
+unlink $converted_file;
+
+#########
 # test a valid msa
 $file = $data . '/valid_msa';
-($fh, $converted_file) = @{$obj->convert_upload($file)};
+$converted_file = $obj->convert_upload($file);
 
 open my $converted_msa, '<', $data . '/converted_msa'
   or die "Couldn't open converted_msa for reading\n";
@@ -36,6 +40,9 @@ while (my $line = <$converted_msa>) {
   }
 }
 
+open my $fh, '<', $converted_file
+  or die "Couldn't open the converted hmm\n";
+
 my $msa_2_hmm = undef;
 while (my $line = <$fh>) {
   if ($line !~ /^DATE/) {
@@ -43,28 +50,37 @@ while (my $line = <$fh>) {
   }
 }
 
-is($expected, $msa_2_hmm, "valid_msa was changed into expected hmm");
+is($msa_2_hmm, $expected, "valid_msa was changed into expected hmm");
 
+unlink $converted_file;
+
+
+#########
 # test an invalid hmm
 $file = $data . '/bad_hmm';
 throws_ok { $obj->convert_upload($file) } qr/Uploaded data was not a valid multiple/, 'caught bad hmm';
 
+#########
 # test an invalid msa
 $file = $data . '/bad_msa';
 throws_ok { $obj->convert_upload($file) } qr/Uploaded data was not a valid multiple/, 'caught bad msa';
 
+#########
 # test a single sequence
 $file = $data . '/single_sequence';
-throws_ok { $obj->convert_upload($file) } qr/Uploaded data looks like a single sequence./, 'caught single sequence';
+throws_ok { $obj->convert_upload($file) } qr/The file you have uploaded looks like a single sequence./, 'caught single sequence';
 
+#########
 # test multiple sequences
 $file = $data . '/multiple_sequences';
-throws_ok { $obj->convert_upload($file) } qr/Uploaded data looks like multiple unaligned sequences./, 'caught multiple sequences';
+throws_ok { $obj->convert_upload($file) } qr/The file you have uploaded looks like multiple unaligned sequences./, 'caught multiple sequences';
 
+#########
 # test a corrupt single sequence
 $file = $data . '/bad_sequence';
-throws_ok { $obj->convert_upload($file) } qr/Uploaded data was not a valid multiple sequence alignment or HMM/, 'caught bad sequence';
+throws_ok { $obj->convert_upload($file) } qr/AFA format, but we couldn't parse it because: one or more invalid sequence characters at or near line 2/, 'caught bad sequence';
 
+#########
 # test a zipped file?
 $file = $data . '/multiple_seqs.gz';
 throws_ok { $obj->convert_upload($file) } qr/Uploaded data was not a valid multiple sequence alignment or HMM/, 'caught sequence that was zipped';

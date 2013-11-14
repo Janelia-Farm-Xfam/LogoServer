@@ -44,7 +44,6 @@ sub convert_upload {
 
   my $result = Easel::Validation::guessInput($input, $alignment_only, $dna_rna_ok);
 
-
   # if we can get an hmm out then we need to save it
   if ($result->{type} =~ /^MSA|HMM$/) {
     if ($result->{type} =~ /^MSA/ && exists $result->{error}) {

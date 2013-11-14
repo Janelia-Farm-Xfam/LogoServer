@@ -54,7 +54,14 @@
 
         reader.readAsText($('#file_upload').get(0).files[0]);
       } else {
-        $('.processing').hide();
+        if ($('#previous').data('type')) {
+          if ($('#previous').data('type') === 'hmm') {
+            $('.processing').hide();
+          }
+        }
+        else {
+          $('.processing').hide();
+        }
       }
     }
 

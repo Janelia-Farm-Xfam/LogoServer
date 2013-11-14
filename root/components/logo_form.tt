@@ -1,5 +1,12 @@
 <form id="logo_in" class="upload" action="/" method="post" enctype="multipart/form-data">
   <div class="control-group">
+    [% IF c.stash.uploaded %]
+    <label for="previous" class="control-label">Re-use the previously uploaded file</label>
+    <div class="controls">
+      <input id="previous" data-type="[% c.stash.upload_type %]"  type="hidden" name="previous" value="[% c.stash.uuid %]"/>
+    </div>
+    <div> - or - </div>
+    [% END %]
     <label for="file" class="control-label">Upload an HMM or Multiple sequence alignment
         <a class="help" href="/help#upload" title="Skylign accepts profile HMMs in HMMER format, and sequence alignments in a wide variety of formats including Stockholm and aligned fasta">
         <span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a></label>

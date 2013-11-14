@@ -73,9 +73,11 @@ sub index :Path('/logo') :Args(1) Does('ValidateUUID') {
   my $params = $c->model('LogoData')->get_options($uuid);
 
   $c->stash->{uploaded} = $params->{file};
+  $c->stash->{upload_type} = $params->{upload_type};
 
   if (exists $params->{processing}) {
     $c->stash->{processing} = $params->{processing};
+    $c->req->params->{processing} = $params->{processing};
   }
 
   if (exists $params->{letter_height}) {

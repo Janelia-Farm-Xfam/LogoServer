@@ -127,6 +127,28 @@ sub save_upload : Private {
   # save uploaded file into the new directory
   my $upload = $c->req->upload('file');
 
+
+  # If we are missing an upload, check to see if we are getting a
+  # UUID from a previous search and use that instead.
+  if (!$upload) {
+    if ($c->req->param('previous')) {
+      my $previous = $c->model('LogoData');
+      my $prev_uuid = $c->req->param('previous');
+
+      my $previous_path = $previous->upload_path($prev_uuid);
+
+      my $previous_name = $previous->get_options($prev_uuid)->{'file'};
+
+      $c->req->params->{'file'} = $previous_name;
+
+      $upload = Catalyst::Request::Upload->new(
+        filename => $previous_name,
+        tempname => $previous_path,
+      );
+    }
+  }
+
+  # if the upload is still missing, then we are going to have to throw an error
   if (!$upload) {
     $c->stash->{error} = {
       'file' => 'Please choose an alignment or HMM file to upload.'
@@ -148,6 +170,15 @@ sub save_upload : Private {
     $c->stash->{uuid} = $uuid;
 
     my $params = $c->req->params;
+
+    # store the upload type for use later in the results page.
+    if (exists $c->stash->{file_is_hmm}) {
+      $params->{upload_type} = 'hmm';
+    }
+    else {
+      $params->{upload_type} = 'other';
+    }
+
     my $valid = {};
 
     #need to loop over parameters and validate here, before we store them.
@@ -175,7 +206,7 @@ sub save_upload : Private {
     }
 
 
-    my @allowed = qw(file);
+    my @allowed = qw(file upload_type);
     for my $param (@allowed) {
       if (exists $params->{$param}) {
         $valid->{$param} = $params->{$param};

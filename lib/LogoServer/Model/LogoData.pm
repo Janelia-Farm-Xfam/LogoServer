@@ -54,6 +54,11 @@ sub save_upload {
   return;
 }
 
+sub upload_path {
+  my ($self, $uuid) = @_;
+  return $self->_data_dir($uuid) . '/upload';
+}
+
 sub set_options {
   my ($self, $uuid, $options) = @_;
   my $data_dir = $self->_data_dir($uuid);

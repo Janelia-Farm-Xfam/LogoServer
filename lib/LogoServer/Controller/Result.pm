@@ -88,6 +88,7 @@ sub index :Path('/logo') :Args(1) Does('ValidateUUID') {
     );
     $c->stash->{letter_height_display} = $conversion{$params->{letter_height}};
     $c->stash->{letter_height} = $params->{letter_height};
+    $c->req->params->{letter_height} = $params->{letter_height};
   }
   else {
     $c->stash->{letter_height} = 'info_content_all';

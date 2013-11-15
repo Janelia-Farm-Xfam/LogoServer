@@ -1,6 +1,7 @@
 [% IF logo %]
 <div class="logo_wrapper clearfix">
   <div class="logo" id="logo" data-logo = '[% logo %]'></div>
+  <a href="#logo_form" class="again">Search Again</a>
   <div id="col_info"></div>
   [% INCLUDE 'components/compatibility.tt' %]
 </div>
@@ -36,7 +37,7 @@
       </dl>
       <div class="row-fluid">
         <div class="span12">
-          <h2><span>Try another search</span></h2>
+          <h2 id="logo_form"><span>Try another search</span></h2>
           [% INCLUDE 'components/logo_form.tt' %]
         </div>
       </div>

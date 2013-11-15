@@ -231,6 +231,9 @@ P7_HMM * constructHMM(ESL_MSA *msa, ESL_ALPHABET *abc, int ali_hmm){
     // weighted counts
     esl_opt_ProcessSpoof(go, "X --pnone");
   }
+  else {
+    esl_opt_ProcessSpoof(go, "X");
+  }
 
   bld = p7_builder_Create(go, abc);
   if(bld == NULL){

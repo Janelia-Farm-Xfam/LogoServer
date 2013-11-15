@@ -105,12 +105,22 @@ use Inline C         => "$src_file",
   );
 
 sub guessInput {
-  my ( $inputData, $ali_hmm, $dna_rna_ok) = @_;
+  my ( $inputData, $ali_hmm, $dna_rna_ok, $frag_handling) = @_;
 
   # By default we don't want an alignment hmm, so passing nothing gets us that.
-  $ali_hmm ||= 0;
+  $ali_hmm ||= 3;
 
   $dna_rna_ok ||= 0;
+
+  $frag_handling ||= 'full';
+
+  my %frag_conversion = (
+    frag => 0,
+    full => 1,
+  );
+
+  my $frag_handling_int = $frag_conversion{$frag_handling};
+
 
   #Hopefully this will go.....
   my $test_results = {};
@@ -134,7 +144,7 @@ sub guessInput {
 
   #We have not detected a HMM, how about an MSA
   $test_results = {};
-  $test_results = isaMSA($inputData, 0, $ali_hmm, $dna_rna_ok);
+  $test_results = isaMSA($inputData, 0, $ali_hmm, $dna_rna_ok, $frag_handling_int);
 
   # if we get what looks like an aligned fasta file, but the sequence
   # lengths are wrong then we should set this to unknown and pass it to
@@ -160,7 +170,7 @@ sub guessInput {
       }
       #now force it to be a MSA
       if($found){
-        $test_results = isaMSA($inputData, 1, $ali_hmm, $dna_rna_ok);
+        $test_results = isaMSA($inputData, 1, $ali_hmm, $dna_rna_ok, $frag_handling_int);
       }
     }
 

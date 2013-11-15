@@ -14,15 +14,17 @@
         <dd>[% c.stash.alphabet | upper %]</dd>
         <dt>Letter Height</dt>
         <dd>[% c.stash.letter_height_display | html %]</dd>
-        [% IF c.stash.processing && c.stash.processing != 'hmm' %]
+        [% IF c.stash.processing  && c.stash.upload_type != 'hmm' %]
         <dt>Alignment Processing</dt>
         <dd>
         [% IF c.stash.processing == 'observed' %]
         Observed Counts
         [% ELSIF  c.stash.processing == 'weighted' %]
         Weighted Counts
-        [% ELSE %]
-        Converted to HMM
+        [% ELSIF c.stash.processing == 'hmm_all' %]
+        HMM - keep all columns
+        [% ELSIF c.stash.processing == 'hmm' %]
+        HMM - remove mostly-empty columns
         [% END %]
         </dd>
         [% END %]

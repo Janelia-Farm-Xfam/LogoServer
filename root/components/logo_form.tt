@@ -31,12 +31,12 @@
                  <span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
-              <input type="radio" id="hmm_process" name="processing" value="hmm" [% IF c.req.params.processing == "hmm" %]checked="checked"[% END %] />Create HMM - keep all columns
+              <input type="radio" id="hmm_all_process" name="processing" value="hmm_all" [% IF c.req.params.processing == "hmm_all" %]checked="checked"[% END %] />Create HMM - keep all columns
                  <a class="help" href="/help#est_hmm" title="Letter stacks and gap values depend on estimated distributions for each position. Use HMMER to estimate those distributions by applying sequence weights, absolute weights, and a Dirichlet mixture prior.">
                  <span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
-              <input type="radio" id="hmm_all_process" name="processing" value="hmm_all" [% IF c.req.params.processing == "hmm_all" %]checked="checked"[% END %] />Create HMM - remove mostly-empty columns
+              <input type="radio" id="hmm_process" name="processing" value="hmm" [% IF c.req.params.processing == "hmm" %]checked="checked"[% END %] />Create HMM - remove mostly-empty columns
                  <a class="help" href="/help#est_hmm_all" title="Letter stacks and gap values depend on estimated distributions for each position. Use HMMER to estimate those distributions by applying sequence weights, absolute weights, and a Dirichlet mixture prior.">
                  <span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>

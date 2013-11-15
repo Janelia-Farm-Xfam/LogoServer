@@ -95,6 +95,7 @@ sub build_logo : Private {
     'hmm' => 0,
     'observed' => 1,
     'weighted' => 2,
+    'hmm_all' => 3,
   );
 
   my $processing = 0;
@@ -102,10 +103,13 @@ sub build_logo : Private {
     $processing = $conversion{$c->stash->{processing}};
   }
 
+
+
   try {
     $hmm = $c->model('Logo::Processing')->convert_upload(
       $hmm_file,
-      $processing
+      $processing,
+      $c->stash->{frag},
     );
   }
   catch {
@@ -215,12 +219,22 @@ sub save_upload : Private {
 
     # check what type of processing we want to do if we are using an MSA
     if (exists $params->{processing}) {
-      if ($params->{processing} =~ /^(?:weighted|hmm|observed)$/) {
+      if ($params->{processing} =~ /^(?:weighted|hmm|hmm_all|observed)$/) {
         $c->stash->{processing} = $valid->{processing} = $params->{processing};
       }
     }
     else {
-      $c->stash->{processing} = $valid->{processing} = 'hmm';
+      $c->stash->{processing} = $valid->{processing} = 'hmm_all';
+    }
+
+    # check what type of fragment handling we are going to use
+    if (exists $params->{frag}) {
+      if ($params->{frag} =~ /^(?:full|frag)$/) {
+        $c->stash->{frag} = $valid->{frag} = $params->{frag};
+      }
+    }
+    else {
+      $c->stash->{frag} = $valid->{frag} = 'full';
     }
 
 

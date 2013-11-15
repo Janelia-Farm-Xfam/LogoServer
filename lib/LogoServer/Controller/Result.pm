@@ -95,6 +95,12 @@ sub index :Path('/logo') :Args(1) Does('ValidateUUID') {
     $c->stash->{letter_height_display} = 'Information Content - All';
   }
 
+  if (exists $params->{frag}) {
+    $c->stash->{frag} = $params->{frag};
+    $c->req->params->{frag} = $params->{frag};
+  }
+
+
   # run the logo generation
   my $json = $c->model('LogoGen')->generate_json($hmm_path, $c->stash->{letter_height});
   # save it to a temp file

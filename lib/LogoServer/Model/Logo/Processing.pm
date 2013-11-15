@@ -36,13 +36,14 @@ it under the same terms as Perl itself.
 =cut
 
 sub convert_upload {
-  my ($self, $tmpdir, $alignment_only) = @_;
+  my ($self, $tmpdir, $alignment_only, $frag_handling) = @_;
   my $input = read_file( "$tmpdir/upload" );
 
-  $alignment_only ||= 0;
+  $alignment_only ||= 3;
+  $frag_handling ||= 'full';
   my $dna_rna_ok = 1;
 
-  my $result = Easel::Validation::guessInput($input, $alignment_only, $dna_rna_ok);
+  my $result = Easel::Validation::guessInput($input, $alignment_only, $dna_rna_ok, $frag_handling);
 
   # if we can get an hmm out then we need to save it
   if ($result->{type} =~ /^MSA|HMM$/) {

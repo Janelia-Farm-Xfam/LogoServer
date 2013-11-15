@@ -87,7 +87,7 @@ static ESL_OPTIONS options[] = {
   {  0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 };
 
-P7_HMM * constructHMM(ESL_MSA *msa, ESL_ALPHABET *abc, int ali_hmm);
+P7_HMM * constructHMM(ESL_MSA *msa, ESL_ALPHABET *abc, int ali_hmm, int frag);
 
 
 SV* isaHMM (char *input){
@@ -127,7 +127,7 @@ SV* isaHMM (char *input){
   return newRV_noinc((SV*) hash);
 }
 
-SV* isaMSA (const char *input, int is_msa, int ali_hmm, int dna_ok){
+SV* isaMSA (const char *input, int is_msa, int ali_hmm, int dna_ok, int frag){
   ESLX_MSAFILE *mfp         = NULL;
   ESL_MSA      *msa         = NULL;
   ESL_MSA      *msa_clone   = NULL;
@@ -165,7 +165,7 @@ SV* isaMSA (const char *input, int is_msa, int ali_hmm, int dna_ok){
         }else{
           // We have been told it is an MSA or it is any other format other than AFA
           hv_store(hash, "type", strlen("type"), newSVpv("MSA", 3), 0);
-          ret_hmm = constructHMM( msa, abc, ali_hmm );
+          ret_hmm = constructHMM( msa, abc, ali_hmm, frag );
           p7_hmmfile_WriteToString(&ascii_hmm, -1, ret_hmm);
           hv_store(hash, "hmmpgmd", strlen("hmmpgmd"), newSVpv(ascii_hmm, strlen(ascii_hmm)), 0);
         }
@@ -199,7 +199,7 @@ SV* isaMSA (const char *input, int is_msa, int ali_hmm, int dna_ok){
 
 /* This is a different construction method to that found in Easel::Align!!! */
 
-P7_HMM * constructHMM(ESL_MSA *msa, ESL_ALPHABET *abc, int ali_hmm){
+P7_HMM * constructHMM(ESL_MSA *msa, ESL_ALPHABET *abc, int ali_hmm, int frag){
   int status;
   int error                 = 0;
   P7_HMM *ret_hmm           = NULL; /* HMM built from MSA object */
@@ -208,6 +208,9 @@ P7_HMM * constructHMM(ESL_MSA *msa, ESL_ALPHABET *abc, int ali_hmm){
   P7_BG           *bg       = NULL;
 
   char            errbuf[eslERRBUFSIZE];
+  char            *args = NULL;
+
+  esl_strcat(&args, -1, "X ", -1);
 
   esl_msa_SetName(msa, "Query", -1);
   /* Now take this alignment and make an HMM from it */
@@ -222,18 +225,39 @@ P7_HMM * constructHMM(ESL_MSA *msa, ESL_ALPHABET *abc, int ali_hmm){
     //logError("Error generating bg\n");
   }
 
+  if (frag == 1) {
+    // add --fragthresh 0
+    esl_strcat(&args, -1, "--fragthresh 0 ", -1);
+  }
+
   // if these flags are set, then we want a non standard hmm out. Used by the logo server.
   if (ali_hmm == 1) {
     // observed counts
-    esl_opt_ProcessSpoof(go, "X --pnone --wnone --enone");
+    // arguments "X --pnone --wnone --enone"
+    esl_strcat(&args, -1, "--pnone --wnone --enone --symfrac 0 ", -1);
   }
   else if (ali_hmm == 2) {
     // weighted counts
-    esl_opt_ProcessSpoof(go, "X --pnone");
+    // arguments  "X --pnone");
+    esl_strcat(&args, -1, "--pnone --symfrac 0 ", -1);
+  }
+  else if (ali_hmm == 0) {
+    // Create HMM - keep all columns
+    esl_strcat(&args, -1, "--symfrac 0 ", -1);
   }
   else {
-    esl_opt_ProcessSpoof(go, "X");
+    // no arguments ?
   }
+
+  fprintf(stderr, "ali_hmm: %d\n", ali_hmm);
+
+  fprintf(stderr, "args: %s\n", args);
+
+
+  // pass in arguments to hmm builder
+  esl_opt_ProcessSpoof(go, args);
+
+  if (args != NULL) free(args);
 
   bld = p7_builder_Create(go, abc);
   if(bld == NULL){

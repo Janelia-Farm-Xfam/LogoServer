@@ -80,7 +80,7 @@ sub index :Path :Args(2) Does('ValidateUUID') {
     $c->res->header( 'Content-Type'        => 'image/svg+xml' );
   }
   elsif ($type eq 'json') {
-    my $json = $c->model('LogoGen')->generate_json($hmm_path, $params->{letter_height});
+    my $json = $c->model('LogoGen')->generate_json($hmm_path, $params->{letter_height}, $params->{processing});
     $c->response->body($json);
     my $fname = "$uuid.json";
     $c->res->header( 'Content-Disposition' => "attachment; filename=$fname" );

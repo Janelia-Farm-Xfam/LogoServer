@@ -31,9 +31,10 @@ it under the same terms as Perl itself.
 =cut
 
 sub generate_json {
-  my ($self, $hmm, $letter_height) = @_;
+  my ($self, $hmm, $letter_height, $processing) = @_;
   $letter_height ||= 'info_content_all';
-  return Bio::HMM::Logo::hmmToLogoJson($hmm, $letter_height);
+  $processing ||= 'hmm';
+  return Bio::HMM::Logo::hmmToLogoJson($hmm, $letter_height, $processing);
 }
 
 =head2 generate_png(SCALAR, SCALAR, SCALAR)

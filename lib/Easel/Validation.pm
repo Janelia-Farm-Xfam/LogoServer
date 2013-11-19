@@ -176,10 +176,16 @@ sub guessInput {
 
     if( $test_results->{type} eq 'MSA' && exists $test_results->{alpha}){
       if ($test_results->{alpha} == 3 ) {
+        if (exists $test_results->{'guess'}) {
+          $test_results->{'guess'} = $msa_types{$test_results->{'guess'}};
+        }
         return $test_results;
       }
       else {
         if ($dna_rna_ok && $test_results->{alpha} =~ /^1|2$/) {
+          if (exists $test_results->{'guess'}) {
+            $test_results->{'guess'} = $msa_types{$test_results->{'guess'}};
+          }
           return $test_results;
         }
         else {
@@ -190,10 +196,16 @@ sub guessInput {
     }
     elsif( $test_results->{type} eq 'MS?' ){
       if ($test_results->{alpha} == 3 ) {
+        if (exists $test_results->{'guess'}) {
+          $test_results->{'guess'} = $msa_types{$test_results->{'guess'}};
+        }
         return $test_results;
       }
       else {
         if ($dna_rna_ok && $test_results->{alpha} =~ /^1|2$/) {
+          if (exists $test_results->{'guess'}) {
+            $test_results->{'guess'} = $msa_types{$test_results->{'guess'}};
+          }
           return $test_results;
         }
         else {
@@ -219,8 +231,9 @@ sub guessInput {
   # if there was a guess, then we probably failed at a multiple sequence
   # alignment, but were very close. Add it back to the test results, so that
   # we can change the error message returned to the user.
-  if ($guess) {
-    $test_results->{'guess'} = $msa_types{$guess};
+
+  if (exists $test_results->{'guess'}) {
+    $test_results->{'guess'} = $msa_types{$test_results->{'guess'}};
   }
 
   return $test_results;

@@ -87,7 +87,7 @@ static ESL_OPTIONS options[] = {
   {  0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 };
 
-P7_HMM * constructHMM(ESL_MSA *msa, ESL_ALPHABET *abc, int ali_hmm, int frag);
+P7_HMM * constructHMM(ESL_MSA *msa, ESL_ALPHABET *abc, int ali_hmm, int frag, P7_HMM **ret_hmm, char *errbuf);
 
 
 SV* isaHMM (char *input){
@@ -165,9 +165,16 @@ SV* isaMSA (const char *input, int is_msa, int ali_hmm, int dna_ok, int frag){
         }else{
           // We have been told it is an MSA or it is any other format other than AFA
           hv_store(hash, "type", strlen("type"), newSVpv("MSA", 3), 0);
-          ret_hmm = constructHMM( msa, abc, ali_hmm, frag );
-          p7_hmmfile_WriteToString(&ascii_hmm, -1, ret_hmm);
-          hv_store(hash, "hmmpgmd", strlen("hmmpgmd"), newSVpv(ascii_hmm, strlen(ascii_hmm)), 0);
+          status = constructHMM( msa, abc, ali_hmm, frag, &ret_hmm, errbuf);
+
+          if (status != eslOK) {
+            hv_store(hash, "error", strlen("error"), newSVpv(errbuf, strlen(errbuf)), 0);
+            hv_store(hash, "guess", strlen("guess"), newSViv(mfp->format), 0);
+          } else {
+            p7_hmmfile_WriteToString(&ascii_hmm, -1, ret_hmm);
+            hv_store(hash, "hmmpgmd", strlen("hmmpgmd"), newSVpv(ascii_hmm, strlen(ascii_hmm)), 0);
+          }
+
         }
       }else{
         if(alpha == 0 ){
@@ -199,30 +206,24 @@ SV* isaMSA (const char *input, int is_msa, int ali_hmm, int dna_ok, int frag){
 
 /* This is a different construction method to that found in Easel::Align!!! */
 
-P7_HMM * constructHMM(ESL_MSA *msa, ESL_ALPHABET *abc, int ali_hmm, int frag){
+P7_HMM * constructHMM(ESL_MSA *msa, ESL_ALPHABET *abc, int ali_hmm, int frag, P7_HMM **ret_hmm, char *errbuf){
   int status;
-  int error                 = 0;
-  P7_HMM *ret_hmm           = NULL; /* HMM built from MSA object */
   ESL_GETOPTS  *go          = esl_getopts_Create(options);
   P7_BUILDER      *bld      = NULL;
   P7_BG           *bg       = NULL;
 
-  char            errbuf[eslERRBUFSIZE];
   char            *args = NULL;
 
   esl_strcat(&args, -1, "X ", -1);
 
   esl_msa_SetName(msa, "Query", -1);
   /* Now take this alignment and make an HMM from it */
-  if(status != 0){
-    error = 1;
-    //logError("Easel digitize returned an error: %d\n", status);
+  if(status != eslOK){
+    ESL_XFAIL(status, errbuf, "Easel MSA SetNAME returned an error\n");
   }
-  //if(debug) printf("Generating background\n");
   bg = p7_bg_Create(abc);
   if(bg == NULL){
-    error = 1;
-    //logError("Error generating bg\n");
+    ESL_XFAIL(status, errbuf, "Error generating bg\n");
   }
 
   if (frag == 1) {
@@ -249,10 +250,6 @@ P7_HMM * constructHMM(ESL_MSA *msa, ESL_ALPHABET *abc, int ali_hmm, int frag){
     // no arguments ?
   }
 
-  fprintf(stderr, "ali_hmm: %d\n", ali_hmm);
-
-  fprintf(stderr, "args: %s\n", args);
-
 
   // pass in arguments to hmm builder
   esl_opt_ProcessSpoof(go, args);
@@ -261,16 +258,28 @@ P7_HMM * constructHMM(ESL_MSA *msa, ESL_ALPHABET *abc, int ali_hmm, int frag){
 
   bld = p7_builder_Create(go, abc);
   if(bld == NULL){
-    error = 1;
+    ESL_XFAIL(status, errbuf, "Error creating builder\n");
   }
 
-  status = p7_Builder(bld, msa, bg, &ret_hmm, NULL, NULL, NULL, NULL);
+  status = p7_Builder(bld, msa, bg, ret_hmm, NULL, NULL, NULL, NULL);
 
-/*
+
+  if (status != eslOK) {
+    strcpy( errbuf, bld->errbuf );
+    goto ERROR;
+  }
+
+
   p7_bg_Destroy(bg);
   p7_builder_Destroy(bld);
-  esl_getopts_Destroy(go); */
-  return ret_hmm;
+  esl_getopts_Destroy(go);
+  return status;
+
+ERROR:
+  if (bg != NULL) p7_bg_Destroy(bg);
+  if (bld != NULL) p7_builder_Destroy(bld);
+  if (go != NULL) esl_getopts_Destroy(go);
+  return status;
 }
 
 

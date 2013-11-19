@@ -216,10 +216,10 @@ P7_HMM * constructHMM(ESL_MSA *msa, ESL_ALPHABET *abc, int ali_hmm, int frag, P7
 
   esl_strcat(&args, -1, "X ", -1);
 
-  esl_msa_SetName(msa, "Query", -1);
+  status = esl_msa_SetName(msa, "Query", -1);
   /* Now take this alignment and make an HMM from it */
   if(status != eslOK){
-    ESL_XFAIL(status, errbuf, "Easel MSA SetNAME returned an error\n");
+    ESL_XFAIL(status, errbuf, "Easel MSA SetNAME returned an error %d\n", status);
   }
   bg = p7_bg_Create(abc);
   if(bg == NULL){
@@ -258,7 +258,7 @@ P7_HMM * constructHMM(ESL_MSA *msa, ESL_ALPHABET *abc, int ali_hmm, int frag, P7
 
   bld = p7_builder_Create(go, abc);
   if(bld == NULL){
-    ESL_XFAIL(status, errbuf, "Error creating builder\n");
+    ESL_XFAIL(eslEMEM, errbuf, "Error creating builder\n");
   }
 
   status = p7_Builder(bld, msa, bg, ret_hmm, NULL, NULL, NULL, NULL);

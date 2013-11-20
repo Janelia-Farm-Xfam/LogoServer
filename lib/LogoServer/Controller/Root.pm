@@ -92,18 +92,16 @@ sub build_logo : Private {
   my $hmm = undef;
 
   my %conversion = (
-    'hmm' => 0,
     'observed' => 1,
     'weighted' => 2,
     'hmm_all' => 3,
+    'hmm' => 4,
   );
 
-  my $processing = 0;
+  my $processing = 4;
   if (exists $conversion{$c->stash->{processing}}) {
     $processing = $conversion{$c->stash->{processing}};
   }
-
-
 
   try {
     $hmm = $c->model('Logo::Processing')->convert_upload(

@@ -44,12 +44,14 @@ sub index :Path :Args(2) Does('ValidateUUID') {
 
   open my $hmm, '<', $hmm_path;
 
+  my $options = {
+    hmm => $hmm_path,
+    letter_height => $params->{letter_height},
+    processing    => $params->{processing},
+  };
+
   if ($type eq 'image') {
 
-    my $options = {
-      hmm => $hmm_path,
-      letter_height => $params->{letter_height},
-    };
 
     if ($c->req->param('scaled')) {
       $options->{scaled} = 1;
@@ -64,10 +66,6 @@ sub index :Path :Args(2) Does('ValidateUUID') {
   }
   elsif ($type eq 'svg') {
 
-    my $options = {
-      hmm => $hmm_path,
-      letter_height => $params->{letter_height},
-    };
 
     if ($c->req->param('scaled')) {
       $options->{scaled} = 1;

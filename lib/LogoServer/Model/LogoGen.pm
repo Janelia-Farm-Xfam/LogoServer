@@ -54,7 +54,8 @@ sub generate_png {
   return Bio::HMM::Logo::hmmToLogoPNG(
     $ops->{hmm},
     $ops->{letter_height},
-    $ops->{scaled}
+    $ops->{scaled},
+    $ops->{processing}
   );
 }
 
@@ -70,7 +71,8 @@ sub generate_svg {
   return Bio::HMM::Logo::hmmToLogoSVG(
     $ops->{hmm},
     $ops->{letter_height},
-    $ops->{scaled}
+    $ops->{scaled},
+    $ops->{processing}
   );
 }
 

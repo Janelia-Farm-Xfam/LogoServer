@@ -242,7 +242,7 @@ P7_HMM * constructHMM(ESL_MSA *msa, ESL_ALPHABET *abc, int ali_hmm, int frag, P7
     // arguments  "X --pnone");
     esl_strcat(&args, -1, "--pnone --symfrac 0 ", -1);
   }
-  else if (ali_hmm == 0) {
+  else if (ali_hmm == 3) {
     // Create HMM - keep all columns
     esl_strcat(&args, -1, "--symfrac 0 ", -1);
   }

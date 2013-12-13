@@ -55,7 +55,8 @@ sub generate_png {
     $ops->{hmm},
     $ops->{letter_height},
     $ops->{scaled},
-    $ops->{processing}
+    $ops->{processing},
+    $ops->{colorscheme},
   );
 }
 
@@ -72,7 +73,8 @@ sub generate_svg {
     $ops->{hmm},
     $ops->{letter_height},
     $ops->{scaled},
-    $ops->{processing}
+    $ops->{processing},
+    $ops->{colorscheme},
   );
 }
 

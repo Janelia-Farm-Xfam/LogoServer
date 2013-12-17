@@ -283,10 +283,18 @@ logo styles
 
 .logo_settings {
   display:none;
+  z-index: 6;
+  position:relative;
   background:#fff;
   margin:1em;
-  padding:1em;
+  padding:0;
   border:2px solid #ccc;
+  fieldset {
+    border:none;
+    input[type="radio"] {
+      margin: -4px 5px 0 0;
+    }
+  }
 }
 
 .qtip-logo {

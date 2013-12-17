@@ -10,7 +10,8 @@
       height_toggle: 1,
       column_width: 34,
       column_info: "#col_info",
-      scaled_max: true
+      scaled_max: true,
+      help: 1
     });
 
     // Check that CSS fonts haven't been disabled.

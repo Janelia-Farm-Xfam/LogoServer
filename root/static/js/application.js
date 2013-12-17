@@ -17,7 +17,7 @@
     // Check that CSS fonts haven't been disabled.
     // some people cant be trusted to do the right thing, so we have to
     // tell them that they screwed up.
-    if ($('.canvas_logo').length > 0 && !/^.*?Helvetica Neue.*?Helvetica.*?Arial.*?sans-serif/.test($('.canvas_logo').css('font-family'))) {
+    if ($('.canvas_logo').length > 0 && !/^.*?Helvetica Neue/.test($('.canvas_logo').css('font-family'))) {
       $('.logo_wrapper').after('<div class="offset1 span11"><div id="message" class="alert alert-error"><span>It looks like you have set your browser to prevent loading fonts chosen by us. This may cause a significant drop in the quality of the logo rendered. For the best logo, we recommend allowing this site to choose its own fonts. Information on how to do this should be provided in the help documentation provided with your browser.</span></div></div>');
     }
 

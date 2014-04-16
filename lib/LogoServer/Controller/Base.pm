@@ -92,6 +92,14 @@ sub begin : ActionClass('Deserialize') {
   return;
 }
 
+sub _deserialize_image {
+  return 1;
+}
+
+sub _serialize_image {
+  my ($data, $self, $c) = @_;
+  return $data;
+}
 
 sub end : ActionClass('+LogoServer::Action::RenderView::ErrorHandler') {}
 

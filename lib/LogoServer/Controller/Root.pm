@@ -273,21 +273,6 @@ sub default :Path {
   $c->response->status(404);
 }
 
-=head2 end
-
-Attempt to render a view, if needed.
-
-=cut
-
-sub _deserialize_image {
-  return 1;
-}
-
-sub _serialize_image {
-  my ($data, $self, $c) = @_;
-  return $data;
-}
-
 =head1 AUTHOR
 
 Clements, Jody

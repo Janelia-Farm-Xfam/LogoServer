@@ -50,11 +50,12 @@
             <td>
               <p>The type of post processing to be performed on an alignment:</p>
               <ul>
-                <li>observed - </li>
-                <li>weighted - </li>
-                <li>hmm - </li>
+                <li><b>observed</b> - Letter stacks and gap values depend on estimated distributions for each position. Estimate those distributions directly from observed frequencies.</li>
+                <li><b>weighted</b> - Letter stacks and gap values depend on estimated distributions for each position. Redundant sequences are downweighted, and distributions are estimated from frequencies computed using those sequence weights.</li>
+                <li><b>hmm</b> - Letter stacks and gap values depend on estimated distributions for each position. Use HMMER to estimate those distributions by applying sequence weights, absolute weights, and a Dirichlet mixture prior.</li>
+                <li><b>hmm_all</b> - </li>
               </ul>
-              <strong>Default:</strong> hmm
+              <strong>Default:</strong> observed
             </td>
           </tr>
           <tr>
@@ -62,9 +63,9 @@
             <td>
               <p>Which height calculation algorithm should be used during logo generation. There are three different algorithms to choose from:</p>
               <ul>
-                <li>info_content_all - </li>
-                <li>info_content_above - </li>
-                <li>score - </li>
+                <li><b>info_content_all</b> - Stack height of each position is that position's information content. All letters are shown, subdividing stack height according to estimated letter probability.</li>
+                <li><b>info_content_above</b> - Stack height of each position is that position's information content. Positive-scoring (above background frequency) letters are shown, subdividing stack height according to estimated letter probability.</li>
+                <li><b>score</b> - In each position, letter height is the score of that letter at that position. Only positive-scoring letters are shown. Stack height has no inherent meaning.</li>
               </ul>
               <strong>Default:</strong> info_content_all
             </td>
@@ -87,7 +88,7 @@
       <p>POST http://skylign.org/</p>
       <pre class="code">
 <span class="hilight"># Request</span>
-curl -H 'Accept:application/json' -F file='@test.hmm' http://skylign.org/
+curl -H 'Accept:application/json' -F file='@test.hmm' -F processing=hmm http://skylign.org/
 
 <span class="hilight"># Response</span>
 {

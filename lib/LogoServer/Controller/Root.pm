@@ -222,7 +222,7 @@ sub save_upload : Private {
       }
     }
     else {
-      $c->stash->{processing} = $valid->{processing} = 'hmm_all';
+      $c->stash->{processing} = $valid->{processing} = 'observed';
     }
 
     # check what type of fragment handling we are going to use

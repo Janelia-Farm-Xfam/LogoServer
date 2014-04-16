@@ -114,6 +114,26 @@
         values placed below the letter stacks of the logo, with a heat
         map laid over the top of each value to provide a visual aid.
       </p>
+      <h3 id="colors">Color Schemes</h3>
+      <ul>
+        <li><b id="colors_default">Default</b> : A unique color is assigned to each amino acid or nucleotide residue.</li>
+        <li><b id="colors_consensus">Consensus Colors</b> : The residues are colored according to the ClustalX coloring scheme:
+          <dl class="consensus_colors">
+            <dt class="con_o">&nbsp;</dt>
+            <dd>Glycine (G)</dd>
+            <dt class="con_y">&nbsp;</dt>
+            <dd>Proline (P)</dd>
+            <dt class="con_b">&nbsp;</dt>
+            <dd>Small or hydrophobic (A,V,L,I,M,F,W)</dd>
+            <dt class="con_g">&nbsp;</dt>
+            <dd>Hydroxyl or amine amino acids (S,T,N,Q)</dd>
+            <dt class="con_r">&nbsp;</dt>
+            <dd>Charged amino-acids (D,E,R,K)</dd>
+            <dt class="con_c">&nbsp;</dt>
+            <dd>Histidine or tyrosine (H,Y)</dd>
+          </dl>
+        </li>
+      </ul>
       <h3 id="more_details">More details</h3>
       <p> This description leaves many details unexplained. Please
       see Skylign paper for details.

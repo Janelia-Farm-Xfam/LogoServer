@@ -45,17 +45,51 @@
       </div>
     </div>
     <div class="span5 download">
-      <h2 id="download"><span>Download</span></h2>
+      <h2 id="download"><span>Download Graphics</span></h2>
+      <form id="dl_gfx" action="[% c.uri_for('/download', c.stash.uuid, 'image') %]" method="get" enctype="multipart/form-data">
+        [% IF  c.stash.letter_height != 'score' %]
+        <div class="control-group colorchoice">
+          <div class="controls">
+            <fieldset>
+              <legend>Choose Color Scheme</legend>
+              <label class="radio">
+                <input type="radio" id="" name="colors" value="default" checked="checked"/>Default
+                  <a class="help" href="/help#est_observed" title="">
+                  <span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              </label>
+              <label class="radio">
+                <input type="radio" id="" name="colors" value="consensus"/>Consensus Colors
+                  <a class="help" href="/help#est_weighted" title="">
+                  <span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
+              </label>
+            </fieldset>
+          </div>
+        </div>
+        [% END %]
+        <dl>
+          <dt>
+            <button name="format" value="png"><img src="/static/gfx/png_dl.png" alt="download .png"/></button>
+          </dt>
+          <dd><h5>PNG file</h5><p>A static image of the logo.</p></dd>
+          [% IF c.stash.letter_height != 'score' %]
+          <dt>
+            <button name="format" value="spng"><img src="/static/gfx/png_dl.png" alt="download scaled .png"/></button>
+          </dt>
+          <dd><h5>scaled PNG file</h5><p>A static image of the logo scaled to the theoretical maximum height.</p></dd>
+          [% END %]
+          <dt>
+            <button name="format" value="svg"><img src="/static/gfx/svg_dl.png" alt="download .svg"/></button>
+          </dt>
+          <dd><h5>SVG file</h5><p>A vector image of the logo.</p></dd>
+        [% IF c.stash.processing && c.stash.processing == 'hmm' %]
+        </dl>
+      </form>
+
+
+
+
+      <h2 id="download"><span>Download Data</span></h2>
       <dl>
-        <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'image') %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a></dt>
-        <dd><h5>PNG file</h5><p>A static image of the logo.</p></dd>
-      [% IF c.stash.letter_height == 'info_content_all' %]
-        <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'image', { 'scaled' => '1'}) %]"><img src="/static/gfx/png_dl.png" alt="download .png"/></a></dt>
-        <dd><h5>scaled PNG file</h5><p>A static image of the logo scaled to the theoretical maximum height.</p></dd>
-      [% END %]
-        <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'svg') %]"><img src="/static/gfx/svg_dl.png" alt="download .svg"/></a></dt>
-        <dd><h5>SVG file</h5><p>A vector image of the logo.</p></dd>
-      [% IF c.stash.processing && c.stash.processing == 'hmm' %]
         <dt><a href="[% c.uri_for('/download', c.stash.uuid, 'hmm') %]" ><img src="/static/gfx/hmm_dl.png" alt="download .hmm"/></a></dt>
         <dd><h5>HMM</h5><p>The HMM file used to calculate this logo.</p></dd>
       [% END %]

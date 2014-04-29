@@ -1,35 +1,6 @@
-package LogoServer::View::HTML;
-use Moose;
-use namespace::autoclean;
-
-extends 'Catalyst::View::TT';
-
-__PACKAGE__->config(
-    TEMPLATE_EXTENSION => '.tt',
-    render_die => 1,
-);
-
-=head1 NAME
-
-LogoServer::View::HTML - TT View for LogoServer
-
-=head1 DESCRIPTION
-
-TT View for LogoServer.
-
-=head1 SEE ALSO
-
-L<LogoServer>
-
-=head1 AUTHOR
-
-Clements, Jody
-
-=head1 LICENSE
-
 The MIT License (MIT)
 
-Copyright (c) 2014 Jody Clements, Travis Wheeler & Robert Finn
+Copyright (c) 2013 Jody Clements, Travis Wheeler & Robert Finn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -48,8 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-
-=cut
-
-1;

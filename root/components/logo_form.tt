@@ -53,12 +53,12 @@
             <legend>Fragment Handling</legend>
             <label class="radio">
               <input type="radio" id="frag_full" name="frag" value="full" [% IF !c.req.params.frag || c.req.params.frag == "full" %]checked="checked"[% END %] />Alignment sequences are full length
-                 <a class="help" href="/help#frag_full" title="">
+                 <a class="help" href="/help#frag_full" title="By default, HMMER treats short sequences as fragments. Override this to treat all sequences as full length. When a sequence is a fragment, its terminal gaps are not considered when counting characters in the corresponding column. ">
                  <span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
             <label class="radio">
               <input type="radio" id="frag_frag" name="frag" value="frag" [% IF c.req.params.frag == "frag" %]checked="checked"[% END %] />Some sequences are fragments
-                 <a class="help" href="/help#frag_frag" title="">
+                 <a class="help" href="/help#frag_frag" title="Follow HMMER default and treat short sequences as fragments. When a sequence is a fragment, its terminal gaps are not considered when counting characters in the corresponding column.">
                  <span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
             </label>
           </fieldset>

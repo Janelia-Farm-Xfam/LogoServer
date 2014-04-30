@@ -114,6 +114,30 @@
         values placed below the letter stacks of the logo, with a heat
         map laid over the top of each value to provide a visual aid.
       </p>
+
+      <h3 id="coordinates">Coordinates</h3>
+      <ul>
+        <li id="coords_model">
+          <b>Model:</b>
+          When building a logo for an input alignment, Skylign produces an
+          intermediate HMM. If this is done with the 'remove mostly-empty columns'
+          setting, or if an HMM is uploaded directly, positions in the HMM may
+          differ from the corresponding columns in the associated alignment. When
+          'Model' is chosen, the coordinates along the top of the plot show the
+          model position.
+        </li>
+        <li id="coords_ali">
+          <b>Alignment</b>
+          When building a logo for an input alignment, Skylign produces an
+          intermediate HMM. If this is done with the 'remove mostly-empty columns'
+          setting, or if an HMM is uploaded directly, positions in the HMM may
+          differ from the corresponding columns in the associated alignment. When
+          'Alignment' is chosen, the coordinates along the top of the plot show the
+          column in the alignment associated with the model.
+        </li>
+      </ul>
+
+
       <h3 id="colors">Color Schemes</h3>
       <ul>
         <li><b id="colors_default">Default</b> : A unique color is assigned to each amino acid or nucleotide residue.</li>

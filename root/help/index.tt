@@ -127,7 +127,7 @@
           model position.
         </li>
         <li id="coords_ali">
-          <b>Alignment</b>
+          <b>Alignment:</b>
           When building a logo for an input alignment, Skylign produces an
           intermediate HMM. If this is done with the 'remove mostly-empty columns'
           setting, or if an HMM is uploaded directly, positions in the HMM may

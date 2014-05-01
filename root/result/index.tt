@@ -47,7 +47,7 @@
     <div class="span5 download">
       <h2 id="download"><span>Download Graphics</span></h2>
       <form id="dl_gfx" action="[% c.uri_for('/download', c.stash.uuid, 'image') %]" method="get" enctype="multipart/form-data">
-        [% IF  c.stash.letter_height != 'score' %]
+        [% IF  c.stash.letter_height != 'score' && c.stash.alphabet != 'dna' %]
         <div class="control-group colorchoice">
           <div class="controls">
             <fieldset>

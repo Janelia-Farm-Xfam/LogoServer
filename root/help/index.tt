@@ -186,7 +186,7 @@
       method of estimating per-column parameters from the observed
       frequencies in the alignment (Alignment Processing):
         <ul>
-          <li id="#est_observed">
+          <li id="est_observed">
           <b>Observed counts</b>: For each column, use the maximum-likelihood
           estimate - the observed counts.
 	      </li>

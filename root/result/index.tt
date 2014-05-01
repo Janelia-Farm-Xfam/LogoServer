@@ -54,12 +54,12 @@
               <legend>Choose Color Scheme</legend>
               <label class="radio">
                 <input type="radio" id="" name="colors" value="default" checked="checked"/>Default
-                  <a class="help" href="/help#est_observed" title="">
+                  <a class="help" href="/help#colors_default" title="Each letter receives its own color.">
                   <span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
               </label>
               <label class="radio">
                 <input type="radio" id="" name="colors" value="consensus"/>Consensus Colors
-                  <a class="help" href="/help#est_weighted" title="">
+                  <a class="help" href="/help#colors_consensus" title="Letters are colored as in Clustalx and Jalview, with colors depending on composition of the column.">
                   <span aria-hidden="true" data-icon="?"></span><span class="reader-text">help</span></a>
               </label>
             </fieldset>

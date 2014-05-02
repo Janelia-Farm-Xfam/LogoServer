@@ -114,6 +114,15 @@
         values placed below the letter stacks of the logo, with a heat
         map laid over the top of each value to provide a visual aid.
       </p>
+
+      <h3 id="scale">Scale</h3>
+      Skylign allows you to scale the logo so that the maximum value on the
+      Y-axis corresponds to:
+      <ul>
+        <li><b id="scale_obs">Maximum Observed</b>: largest observed information content (in bits)</li>
+        <li><b id="scale_theory">Consensus Colors</b>: largest possible information content (in bits)</li>
+      </ul>
+
       <h3 id="colors">Color Schemes</h3>
       <ul>
         <li><b id="colors_default">Default</b> : A unique color is assigned to each amino acid or nucleotide residue.</li>
@@ -172,14 +181,45 @@
           for high similarity in a subset of sequences.
 	      </li>
 	      <li id="est_hmm">
-          <b>Convert to profile HMM</b>: Apply sequence weights, and also combine
-          with a Dirichlet mixture prior (incorporating absolute weighting
-          to control relative contribution of observed counts and prior).
+          <b>Convert to profile HMM - keep all columns</b>:
+          Apply sequence weights, and also combine with a Dirichlet mixture
+          prior (incorporating absolute weighting to control relative
+          contribution of observed counts and prior). Keeping all columns
+          means that even columns in the alignment that mostly consist of
+          gap characters will be represented by positions in the logo.
+          </li>
+          <li id="est_hmm_all">
+          <b>Convert to profile HMM - keep mostly-empty columns</b>:
+          Apply sequence weights, and also combine with a Dirichlet mixture
+          prior (incorporating absolute weighting to control relative
+          contribution of observed counts and prior). Keeping mostly-empty
+          columns means that only columns in the alignment that mostly
+          (after weighting) consist of non-gap characters will be represented
+          by positions in the logo.
           </li>
         </ul>
 
+      In some cases, an alignment may consist of fragmentary sequences
+      (for instance, because of short sequencing reads). In this case,
+      you may prefer not to count terminal gaps as deletions, instead
+      simply ignoring terminal gaps for short (fragmentary) sequences.
+      These options control this behavior:
+        <ul>
+          <li id="#frag_full">
+          <b>Alignment sequences are full length</b>:
+          Count all terminal gaps as deletions.
+	      </li>
+	      <li id="frag_frag">
+          <b>Some sequences are fragments</b>:
+          When a sequence is a fragment (less than half the length of
+          the alignment), its terminal gaps are not considered when
+          counting a column's deletions.
+	      </li>
+        </ul>
+
       In addition to estimation method, the stack/letter height method
-      must also be chosen, as with profile logos.
+      must also be chosen,
+      as <a href="#height_infocontent_all">with profile logos</a>.
       </p>
 
       <p>

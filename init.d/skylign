@@ -1,0 +1,97 @@
+#!/bin/bash
+
+# This script is based on the following bash script.
+# http://wiki.catalystframework.org/wiki/deployment/lighttpd_fastcgi
+
+#
+
+# source function library
+. /etc/rc.d/init.d/functions
+
+
+HSROOT=/opt/www/Skylign/current
+PERL5LIB=
+
+APP_NAME=skylign
+APP_PATH=$HSROOT
+SOCKET=/tmp/skylign_fastcgi.socket
+PID_PATH=/opt/run/fcgi/skylign.pid
+PROCS=5
+PROD=prod
+USER=nobody
+PROC_NAME=LogoServer 
+
+
+case $1 in
+    start)
+        echo -n "Starting $PROD $APP_NAME (${APP_NAME}_fastcgi.pl)..."
+        cd $APP_PATH
+
+		if [ -r $PID_PATH ]; then
+			pid=$(cat $PID_PATH); 
+
+			# let's check if there is a process running with this pid.
+			kill -0 $pid;
+			if [ $? ]; then
+			# okay there is a running process, so lets see if it is the right one. 
+				process=$(ps -p $pid -o cmd=);
+				# check that the command matches what we expect it to be called.
+				if [[ "$process" =~ $PROC_NAME ]]; then 
+					# it does match, so we should leave well alone.
+					echo " $PROD $APP_NAME already running"
+					exit 0
+				else
+					# it doesn't match, so we need to get rid of the stale PID file.	
+					echo "removing stale pid file $PID_PATH"
+					rm $PID_PATH;
+				fi
+			else
+				# there was no process runing with that PID, so we need to get rid of the stale file.  
+				echo "removing stale pid file $PID_PATH"
+				rm $PID_PATH;
+			fi
+		fi
+
+        daemon --user=$USER "export PERLLIB=${PERL5LIB}; /opt/bin/perl $APP_PATH/script/${APP_NAME}_fastcgi.pl --daemon --listen $SOCKET --pidfile $PID_PATH --nproc $PROCS 2>>/opt/log/fcgi/skylign_error.log &"
+        RETVAL=$?
+        # Wait for the app to start
+        TIMEOUT=10; while [ ! -r $PID_PATH ]; do
+            echo -n '.'; sleep 1; TIMEOUT=$[$TIMEOUT - 1]
+            if [ $TIMEOUT = 0 ]; then
+                echo " ERROR: TIMED OUT"; exit 0
+            fi
+        done
+        echo " started."
+        ;;
+
+    stop)
+        echo -n "Stopping $PROD $APP_NAME: "
+        if [ -r $PID_PATH ]; then
+            PID=`cat $PID_PATH`
+            echo -n "killing $PID... "; kill $PID
+            echo -n "OK. Waiting for the FastCGI server to release the port..."
+            TIMEOUT=60
+            while netstat -tnl | grep -q $SOCKET; do
+                echo -n "."; sleep 1; TIMEOUT=$[$TIMEOUT - 1]
+                if [ $TIMEOUT = 0 ]; then
+                    echo " ERROR: TIMED OUT"; exit 0
+                fi
+            done
+            echo " OK."
+        else
+            echo "$PROD $APP_NAME not running."
+        fi
+        ;;
+
+    restart|force-reload)
+        $0 stop
+        echo -n "A necessary sleep... "; sleep 2; echo "done."
+        $0 start
+        ;;
+
+    *)
+        echo "Usage: $0 { stop | start | restart }"
+        exit 1
+        ;;
+esac
+

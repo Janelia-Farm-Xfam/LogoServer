@@ -365,12 +365,11 @@ curl -H 'Accept:application/json' http://skylign.org/logo/6BBFEB96-E7E0-11E2-A24
       obtaining the source code and dependencies can be found on the <a href="/help/install">install</a> page.</p>
 
       <h2 id="cite">Citing Skylign</h2>
-      <p>
-      Please cite: Wheeler, T.J., Clements, J., Finn, R.D.
-      Skylign: a tool for creating informative, interactive logos
-      representing sequence alignments and profile hidden Markov models.
-      2013. Submitted.
-      </p>
+      <blockquote>
+        <p><a href="">Skylign: a tool for creating informative, interactive logos representing sequence alignments and profile hidden Markov models.</a><br/>
+      Wheeler, T.J., Clements, J., Finn, R.D.<br/>
+      <span class="bold">BMC Bioinformatics</span> Volume 15 (2014) p.7 DOI: 10.1186/1471-2105-15-7</p>
+      </blockquote>
 
     </div>
 

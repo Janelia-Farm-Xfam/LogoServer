@@ -366,7 +366,7 @@ curl -H 'Accept:application/json' http://skylign.org/logo/6BBFEB96-E7E0-11E2-A24
 
       <h2 id="cite">Citing Skylign</h2>
       <blockquote>
-        <p><a href="">Skylign: a tool for creating informative, interactive logos representing sequence alignments and profile hidden Markov models.</a><br/>
+        <p><a href="http://www.biomedcentral.com/1471-2105/15/7/">Skylign: a tool for creating informative, interactive logos representing sequence alignments and profile hidden Markov models.</a><br/>
       Wheeler, T.J., Clements, J., Finn, R.D.<br/>
       <span class="bold">BMC Bioinformatics</span> Volume 15 (2014) p.7 DOI: 10.1186/1471-2105-15-7</p>
       </blockquote>
